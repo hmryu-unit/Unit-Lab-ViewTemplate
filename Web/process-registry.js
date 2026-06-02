@@ -2,6 +2,16 @@
  * 모듈러 공정 DB UI (② 카테고리 · 공종 탭 하단)
  */
 (function () {
+  /* ── UI 헬퍼 ── */
+  function toast(type, title, message, duration) {
+    window.UI?.toast({ type, title, message, duration });
+  }
+
+  async function uiConfirm(title, message) {
+    if (window.UI?.confirm) return window.UI.confirm({ title, message });
+    return window.confirm(`${title}\n${message}`);
+  }
+
   const els = {
     body: document.getElementById("crProcessesBody"),
     detail: document.getElementById("crProcessDetail"),
@@ -142,11 +152,15 @@
     if ([...els.filter.options].some((o) => o.value === cur)) els.filter.value = cur;
   }
 
-  function reloadFromSeed() {
-    if (!confirm("공정 DB를 배포 시드( process-database )로 되돌릴까요?")) return;
+  async function reloadFromSeed() {
+    const ok = await uiConfirm(
+      "공정 DB 복원",
+      "공정 DB를 배포 시드(process-database)로 되돌릴까요?\n현재 편집 내용은 사라집니다."
+    );
+    if (!ok) return;
     const seed = window.PROCESS_DATABASE_DEFAULT?.processes;
     if (!seed?.length) {
-      alert("process-database-data.js를 불러올 수 없습니다.");
+      toast("error", "데이터 없음", "process-database-data.js를 불러올 수 없습니다.");
       return;
     }
     const state = getState();
@@ -154,6 +168,7 @@
     state.processes = structuredClone(seed);
     window.CategoryRegistry?.markDirty?.();
     window.CategoryRegistry?.refresh?.();
+    toast("success", "공정 DB 복원", `${seed.length}개 공정을 시드에서 복원했습니다.`);
   }
 
   els.btnReload?.addEventListener("click", reloadFromSeed);
@@ -176,7 +191,8 @@
     },
   };
 
-  document.querySelector('.tab[data-tab="categories"]')?.addEventListener("click", () => render());
+  // 사이드바 탭 전환 시 재렌더 (신규 구조: .nav-item[data-tab])
+  document.querySelector('.nav-item[data-tab="categories"]')?.addEventListener("click", () => render());
 
   // category-registry.js init 이후 실행되므로 최초 공정 테이블 렌더
   render();

@@ -136,8 +136,8 @@
           ${message ? `<div class="modal-body">${escHtml(message)}</div>` : ""}
           <div style="margin-bottom:1rem">
             <input type="text" class="prompt-input" value="${escAttr(defaultValue)}" placeholder="${escAttr(placeholder)}"
-              style="display:block;width:100%;padding:.5rem .6rem;border:1px solid var(--accent);border-radius:var(--radius);
-                     background:var(--bg);color:var(--text);font-size:.9rem;"/>
+              style="display:block;width:100%;padding:.5rem .6rem;border:1px solid var(--blue);border-radius:var(--radius-s);
+                     background:var(--bg-2);color:var(--tx-1);font-size:.85rem;"/>
           </div>
           <div class="modal-actions">
             <button class="modal-cancel">취소</button>
@@ -199,7 +199,8 @@
       // 활성 탭의 저장 버튼 클릭
       const activePanel = document.querySelector(".panel.active");
       if (!activePanel) return;
-      const saveBtn = activePanel.querySelector(".toolbar .primary");
+      const saveBtn = activePanel.querySelector(".action-bar .btn-primary") ||
+                        activePanel.querySelector(".btn-primary");
       if (saveBtn) {
         saveBtn.click();
         showToast({ type: "info", title: "Ctrl+S", message: "저장 버튼을 실행했습니다.", duration: 1500 });

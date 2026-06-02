@@ -3,408 +3,410 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>UnitLab View Template Preset</title>
+  <title>UnitLab View Template</title>
   <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
 
-  <!-- 헤더 -->
-  <header>
-    <div class="header-inner">
-      <div class="header-brand">
-        <h1>UnitLab View Template</h1>
-        <p class="header-subtitle">
-          <span class="flow-step"><span class="step-num">1</span> 베이스 VT</span>
-          <span class="flow-arrow">→</span>
-          <span class="flow-step"><span class="step-num">2</span> 하위 VT</span>
-          <span class="flow-arrow">→</span>
-          <span class="flow-step"><span class="step-num">3</span> V/G 체크리스트</span>
-          <span class="flow-arrow">→</span>
-          <span class="flow-step"><span class="step-num">4</span> Preset JSON → Revit</span>
-        </p>
+<div class="app-shell">
+
+  <!-- ═══ 탑바 ═══ -->
+  <header class="topbar">
+    <div class="topbar-logo">
+      <div class="topbar-logo-icon">UL</div>
+      <div class="topbar-logo-text">
+        <div class="topbar-logo-title">UnitLab VT</div>
+        <div class="topbar-logo-sub">View Template Preset</div>
       </div>
-      <!-- 저장 안 됨 전역 배지 -->
-      <div class="header-dirty-badge" id="globalDirtyBadge" title="저장되지 않은 변경사항이 있습니다">
+    </div>
+
+    <nav class="topbar-flow" aria-label="작업 흐름">
+      <button class="flow-chip active" data-tab="workflow">
+        <span class="chip-num">1</span> 도면 템플릿
+      </button>
+      <span class="flow-sep">→</span>
+      <button class="flow-chip" data-tab="categories">
+        <span class="chip-num">2</span> 카테고리·공종
+      </button>
+      <span class="flow-sep">→</span>
+      <button class="flow-chip" data-tab="checklist">
+        <span class="chip-num">3</span> V/G 체크리스트
+      </button>
+      <span class="flow-sep">→</span>
+      <span class="flow-chip" style="cursor:default;opacity:.5">
+        <span class="chip-num">4</span> Preset JSON
+      </span>
+    </nav>
+
+    <div class="topbar-right">
+      <div class="dirty-badge" id="globalDirtyBadge" title="저장되지 않은 변경사항이 있습니다">
         ⚠ 저장 안 됨
       </div>
     </div>
   </header>
 
-  <!-- 탭 네비게이션 -->
-  <nav class="tabs" role="tablist">
-    <div class="tabs-inner">
-      <button type="button" class="tab active" data-tab="workflow" role="tab">
-        <span class="tab-num">1</span>
-        도면 템플릿
+  <!-- ═══ 사이드바 ═══ -->
+  <aside class="sidebar">
+    <div class="sidebar-section">
+      <div class="sidebar-section-label">워크스페이스</div>
+
+      <button class="nav-item active" data-tab="workflow">
+        <span class="nav-item-icon">🗂</span>
+        <span class="nav-item-label">도면 템플릿</span>
+        <span class="nav-item-badge" id="sideWfCount">—</span>
       </button>
-      <button type="button" class="tab" data-tab="categories" role="tab">
-        <span class="tab-num">2</span>
-        카테고리 · 공종
+
+      <button class="nav-item" data-tab="categories">
+        <span class="nav-item-icon">🏷</span>
+        <span class="nav-item-label">카테고리·공종</span>
+        <span class="nav-item-badge" id="sideCrCount">—</span>
       </button>
-      <button type="button" class="tab" data-tab="checklist" role="tab">
-        <span class="tab-num">3</span>
-        V/G 체크리스트
+
+      <button class="nav-item" data-tab="checklist">
+        <span class="nav-item-icon">✅</span>
+        <span class="nav-item-label">V/G 체크리스트</span>
+        <span class="nav-item-badge" id="sideClCount">—</span>
       </button>
     </div>
-  </nav>
 
-  <!-- ① 도면 템플릿 워크플로 -->
-  <section id="panel-workflow" class="panel active" role="tabpanel">
-    <div class="toolbar">
-      <!-- 저장 그룹 -->
-      <button type="button" id="wfBtnSave" class="primary" title="브라우저 localStorage에 저장 (Ctrl+S)">
-        💾 저장
-      </button>
-      <button type="button" id="btnLoadDeployedSeed" title="서버에 배포된 최신 시드 데이터 불러오기">
-        🔄 최신 시드
-      </button>
-      <button type="button" id="wfBtnReset" title="기본 예시 데이터로 복원">
-        ↺ 초기화
-      </button>
+    <div class="sidebar-divider"></div>
 
-      <div class="toolbar-sep"></div>
-
-      <!-- 편집 그룹 -->
-      <button type="button" id="wfBtnAddBase" title="새 베이스 View Template 추가">
-        + 베이스 VT
+    <div class="sidebar-section">
+      <div class="sidebar-section-label">빠른 실행</div>
+      <button class="nav-item" id="btnLoadDeployedSeed">
+        <span class="nav-item-icon">🔄</span>
+        <span class="nav-item-label">최신 시드 불러오기</span>
       </button>
-      <button type="button" id="wfBtnAddChild" title="선택된 베이스 아래 하위 VT 추가">
-        + 하위 VT
-      </button>
-      <button type="button" id="wfBtnDel" class="btn-danger" title="선택한 View Template 삭제">
-        🗑 삭제
-      </button>
-
-      <div class="toolbar-sep"></div>
-
-      <!-- 연동 그룹 -->
-      <button type="button" id="wfBtnEditVg" title="선택한 VT를 V/G 체크리스트에서 편집">
-        ③ V/G 편집 →
-      </button>
-      <button type="button" id="wfBtnFillBuiltin" title="UI 이름으로 builtInCategory 자동 채우기">
-        ⚡ builtIn 자동채우기
-      </button>
-
-      <div class="toolbar-sep"></div>
-
-      <!-- 익스포트 그룹 -->
-      <button type="button" id="wfBtnExportPreset" class="primary" title="선택된 VT의 Preset JSON 다운로드">
-        ④ Preset JSON ↓
-      </button>
-      <button type="button" id="wfBtnExportAll" title="전체 VT Preset JSON 일괄 내보내기">
-        전체 보내기
-      </button>
-
-      <span class="toolbar-spacer"></span>
-      <span class="muted" id="wfStatus"></span>
     </div>
 
-    <div class="wf-layout">
-      <aside class="card wf-tree-card">
-        <h2>View Template 트리</h2>
-        <p class="hint">베이스(면적 평면 등) 아래 하위 도면(방화구획 등)을 둡니다.</p>
-        <div id="wfTree" class="wf-tree"></div>
-      </aside>
-
-      <div class="card wf-detail-card" id="wfDetail">
-        <p class="hint">왼쪽에서 템플릿을 선택하세요.</p>
+    <div class="sidebar-footer">
+      <div class="sidebar-hint">
+        <a href="docs/REVIT-API-VIEW-TEMPLATE.md" target="_blank">Revit API 가이드</a><br>
+        <a href="docs/VIEW-TEMPLATE-WORKFLOW.md" target="_blank">워크플로 설계</a>
       </div>
     </div>
+  </aside>
 
-    <p class="hint wf-revit-hint">
-      <strong>localStorage</strong>는 브라우저 초안입니다. 배포·Git과 맞출 때 <strong>최신 시드</strong> 후 편집·JSON 다운로드·커밋하세요.
-      Revit: <strong>Preset 생성</strong> / <strong>Preset 갱신</strong>으로 JSON 적용.
-      API: <code>View.CreateViewTemplate()</code> —
-      <a href="docs/REVIT-API-VIEW-TEMPLATE.md" target="_blank">연동 가이드</a> ·
-      <a href="docs/VIEW-TEMPLATE-WORKFLOW.md" target="_blank">워크플로 설계</a>
-    </p>
-  </section>
+  <!-- ═══ 메인 ═══ -->
+  <main class="main-content">
 
-  <!-- ② 카테고리 · 공종 -->
-  <section id="panel-categories" class="panel" role="tabpanel">
-    <div class="toolbar">
-      <!-- 저장 그룹 -->
-      <button type="button" id="crBtnSave" class="primary" title="브라우저 localStorage에 저장">
-        💾 저장
-      </button>
-      <button type="button" id="crBtnReset" title="기본값으로 복원">
-        ↺ 초기화
-      </button>
+    <!-- ────────────────────────────────────────
+         ① 도면 템플릿 워크플로
+    ─────────────────────────────────────────── -->
+    <section id="panel-workflow" class="panel active" role="tabpanel">
 
-      <div class="toolbar-sep"></div>
-
-      <!-- 추가 그룹 -->
-      <button type="button" id="crBtnAddCategory" title="새 Revit 카테고리 추가">
-        + 카테고리
-      </button>
-      <button type="button" id="crBtnSyncChecklist" title="V/G 체크리스트에서 카테고리 가져오기">
-        ③ 체크리스트에서 동기화
-      </button>
-      <button type="button" id="crBtnFillBuiltin" title="UI 이름으로 builtInCategory 자동 채우기">
-        ⚡ builtIn 자동채우기
-      </button>
-
-      <div class="toolbar-sep"></div>
-
-      <!-- 내보내기/가져오기 -->
-      <button type="button" id="crBtnExport" title="category-registry.json 다운로드">
-        ↓ JSON 내보내기
-      </button>
-      <label class="file-btn" title="category-registry.json 가져오기">
-        ↑ JSON 가져오기
-        <input type="file" id="crImportInput" accept=".json,application/json" hidden />
-      </label>
-
-      <span class="toolbar-spacer"></span>
-      <span class="muted" id="crStatus"></span>
-    </div>
-
-    <!-- 공종 · 자재 유형 마스터 -->
-    <div class="registry-masters">
-      <section class="card registry-card">
-        <div class="card-header">
-          <h2>공종</h2>
-          <button type="button" id="crBtnAddTrade">+ 공종 추가</button>
+      <div class="panel-header">
+        <div class="panel-title">
+          <h2>도면 템플릿 트리</h2>
+          <span class="panel-title-badge">Step 1</span>
         </div>
-        <p class="hint">UnitLab 공종 코드. 카테고리에 복수 연결 가능 (Ctrl+클릭).</p>
-        <div class="table-wrap registry-master-wrap">
-          <table class="registry-master-table">
-            <thead>
-              <tr><th>코드</th><th>이름</th><th>순서</th><th></th></tr>
-            </thead>
-            <tbody id="crTradesBody"></tbody>
-          </table>
-        </div>
-      </section>
+        <p class="panel-desc">베이스 VT를 만들고, 그 아래 하위 도면(방화구획·마감 등)을 계층으로 구성합니다.</p>
+      </div>
 
-      <section class="card registry-card">
-        <div class="card-header">
-          <h2>자재 유형</h2>
-          <button type="button" id="crBtnAddMat">+ 자재 유형 추가</button>
+      <div class="action-bar">
+        <div class="action-group">
+          <button class="btn-primary" id="wfBtnSave" title="Ctrl+S">💾 저장</button>
+          <button id="wfBtnReset" title="기본 예시로 복원">↺ 초기화</button>
         </div>
-        <p class="hint">자재 분류 마스터. 카테고리와 N:M 연결.</p>
-        <div class="table-wrap registry-master-wrap">
-          <table class="registry-master-table">
-            <thead>
-              <tr><th>코드</th><th>이름</th><th>순서</th><th></th></tr>
-            </thead>
-            <tbody id="crMatsBody"></tbody>
-          </table>
+        <div class="action-sep"></div>
+        <div class="action-group">
+          <button id="wfBtnAddBase">＋ 베이스 VT</button>
+          <button id="wfBtnAddChild">＋ 하위 VT</button>
+          <button class="btn-danger" id="wfBtnDel">🗑</button>
         </div>
-      </section>
-    </div>
+        <div class="action-sep"></div>
+        <div class="action-group">
+          <button id="wfBtnEditVg" title="③ V/G 체크리스트에서 편집">③ V/G 편집 →</button>
+          <button id="wfBtnFillBuiltin" title="UI→builtIn 자동 채우기">⚡ builtIn</button>
+        </div>
+        <div class="action-sep"></div>
+        <div class="action-group">
+          <button class="btn-primary" id="wfBtnExportPreset">④ Preset JSON ↓</button>
+          <button id="wfBtnExportAll">전체 보내기</button>
+        </div>
+        <div class="action-spacer"></div>
+        <span class="status-text" id="wfStatus"></span>
+      </div>
 
-    <!-- Revit Category 매핑 테이블 -->
-    <div class="card wide registry-card-main">
-      <div class="card-header">
-        <h2>Revit Category 매핑</h2>
-        <div class="header-actions">
-          <input type="search" id="crSearch" placeholder="카테고리·API·IFC 검색…" />
-          <select id="crGroupFilter" title="Revit 그룹 필터">
-            <option value="">전체 Revit 그룹</option>
-          </select>
-          <select id="crTradeFilter" title="공종 필터">
-            <option value="">전체 공종</option>
-          </select>
-          <select id="crMatFilter" title="자재 유형 필터">
-            <option value="">전체 자재 유형</option>
-          </select>
-          <select id="crProcessFilter" title="모듈러 공정 필터">
-            <option value="">전체 공정</option>
-          </select>
-          <label class="inline-check">
-            <input type="checkbox" id="crUnmappedOnly" />
-            미연결만
-          </label>
-          <label class="inline-check">
-            <input type="checkbox" id="crInactiveOnly" />
-            비활성만
-          </label>
+      <div class="panel-body">
+        <div class="wf-layout">
+
+          <!-- 트리 -->
+          <div class="card" style="overflow:visible;">
+            <div class="card-head">
+              <div class="card-head-left">
+                <h3>VT 트리</h3>
+              </div>
+            </div>
+            <div class="card-body">
+              <div id="wfTree" class="wf-tree-panel"></div>
+            </div>
+          </div>
+
+          <!-- 상세 -->
+          <div class="card" id="wfDetail" style="overflow:visible;">
+            <div class="card-head">
+              <div class="card-head-left">
+                <h3>상세 편집</h3>
+              </div>
+              <div class="card-head-actions" id="wfDetailActions"></div>
+            </div>
+            <div class="card-body" id="wfDetailBody">
+              <div style="display:flex;flex-direction:column;align-items:center;justify-content:center;padding:3rem 1rem;color:var(--tx-4);gap:.65rem;text-align:center;">
+                <span style="font-size:2.5rem;opacity:.4">👈</span>
+                <span style="font-size:.85rem;">트리에서 View Template을 선택하세요</span>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- 하단 힌트 -->
+        <div class="hint">
+          <strong>localStorage</strong>는 브라우저 초안입니다.
+          배포·Git과 맞출 때 <strong>최신 시드 불러오기</strong> 후 편집·JSON 다운로드·커밋하세요.
+          Revit: <code>View.CreateViewTemplate()</code> →
+          <a href="docs/REVIT-API-VIEW-TEMPLATE.md" target="_blank">연동 가이드</a>
         </div>
       </div>
-      <p class="hint">
-        <strong>Category (UI)</strong>는 V/G 체크리스트 표기, <strong>builtInCategory</strong>는 Preset/Revit API용.
-        그룹 셀 더블클릭으로 그룹명 수정. 🟡 주황 행은 공종·자재 미연결.
-      </p>
-      <div class="table-wrap registry-wrap">
-        <table class="registry-table">
-          <thead>
-            <tr>
-              <th>Revit 그룹</th>
-              <th>Category (UI)</th>
-              <th>builtInCategory</th>
-              <th>공종</th>
-              <th>자재 유형</th>
-              <th>모듈러 공정</th>
-              <th>IFC Class</th>
-              <th>메모</th>
-              <th>사용</th>
-              <th></th>
-            </tr>
-          </thead>
-          <tbody id="crBody"></tbody>
-        </table>
-      </div>
-    </div>
+    </section>
 
-    <!-- 공정 DB -->
-    <div class="process-layout">
-      <section class="card wide process-card">
-        <div class="card-header">
-          <h2>모듈러 공정 DB</h2>
-          <div class="header-actions">
-            <button type="button" id="crBtnReloadProcess">↺ 공정 시드 복원</button>
-            <label class="inline-check">
-              <input type="checkbox" id="crProcessGroupOnly" />
-              공정군만
-            </label>
+
+    <!-- ────────────────────────────────────────
+         ② 카테고리 · 공종
+    ─────────────────────────────────────────── -->
+    <section id="panel-categories" class="panel" role="tabpanel">
+
+      <div class="panel-header">
+        <div class="panel-title">
+          <h2>카테고리 · 공종 매핑</h2>
+          <span class="panel-title-badge">Step 2</span>
+        </div>
+        <p class="panel-desc">Revit Category와 builtInCategory를 연결하고, 공종·자재 유형을 매핑합니다.</p>
+      </div>
+
+      <div class="action-bar">
+        <div class="action-group">
+          <button class="btn-primary" id="crBtnSave">💾 저장</button>
+          <button id="crBtnReset">↺ 초기화</button>
+        </div>
+        <div class="action-sep"></div>
+        <div class="action-group">
+          <button id="crBtnAddCategory">＋ 카테고리</button>
+          <button id="crBtnSyncChecklist">③에서 동기화</button>
+          <button id="crBtnFillBuiltin">⚡ builtIn 자동채우기</button>
+        </div>
+        <div class="action-sep"></div>
+        <div class="action-group">
+          <button id="crBtnExport">↓ JSON</button>
+          <label class="file-btn">↑ JSON <input type="file" id="crImportInput" accept=".json,application/json" hidden /></label>
+        </div>
+        <div class="action-spacer"></div>
+        <span class="status-text" id="crStatus"></span>
+      </div>
+
+      <div class="panel-body">
+
+        <!-- 공종 / 자재 유형 마스터 -->
+        <div class="masters-grid">
+          <div class="card">
+            <div class="card-head">
+              <div class="card-head-left"><h3>공종</h3></div>
+              <div class="card-head-actions">
+                <button id="crBtnAddTrade">＋ 추가</button>
+              </div>
+            </div>
+            <div class="table-wrap master-table-wrap">
+              <table class="registry-master-table">
+                <thead><tr><th>코드</th><th>이름</th><th>순서</th><th></th></tr></thead>
+                <tbody id="crTradesBody"></tbody>
+              </table>
+            </div>
+          </div>
+
+          <div class="card">
+            <div class="card-head">
+              <div class="card-head-left"><h3>자재 유형</h3></div>
+              <div class="card-head-actions">
+                <button id="crBtnAddMat">＋ 추가</button>
+              </div>
+            </div>
+            <div class="table-wrap master-table-wrap">
+              <table class="registry-master-table">
+                <thead><tr><th>코드</th><th>이름</th><th>순서</th><th></th></tr></thead>
+                <tbody id="crMatsBody"></tbody>
+              </table>
+            </div>
           </div>
         </div>
-        <p class="hint">
-          Notion 공정 DB CSV 기준 계층·선후행·연결 공종.
-          행 클릭 시 상세. 카테고리 매핑은 위 표의 「모듈러 공정」 열에서 연결합니다.
-        </p>
-        <div class="table-wrap process-wrap">
-          <table class="process-table">
+
+        <!-- Revit Category 매핑 -->
+        <div class="card">
+          <div class="card-head">
+            <div class="card-head-left"><h3>Revit Category 매핑</h3></div>
+            <div class="card-head-actions">
+              <div class="search-box">
+                <input type="search" id="crSearch" placeholder="카테고리·API·IFC…" />
+              </div>
+              <select id="crGroupFilter" style="width:auto;min-width:130px;" title="Revit 그룹">
+                <option value="">전체 그룹</option>
+              </select>
+              <select id="crTradeFilter" style="width:auto;min-width:110px;" title="공종">
+                <option value="">전체 공종</option>
+              </select>
+              <select id="crMatFilter" style="width:auto;min-width:110px;" title="자재 유형">
+                <option value="">전체 자재</option>
+              </select>
+              <select id="crProcessFilter" style="width:auto;min-width:110px;" title="모듈러 공정">
+                <option value="">전체 공정</option>
+              </select>
+              <label class="inline-check"><input type="checkbox" id="crUnmappedOnly" /> 미연결</label>
+              <label class="inline-check"><input type="checkbox" id="crInactiveOnly" /> 비활성</label>
+            </div>
+          </div>
+          <div class="table-wrap registry-wrap">
+            <table class="registry-table">
+              <thead>
+                <tr>
+                  <th>Revit 그룹</th>
+                  <th>Category (UI)</th>
+                  <th>builtInCategory</th>
+                  <th>공종</th>
+                  <th>자재 유형</th>
+                  <th>모듈러 공정</th>
+                  <th>IFC Class</th>
+                  <th>메모</th>
+                  <th>사용</th>
+                  <th></th>
+                </tr>
+              </thead>
+              <tbody id="crBody"></tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- 공정 DB -->
+        <div class="card">
+          <div class="card-head">
+            <div class="card-head-left"><h3>모듈러 공정 DB</h3></div>
+            <div class="card-head-actions">
+              <button id="crBtnReloadProcess">↺ 복원</button>
+              <label class="inline-check"><input type="checkbox" id="crProcessGroupOnly" /> 공정군만</label>
+            </div>
+          </div>
+          <div class="process-layout" style="padding:.85rem 1rem;">
+            <div class="table-wrap process-wrap">
+              <table class="process-table">
+                <thead>
+                  <tr><th>공정명</th><th>구분</th><th>선행</th><th>후속</th><th>연결 공종</th></tr>
+                </thead>
+                <tbody id="crProcessesBody"></tbody>
+              </table>
+            </div>
+            <div class="card proc-detail-card" id="crProcessDetail" style="padding:.75rem;">
+              <p class="hint">공정 행을 클릭하면 상세 정보를 표시합니다.</p>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+
+    <!-- ────────────────────────────────────────
+         ③ V/G 체크리스트
+    ─────────────────────────────────────────── -->
+    <section id="panel-checklist" class="panel" role="tabpanel">
+
+      <div class="panel-header">
+        <div class="panel-title">
+          <h2>V/G · IFC 체크리스트</h2>
+          <span class="panel-title-badge">Step 3</span>
+        </div>
+        <p class="panel-desc">View Template별 Revit Category의 ON·HT·투명도·재지정을 설정하고 Preset JSON을 생성합니다.</p>
+      </div>
+
+      <div class="action-bar">
+        <div class="action-group">
+          <button class="btn-primary" id="clBtnSave">💾 저장</button>
+          <button id="clBtnReset">↺ 초기화</button>
+        </div>
+        <div class="action-sep"></div>
+        <div class="action-group">
+          <button id="clBtnAdd">＋ 행 추가</button>
+          <button id="clBtnSyncVt">🔄 VT 동기화</button>
+        </div>
+        <div class="action-sep"></div>
+        <div class="action-group">
+          <button class="btn-primary" id="clBtnExportPreset">④ Preset JSON ↓</button>
+          <button id="clBtnExportCsv">↓ CSV</button>
+          <button id="clBtnExportJson">↓ JSON</button>
+          <label class="file-btn">↑ CSV <input type="file" id="clCsvInput" accept=".csv,text/csv" hidden /></label>
+        </div>
+        <div class="action-spacer"></div>
+        <span class="status-text" id="clStatus"></span>
+      </div>
+
+      <!-- 필터바 -->
+      <div class="filter-row">
+        <label class="cl-vt-label">
+          편집 템플릿
+          <select id="clVtSelect" class="cl-vt-select"></select>
+        </label>
+        <div class="search-box" style="margin-left:.4rem">
+          <input type="search" id="clSearch" placeholder="카테고리·IFC·API…" />
+        </div>
+        <select id="clGroupFilter" style="width:auto;min-width:120px;">
+          <option value="">전체 그룹</option>
+        </select>
+        <label class="inline-check"><input type="checkbox" id="clOnlyChanged" /> 변경만</label>
+        <label class="inline-check"><input type="checkbox" id="clImportantOnly" /> 중요만</label>
+      </div>
+
+      <div class="panel-body" style="padding:0;gap:0;overflow:hidden;">
+        <div class="table-wrap checklist-wrap">
+          <table id="clTable" class="checklist-table cl-vg-table">
             <thead>
               <tr>
-                <th>공정명</th>
-                <th>구분</th>
-                <th>선행</th>
-                <th>후속</th>
-                <th>연결 공종</th>
+                <th>Group</th>
+                <th>Revit Category</th>
+                <th>builtInCategory</th>
+                <th>IFC</th>
+                <th title="중요: Preset export 필수">★</th>
+                <th title="가시성">ON</th>
+                <th title="반투명">HT</th>
+                <th title="투명도 %">%</th>
+                <th title="재지정">재지정</th>
+                <th title="요약">요약</th>
               </tr>
             </thead>
-            <tbody id="crProcessesBody"></tbody>
+            <tbody id="clBody"></tbody>
           </table>
         </div>
-      </section>
-      <aside class="card process-detail-card" id="crProcessDetail">
-        <p class="hint">공정 행을 클릭하면 설명·선후행·연결 공종을 표시합니다.</p>
-      </aside>
-    </div>
-  </section>
-
-  <!-- ③ V/G IFC 체크리스트 -->
-  <section id="panel-checklist" class="panel" role="tabpanel">
-    <div class="toolbar">
-      <!-- 저장 그룹 -->
-      <button type="button" id="clBtnSave" class="primary" title="브라우저 localStorage에 저장">
-        💾 저장
-      </button>
-      <button type="button" id="clBtnReset" title="기본 JSON으로 복원">
-        ↺ 초기화
-      </button>
-
-      <div class="toolbar-sep"></div>
-
-      <!-- 편집 그룹 -->
-      <button type="button" id="clBtnAdd" title="카탈로그에 새 카테고리 행 추가">
-        + 카탈로그 행
-      </button>
-      <button type="button" id="clBtnSyncVt" title="도면 템플릿 목록과 VG 슬롯 동기화">
-        🔄 VT 목록 동기화
-      </button>
-
-      <div class="toolbar-sep"></div>
-
-      <!-- 익스포트 그룹 -->
-      <button type="button" id="clBtnExportPreset" class="primary" title="선택된 VT의 Preset JSON 다운로드">
-        ④ Preset JSON ↓
-      </button>
-      <button type="button" id="clBtnExportCsv" title="현재 VT의 V/G를 CSV로 내보내기">
-        ↓ CSV
-      </button>
-      <button type="button" id="clBtnExportJson" title="체크리스트 전체 JSON 내보내기">
-        ↓ JSON
-      </button>
-      <label class="file-btn" title="CSV로 V/G 데이터 가져오기">
-        ↑ CSV 가져오기
-        <input type="file" id="clCsvInput" accept=".csv,text/csv" hidden />
-      </label>
-
-      <span class="toolbar-spacer"></span>
-      <span class="muted" id="clStatus"></span>
-    </div>
-
-    <div class="card wide checklist-card">
-      <div class="card-header">
-        <h2>Revit V/G · IFC 체크리스트</h2>
-        <div class="header-actions">
-          <label class="vt-select-label">편집할 템플릿
-            <select id="clVtSelect" class="vt-select"></select>
-          </label>
-          <input type="search" id="clSearch" placeholder="카테고리·IFC·API 검색…" />
-          <select id="clGroupFilter" title="그룹 필터">
-            <option value="">전체 그룹</option>
-          </select>
-          <label class="inline-check" title="변경된 항목만 표시">
-            <input type="checkbox" id="clOnlyChanged" />
-            변경만
-          </label>
-          <label class="inline-check" title="중요(Y) 항목만 표시">
-            <input type="checkbox" id="clImportantOnly" />
-            중요만
-          </label>
-        </div>
       </div>
-      <p class="hint">
-        선택한 View Template별 Revit Category의 <strong>ON · HT · % · 재지정</strong>(선·면·패턴)을 설정합니다.
-        🔵 파란 행: 변경됨 · 🔴 빨간 행: 중요(Y) builtIn 미연결.
-        「③ V/G 편집으로」로 선택한 VT가 자동으로 열립니다.
-      </p>
-      <div class="table-wrap checklist-wrap">
-        <table id="clTable" class="checklist-table cl-vg-table">
-          <thead>
-            <tr>
-              <th>Group</th>
-              <th>Revit Category</th>
-              <th>builtInCategory</th>
-              <th>IFC</th>
-              <th title="중요 여부 (Y = Preset export 필수)">중요</th>
-              <th title="가시성 ON/OFF">ON</th>
-              <th title="반투명 (Halftone)">HT</th>
-              <th title="투명도 %">%</th>
-              <th title="선·면·패턴 재지정">재지정</th>
-              <th title="그래픽 재지정 요약">요약</th>
-            </tr>
-          </thead>
-          <tbody id="clBody"></tbody>
-        </table>
-      </div>
-    </div>
-  </section>
 
-  <!-- 푸터 -->
-  <footer>
-    <div class="layout-wrapper" style="display:flex;flex-wrap:wrap;gap:.4rem">
-      <span>데이터 파일:</span>
-      <code>category-registry.json</code>
-      <code>process-database.json</code>
-      <code>vg-checklist.json</code>
-      <code>template-library.json</code>
-      <span>·</span>
-      <a href="docs/REVIT-API-VIEW-TEMPLATE.md" target="_blank" style="color:var(--accent)">Revit API 가이드</a>
-      <a href="docs/VIEW-TEMPLATE-WORKFLOW.md" target="_blank" style="color:var(--accent)">워크플로 설계</a>
-    </div>
-  </footer>
+    </section>
 
-  <!-- 토스트 컨테이너 -->
-  <div id="toast-container" aria-live="polite"></div>
+  </main>
+</div>
 
-  <!-- ─── 스크립트 ─── -->
-  <script src="vg-checklist-data.js"></script>
-  <script src="category-registry-data.js"></script>
-  <script src="process-database-data.js"></script>
-  <script src="ui-to-builtin-data.js"></script>
-  <script src="template-library-data.js"></script>
-  <script src="vg-graphics.js"></script>
-  <script src="ui-utils.js"></script>
-  <script src="category-registry.js"></script>
-  <script src="process-registry.js"></script>
-  <script src="template-workflow.js"></script>
-  <script src="vg-checklist.js"></script>
-  <script src="tabs.js"></script>
-  <script src="seed-loader.js"></script>
+<!-- 토스트 -->
+<div id="toast-container" aria-live="polite"></div>
+
+<!-- ─── 스크립트 ─── -->
+<script src="vg-checklist-data.js"></script>
+<script src="category-registry-data.js"></script>
+<script src="process-database-data.js"></script>
+<script src="ui-to-builtin-data.js"></script>
+<script src="template-library-data.js"></script>
+<script src="vg-graphics.js"></script>
+<script src="ui-utils.js"></script>
+<script src="category-registry.js"></script>
+<script src="process-registry.js"></script>
+<script src="template-workflow.js"></script>
+<script src="vg-checklist.js"></script>
+<script src="tabs.js"></script>
+<script src="seed-loader.js"></script>
+<script src="sidebar-counts.js"></script>
 </body>
 </html>

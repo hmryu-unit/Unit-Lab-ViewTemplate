@@ -14,7 +14,8 @@
   const els = {
     panel:          document.getElementById("panel-workflow"),
     tree:           document.getElementById("wfTree"),
-    detail:         document.getElementById("wfDetail"),
+    detail:         document.getElementById("wfDetailBody"),   // card-body 타깃 (wfDetail은 카드 wrapper)
+    detailTitle:    document.querySelector("#wfDetail .card-head-left h3"), // 카드 헤더 제목
     status:         document.getElementById("wfStatus"),
     btnSave:        document.getElementById("wfBtnSave"),
     btnReset:       document.getElementById("wfBtnReset"),
@@ -116,6 +117,7 @@
 
   /* ── 상태 표시 ── */
   function updateStatus() {
+    if (!els.status) return;
     const bases   = baseNodes().length;
     const derived = lib.nodes.filter((n) => n.role === "derived" && n.parentId).length;
     const suffix  = dirty ? " · 💾 저장 안 됨" : " · 저장됨";
@@ -146,35 +148,32 @@
 
     if (!lib.nodes.length) {
       els.tree.innerHTML = `
-        <div class="wf-empty">
-          <div style="font-size:2rem;margin-bottom:.5rem">🗂</div>
+        <div class="wf-tree-empty">
+          <span class="empty-icon">🗂</span>
           <div>베이스 View Template을 추가하세요.</div>
-          <div style="font-size:.75rem;margin-top:.35rem;color:var(--muted)">툴바의 「+ 베이스 VT」 버튼 클릭</div>
+          <div style="font-size:.73rem;margin-top:.2rem;color:var(--tx-4)">툴바의 「+ 베이스 VT」 버튼 클릭</div>
         </div>`;
       return;
     }
 
     for (const base of baseNodes()) {
-      appendTreeNode(base, 0);
+      appendTreeNode(base, false);
       for (const child of childrenOf(base.id)) {
-        appendTreeNode(child, 1);
+        appendTreeNode(child, true);
       }
     }
   }
 
-  function appendTreeNode(node, depth) {
+  function appendTreeNode(node, isChild) {
     const btn = document.createElement("button");
     btn.type = "button";
-    btn.className = `wf-tree-item depth-${depth}${node.id === selectedId ? " active" : ""}`;
+    btn.className = `wf-node${isChild ? " child" : ""}${node.id === selectedId ? " active" : ""}`;
     btn.dataset.id = node.id;
-
-    const role = node.role === "derived" ? "하위" : "베이스";
-    const vtIcon = node.role === "derived" ? "└" : "📄";
-    btn.innerHTML = `
-      <span class="wf-role">${role}</span>
-      <span class="wf-name">${escapeHtml(node.name)}</span>
-    `;
     btn.title = node.description || node.name;
+    btn.innerHTML = `
+      <span class="wf-node-type">${node.role === "derived" ? "하위" : "베이스"}</span>
+      <span class="wf-node-name">${escapeHtml(node.name)}</span>
+    `;
     btn.addEventListener("click", () => selectNode(node.id));
     els.tree.appendChild(btn);
   }
@@ -188,11 +187,17 @@
   /* ── 상세 렌더 ── */
   function renderDetail() {
     const node = selectedId ? nodeById(selectedId) : null;
+
+    // 카드 헤더 제목 업데이트
+    if (els.detailTitle) {
+      els.detailTitle.textContent = node ? `상세 편집 — ${node.name}` : "상세 편집";
+    }
+
     if (!node) {
       els.detail.innerHTML = `
-        <div class="wf-empty" style="margin-top:3rem">
-          <div style="font-size:2.5rem;margin-bottom:.75rem">👈</div>
-          <div>트리에서 View Template을 선택하세요.</div>
+        <div style="display:flex;flex-direction:column;align-items:center;justify-content:center;padding:3rem 1rem;color:var(--tx-4);gap:.65rem;text-align:center;">
+          <span style="font-size:2.5rem;opacity:.4">👈</span>
+          <span style="font-size:.85rem;">트리에서 View Template을 선택하세요</span>
         </div>`;
       return;
     }
@@ -202,8 +207,7 @@
     const processOpts = window.ProcessRegistry?.processOptionsHtml?.(crState, node.processId ? [node.processId] : [], false) ?? "";
 
     els.detail.innerHTML = `
-      <h3 style="margin:0 0 .25rem;font-size:1rem;">${escapeHtml(node.name)}</h3>
-      <p class="hint">${escapeHtml(node.description || "")}</p>
+      <p class="hint" style="margin-bottom:.75rem">${escapeHtml(node.description || "")}</p>
       <div class="wf-form">
         <label>표시 이름
           <input type="text" data-f="name" value="${escapeHtml(node.name)}" />
@@ -272,6 +276,7 @@
       <pre class="wf-preview" id="wfPresetPreview"></pre>
     `;
 
+    // 폼 이벤트 바인딩
     els.detail.querySelectorAll("[data-f]").forEach((el) => {
       const apply = () => {
         const f = el.dataset.f;
