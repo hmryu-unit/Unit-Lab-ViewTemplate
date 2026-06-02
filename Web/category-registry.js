@@ -3,11 +3,27 @@
  */
 (function () {
   const STORAGE_KEY = "unitlab-category-registry-v1";
+  const TAB_KEY     = "categories";
 
   /** @type {{ schemaVersion: number, updatedAt: string, trades: object[], materialTypes: object[], categories: object[], processes: object[] }} */
   let state = { schemaVersion: 2, updatedAt: "", trades: [], materialTypes: [], categories: [], processes: [] };
 
   let dirty = false;
+
+  /* ── UI 헬퍼 ── */
+  function toast(type, title, message, duration) {
+    window.UI?.toast({ type, title, message, duration });
+  }
+
+  async function uiConfirm(title, message) {
+    if (window.UI?.confirm) return window.UI.confirm({ title, message });
+    return window.confirm(`${title}\n${message}`);
+  }
+
+  async function uiPrompt(title, msg2, defaultValue = "") {
+    if (window.UI?.prompt) return window.UI.prompt({ title, message: msg2, defaultValue });
+    return window.prompt(title, defaultValue);
+  }
 
   const els = {
     panel: document.getElementById("panel-categories"),
@@ -68,11 +84,13 @@
     state.updatedAt = new Date().toISOString().slice(0, 10);
     localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
     dirty = false;
+    window.UI?.setDirty(TAB_KEY, false);
     updateStatus();
   }
 
   function markDirty() {
     dirty = true;
+    window.UI?.setDirty(TAB_KEY, true);
     updateStatus();
   }
 
@@ -196,7 +214,7 @@
   function updateStatus() {
     const mapped = state.categories.filter((c) => c.tradeIds?.length && c.materialTypeIds?.length).length;
     const procN = state.processes?.length ?? 0;
-    const suffix = dirty ? " · 저장 안 됨" : " · 저장됨";
+    const suffix = dirty ? " · 💾 저장 안 됨" : " · 저장됨";
     els.status.textContent = `카테고리 ${state.categories.length} · 공정 ${procN} · 공종·자재 연결 ${mapped}건${suffix}`;
   }
 
@@ -250,8 +268,9 @@
           refreshFilters();
         });
       });
-      tr.querySelector("[data-del-trade]").addEventListener("click", () => {
-        if (!confirm(`공종 「${t.name}」을 삭제할까요? 연결된 카테고리에서도 제거됩니다.`)) return;
+      tr.querySelector("[data-del-trade]").addEventListener("click", async () => {
+        const okT = await uiConfirm(`공종 삭제`, `「${t.name}」을 삭제할까요? 연결된 카테고리에서도 제거됩니다.`);
+        if (!okT) return;
         state.trades = state.trades.filter((x) => x.id !== t.id);
         state.categories.forEach((c) => {
           c.tradeIds = (c.tradeIds ?? []).filter((id) => id !== t.id);
@@ -278,8 +297,9 @@
           refreshFilters();
         });
       });
-      tr.querySelector("[data-del-mat]").addEventListener("click", () => {
-        if (!confirm(`자재 유형 「${m.name}」을 삭제할까요?`)) return;
+      tr.querySelector("[data-del-mat]").addEventListener("click", async () => {
+        const okM = await uiConfirm(`자재 유형 삭제`, `「${m.name}」을 삭제할까요?`);
+        if (!okM) return;
         state.materialTypes = state.materialTypes.filter((x) => x.id !== m.id);
         state.categories.forEach((c) => {
           c.materialTypeIds = (c.materialTypeIds ?? []).filter((id) => id !== m.id);
@@ -348,8 +368,8 @@
         }
       });
 
-      tr.querySelector(".group-cell").addEventListener("dblclick", () => {
-        const g = prompt("Revit 그룹", cat.revitGroup || "");
+      tr.querySelector(".group-cell").addEventListener("dblclick", async () => {
+        const g = await uiPrompt("Revit 그룹명 수정", "", cat.revitGroup || "");
         if (g == null) return;
         cat.revitGroup = g.trim();
         markDirty();
@@ -357,8 +377,9 @@
         tr.querySelector(".group-cell").textContent = cat.revitGroup;
       });
 
-      tr.querySelector("[data-del-cat]").addEventListener("click", () => {
-        if (!confirm(`「${cat.revitCategoryUi}」 카테고리를 삭제할까요?`)) return;
+      tr.querySelector("[data-del-cat]").addEventListener("click", async () => {
+        const okC = await uiConfirm(`카테고리 삭제`, `「${cat.revitCategoryUi}」 카테고리를 삭제할까요?`);
+        if (!okC) return;
         state.categories = state.categories.filter((c) => c.id !== cat.id);
         markDirty();
         renderCategories();
@@ -382,10 +403,10 @@
     window.ProcessRegistry?.render?.();
   }
 
-  function addTrade() {
-    const name = prompt("공종 이름", "");
+  async function addTrade() {
+    const name = await uiPrompt("공종 이름", "", "");
     if (name == null || !name.trim()) return;
-    const code = prompt("공종 코드 (영문 약어)", slugify(name).toUpperCase().slice(0, 6));
+    const code = await uiPrompt("공종 코드 (영문 약어)", "", slugify(name).toUpperCase().slice(0, 6));
     if (code == null) return;
     const maxOrder = Math.max(-1, ...state.trades.map((t) => t.order ?? 0));
     state.trades.push({
@@ -396,12 +417,13 @@
     });
     markDirty();
     render();
+    toast("success", "공종 추가", `「${name.trim()}」을 추가했습니다.`);
   }
 
-  function addMaterialType() {
-    const name = prompt("자재 유형 이름", "");
+  async function addMaterialType() {
+    const name = await uiPrompt("자재 유형 이름", "", "");
     if (name == null || !name.trim()) return;
-    const code = prompt("자재 코드", slugify(name).toUpperCase().slice(0, 6));
+    const code = await uiPrompt("자재 코드", "", slugify(name).toUpperCase().slice(0, 6));
     if (code == null) return;
     const maxOrder = Math.max(-1, ...state.materialTypes.map((m) => m.order ?? 0));
     state.materialTypes.push({
@@ -412,10 +434,11 @@
     });
     markDirty();
     render();
+    toast("success", "자재 유형 추가", `「${name.trim()}」을 추가했습니다.`);
   }
 
-  function addCategory() {
-    const ui = prompt("Revit Category (UI 이름)", "");
+  async function addCategory() {
+    const ui = await uiPrompt("Revit Category (UI 이름)", "", "");
     if (ui == null) return;
     const g = els.groupFilter.value || uniqueGroups()[0] || "General";
     state.categories.push({
@@ -432,6 +455,7 @@
     });
     markDirty();
     render();
+    toast("success", "카테고리 추가", ui.trim() ? `「${ui.trim()}」을 추가했습니다.` : "새 카테고리를 추가했습니다.");
   }
 
   function syncFromChecklist() {
@@ -474,9 +498,9 @@
       added++;
     }
     if (!added) {
-      alert("추가할 새 카테고리가 없습니다. 기존 항목의 IFC/메모는 보완했을 수 있습니다.");
+      toast("info", "동기화 완료", "추가할 새 카테고리가 없습니다. 기존 항목의 IFC·메모는 보완했을 수 있습니다.");
     } else {
-      alert(`${added}개 카테고리를 체크리스트에서 가져왔습니다.`);
+      toast("success", "동기화 완료", `${added}개 카테고리를 체크리스트에서 가져왔습니다.`);
     }
     markDirty();
     render();
@@ -511,8 +535,10 @@
     if (n) {
       markDirty();
       render();
-      alert(`${n}개 builtInCategory를 채웠습니다.「브라우저에 저장」을 눌러 주세요.`);
-    } else alert("채울 빈 항목이 없습니다.");
+      toast("success", "builtIn 자동채우기", `${n}개 builtInCategory를 채웠습니다. 「💾 저장」을 눌러 주세요.`);
+    } else {
+      toast("info", "자동채우기", "채울 빈 항목이 없습니다.");
+    }
   }
 
   function downloadJson() {
@@ -527,17 +553,20 @@
   function init() {
     state = loadStorage() ?? loadDefault();
     dirty = false;
+    window.UI?.setDirty(TAB_KEY, false);
     render();
   }
 
   els.btnSave?.addEventListener("click", () => {
     saveStorage();
-    alert("브라우저에 저장했습니다.");
+    toast("success", "저장 완료", "카테고리 레지스트리를 브라우저에 저장했습니다.");
   });
 
-  els.btnReset?.addEventListener("click", () => {
-    if (!confirm("로컬 저장을 지우고 기본 데이터로 되돌릴까요?")) return;
+  els.btnReset?.addEventListener("click", async () => {
+    const ok = await uiConfirm("기본값 복원", "로컬 저장을 지우고 기본 데이터로 되돌릴까요?\n저장되지 않은 변경사항은 사라집니다.");
+    if (!ok) return;
     applyDeployedSeed(loadDefault(), { persist: false });
+    toast("info", "초기화 완료", "기본 데이터로 복원했습니다.");
   });
 
   els.btnExport?.addEventListener("click", downloadJson);
@@ -549,12 +578,14 @@
     try {
       const data = JSON.parse(await file.text());
       if (!Array.isArray(data.categories)) throw new Error("format");
-      if (!confirm("JSON을 현재 편집 내용에 덮어씁니다. 계속할까요?")) return;
+      const ok = await uiConfirm("JSON 가져오기", `「${file.name}」을 현재 편집 내용에 덮어씁니다. 계속할까요?`);
+      if (!ok) return;
       state = data;
       markDirty();
       render();
+      toast("success", "JSON 가져오기 완료", `「${file.name}」을 불러왔습니다.`);
     } catch {
-      alert("category-registry.json 형식이 아닙니다.");
+      toast("error", "형식 오류", "category-registry.json 형식이 아닙니다.");
     }
   });
 
@@ -586,6 +617,7 @@
     }
     state.schemaVersion = 2;
     dirty = false;
+    window.UI?.setDirty(TAB_KEY, false);
     if (persist) saveStorage();
     else localStorage.removeItem(STORAGE_KEY);
     render();

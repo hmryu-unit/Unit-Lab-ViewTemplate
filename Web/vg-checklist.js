@@ -2,8 +2,9 @@
  * V/G 체크리스트 v3: 카탈로그 + 도면 템플릿(①)별 ON·HT·%·재지정
  */
 (function () {
-  const STORAGE_KEY = "unitlab-vg-checklist-v3";
-  const STORAGE_KEY_V2 = "unitlab-vg-checklist-v2";
+  const STORAGE_KEY    = "unitlab-vg-checklist-v3";
+  const STORAGE_KEY_V2  = "unitlab-vg-checklist-v2";
+  const TAB_KEY         = "checklist";
 
   const BT_TO_VT = {
     "bt-arch": "vt-base-area-floor",
@@ -14,9 +15,24 @@
 
   /** @type {{ schemaVersion: number, version: string, source: string, updatedAt: string, rows: object[], vg: Record<string, Record<string, object>> }} */
   let state = emptyState();
-  let dirty = false;
-  let activeVtId = null;
+  let dirty       = false;
+  let activeVtId  = null;
   let onlyChanged = false;
+
+  /* ── UI 헬퍼 ── */
+  function toast(type, title, message, duration) {
+    window.UI?.toast({ type, title, message, duration });
+  }
+
+  async function uiConfirm(title, message) {
+    if (window.UI?.confirm) return window.UI.confirm({ title, message });
+    return window.confirm(`${title}\n${message}`);
+  }
+
+  async function uiPrompt(title, defaultValue = "") {
+    if (window.UI?.prompt) return window.UI.prompt({ title, defaultValue });
+    return window.prompt(title, defaultValue);
+  }
 
   const COLSPAN_GFX = 8;
 
@@ -252,11 +268,14 @@
     state.updatedAt = new Date().toISOString().slice(0, 10);
     localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
     dirty = false;
+    window.UI?.setDirty(TAB_KEY, false);
     updateStatus();
+    toast("success", "저장 완료", "V/G 체크리스트를 브라우저에 저장했습니다.");
   }
 
   function markDirty() {
     dirty = true;
+    window.UI?.setDirty(TAB_KEY, true);
     updateStatus();
   }
 
@@ -279,7 +298,7 @@
   function updateStatus() {
     const vt = getWorkflowNodes().find((n) => n.id === activeVtId);
     const name = vt?.name ?? "(미선택)";
-    const suffix = dirty ? " · 저장 안 됨" : "";
+    const suffix = dirty ? " · 💾 저장 안 됨" : " · 저장됨";
     els.status.textContent = `${state.rows.length}행 · 편집: ${name}${suffix}`;
   }
 
@@ -523,12 +542,12 @@
   function exportPresetJson() {
     const node = getWorkflowNodes().find((n) => n.id === activeVtId);
     if (!node) {
-      alert("도면 템플릿을 선택하세요.");
+      toast("info", "선택 필요", "도면 템플릿을 선택하세요.");
       return;
     }
     const result = buildPresetForNode(node);
     if (result.blocked) {
-      alert(formatPresetBlockMessage(result));
+      toast("error", "Export 불가", (formatPresetBlockMessage(result) || "").slice(0, 250), 0);
       return;
     }
     if (result.warnings.length) console.warn(result.warnings);
@@ -539,6 +558,7 @@
     a.download = `${(preset.templateName || "preset").replace(/[^\w가-힣.-]+/g, "_")}.json`;
     a.click();
     URL.revokeObjectURL(a.href);
+    toast("success", "Preset JSON", `「${preset.templateName}」 다운로드했습니다.`);
   }
 
   function exportCsv() {
@@ -574,8 +594,8 @@
     URL.revokeObjectURL(a.href);
   }
 
-  function addCatalogRow() {
-    const revitCategory = prompt("Revit Category (UI) 이름");
+  async function addCatalogRow() {
+    const revitCategory = await uiPrompt("Revit Category (UI) 이름");
     if (revitCategory == null) return;
     const id = uniqueRowId(revitCategory.trim());
     state.rows.push({
@@ -589,6 +609,7 @@
     for (const n of getWorkflowNodes()) ensureVgSlot(n.id);
     markDirty();
     render();
+    toast("success", "행 추가", revitCategory.trim() ? `「${revitCategory.trim()}」을 추가했습니다.` : "새 행을 추가했습니다.");
   }
 
   function switchToTab(name) {
@@ -651,18 +672,20 @@
   };
 
   els.btnSave?.addEventListener("click", saveStorage);
-  els.btnReset?.addEventListener("click", () => {
-    if (!confirm("체크리스트를 기본 JSON으로 되돌릴까요?")) return;
+  els.btnReset?.addEventListener("click", async () => {
+    const ok = await uiConfirm("체크리스트 초기화", "체크리스트를 기본 JSON으로 되돌릴까요?\n저장되지 않은 변경사항은 사라집니다.");
+    if (!ok) return;
     applyDeployedSeed(loadDefault(), { persist: false });
     localStorage.removeItem(STORAGE_KEY);
     localStorage.removeItem(STORAGE_KEY_V2);
+    toast("info", "초기화 완료", "기본 V/G 데이터로 복원했습니다.");
   });
   els.btnAddRow?.addEventListener("click", addCatalogRow);
   els.btnSyncVt?.addEventListener("click", () => {
     syncAllVtSlots();
     markDirty();
     render();
-    alert("도면 템플릿 목록과 V/G 슬롯을 동기화했습니다.");
+    toast("success", "VT 동기화", "도면 템플릿 목록과 V/G 슬롯을 동기화했습니다.");
   });
   els.btnExportPreset?.addEventListener("click", exportPresetJson);
   els.btnExportCsv?.addEventListener("click", exportCsv);
@@ -678,6 +701,7 @@
 
   state = loadStorage(STORAGE_KEY) ?? loadStorage(STORAGE_KEY_V2) ?? loadDefault();
   syncAllVtSlots();
+  window.UI?.setDirty(TAB_KEY, false);
   const nodes = getWorkflowNodes();
   if (nodes.length) activeVtId = nodes.find((n) => n.role === "base" || !n.parentId)?.id ?? nodes[0].id;
   render();
