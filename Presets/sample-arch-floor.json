@@ -1,0 +1,26 @@
+{
+  "templateName": "A_건축_평면_샘플",
+  "viewType": "FloorPlan",
+  "properties": {
+    "discipline": "Architectural",
+    "detailLevel": "Medium"
+  },
+  "categoryOverrides": [
+    {
+      "builtInCategory": "Walls",
+      "hidden": false,
+      "projection": {
+        "lineColor": "#000000",
+        "lineWeight": 3
+      }
+    },
+    {
+      "builtInCategory": "Furniture",
+      "hidden": false,
+      "halftone": true,
+      "surface": {
+        "transparency": 50
+      }
+    }
+  ]
+}

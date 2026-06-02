@@ -1,0 +1,3011 @@
+{
+  "schemaVersion": 1,
+  "updatedAt": "2026-06-02",
+  "trades": [
+    {
+      "id": "g-arch",
+      "code": "ARCH",
+      "name": "건축",
+      "order": 0
+    },
+    {
+      "id": "g-str",
+      "code": "STR",
+      "name": "구조",
+      "order": 1
+    },
+    {
+      "id": "g-mech",
+      "code": "MECH",
+      "name": "기계",
+      "order": 2
+    },
+    {
+      "id": "g-elec",
+      "code": "ELEC",
+      "name": "전기",
+      "order": 3
+    },
+    {
+      "id": "g-plum",
+      "code": "PLUM",
+      "name": "급배수",
+      "order": 4
+    },
+    {
+      "id": "g-fire",
+      "code": "FP",
+      "name": "소방",
+      "order": 5
+    },
+    {
+      "id": "g-comm",
+      "code": "COMM",
+      "name": "통신/보안",
+      "order": 6
+    },
+    {
+      "id": "g-land",
+      "code": "LAND",
+      "name": "조경/토목",
+      "order": 7
+    },
+    {
+      "id": "g-int",
+      "code": "INT",
+      "name": "인테리어",
+      "order": 8
+    },
+    {
+      "id": "g-coord",
+      "code": "COORD",
+      "name": "BIM/코디",
+      "order": 9
+    }
+  ],
+  "materialTypes": [
+    {
+      "id": "m-conc",
+      "code": "CONC",
+      "name": "콘크리트",
+      "order": 0
+    },
+    {
+      "id": "m-steel",
+      "code": "STEEL",
+      "name": "철골/철근",
+      "order": 1
+    },
+    {
+      "id": "m-masonry",
+      "code": "MASN",
+      "name": "조적/석재",
+      "order": 2
+    },
+    {
+      "id": "m-glass",
+      "code": "GLAZ",
+      "name": "유리/커튼월",
+      "order": 3
+    },
+    {
+      "id": "m-metal",
+      "code": "METL",
+      "name": "금속",
+      "order": 4
+    },
+    {
+      "id": "m-wood",
+      "code": "WOOD",
+      "name": "목재",
+      "order": 5
+    },
+    {
+      "id": "m-finish",
+      "code": "FNSH",
+      "name": "마감",
+      "order": 6
+    },
+    {
+      "id": "m-insul",
+      "code": "INSL",
+      "name": "단열/방수",
+      "order": 7
+    },
+    {
+      "id": "m-duct",
+      "code": "DUCT",
+      "name": "MEP 덕트",
+      "order": 8
+    },
+    {
+      "id": "m-pipe",
+      "code": "PIPE",
+      "name": "MEP 배관",
+      "order": 9
+    },
+    {
+      "id": "m-elec-mep",
+      "code": "ELEC-MEP",
+      "name": "MEP 전기",
+      "order": 10
+    },
+    {
+      "id": "m-site",
+      "code": "SITE",
+      "name": "토목/조경",
+      "order": 11
+    },
+    {
+      "id": "m-other",
+      "code": "ETC",
+      "name": "기타",
+      "order": 12
+    }
+  ],
+  "categories": [
+    {
+      "id": "casework",
+      "revitCategoryUi": "Casework",
+      "builtInCategory": "Casework",
+      "revitGroup": "Architecture",
+      "ifcClass": "IfcFurniture",
+      "noteKr": "붙박이 가구",
+      "tradeIds": [
+        "g-arch"
+      ],
+      "materialTypeIds": [],
+      "active": true
+    },
+    {
+      "id": "ceilings",
+      "revitCategoryUi": "Ceilings",
+      "builtInCategory": "Ceilings",
+      "revitGroup": "Architecture",
+      "ifcClass": "IfcCovering (CEILING)",
+      "noteKr": "천장 (MEP에서 halftone)",
+      "tradeIds": [
+        "g-arch"
+      ],
+      "materialTypeIds": [
+        "m-conc",
+        "m-masonry"
+      ],
+      "active": true
+    },
+    {
+      "id": "columns",
+      "revitCategoryUi": "Columns",
+      "builtInCategory": "Columns",
+      "revitGroup": "Architecture",
+      "ifcClass": "IfcColumn (건축)",
+      "noteKr": "건축 마감기둥",
+      "tradeIds": [
+        "g-arch"
+      ],
+      "materialTypeIds": [
+        "m-conc",
+        "m-masonry"
+      ],
+      "active": true
+    },
+    {
+      "id": "curtain-panels",
+      "revitCategoryUi": "Curtain Panels",
+      "builtInCategory": "CurtainWallPanels",
+      "revitGroup": "Architecture",
+      "ifcClass": "IfcPlate (CURTAIN_PANEL)",
+      "noteKr": "커튼월 패널",
+      "tradeIds": [
+        "g-arch"
+      ],
+      "materialTypeIds": [
+        "m-glass"
+      ],
+      "active": true
+    },
+    {
+      "id": "curtain-wall-mullions",
+      "revitCategoryUi": "Curtain Wall Mullions",
+      "builtInCategory": "CurtainWallMullions",
+      "revitGroup": "Architecture",
+      "ifcClass": "IfcMember (MULLION)",
+      "noteKr": "멀리언",
+      "tradeIds": [
+        "g-arch"
+      ],
+      "materialTypeIds": [
+        "m-glass"
+      ],
+      "active": true
+    },
+    {
+      "id": "curtain-walls",
+      "revitCategoryUi": "Curtain Walls",
+      "builtInCategory": "CurtainWallPanels",
+      "revitGroup": "Architecture",
+      "ifcClass": "IfcCurtainWall",
+      "noteKr": "커튼월",
+      "tradeIds": [
+        "g-arch"
+      ],
+      "materialTypeIds": [
+        "m-glass"
+      ],
+      "active": true
+    },
+    {
+      "id": "doors",
+      "revitCategoryUi": "Doors",
+      "builtInCategory": "Doors",
+      "revitGroup": "Architecture",
+      "ifcClass": "IfcDoor / IfcDoorType",
+      "noteKr": "문",
+      "tradeIds": [
+        "g-arch"
+      ],
+      "materialTypeIds": [],
+      "active": true
+    },
+    {
+      "id": "entourage",
+      "revitCategoryUi": "Entourage",
+      "builtInCategory": "Entourage",
+      "revitGroup": "Architecture",
+      "ifcClass": "IfcBuildingElementProxy",
+      "noteKr": "환경요소 (인물/차량)",
+      "tradeIds": [
+        "g-arch"
+      ],
+      "materialTypeIds": [],
+      "active": true
+    },
+    {
+      "id": "fascias",
+      "revitCategoryUi": "Fascias",
+      "builtInCategory": "Fascia",
+      "revitGroup": "Architecture",
+      "ifcClass": "IfcCovering",
+      "noteKr": "처마판",
+      "tradeIds": [
+        "g-arch"
+      ],
+      "materialTypeIds": [],
+      "active": true
+    },
+    {
+      "id": "floors",
+      "revitCategoryUi": "Floors",
+      "builtInCategory": "Floors",
+      "revitGroup": "Architecture",
+      "ifcClass": "IfcSlab / IfcSlabType",
+      "noteKr": "건축 바닥",
+      "tradeIds": [
+        "g-arch"
+      ],
+      "materialTypeIds": [
+        "m-conc",
+        "m-masonry"
+      ],
+      "active": true
+    },
+    {
+      "id": "furniture",
+      "revitCategoryUi": "Furniture",
+      "builtInCategory": "Furniture",
+      "revitGroup": "Architecture",
+      "ifcClass": "IfcFurniture / IfcFurnitureType",
+      "noteKr": "가구",
+      "tradeIds": [
+        "g-arch"
+      ],
+      "materialTypeIds": [],
+      "active": true
+    },
+    {
+      "id": "furniture-systems",
+      "revitCategoryUi": "Furniture Systems",
+      "builtInCategory": "FurnitureSystems",
+      "revitGroup": "Architecture",
+      "ifcClass": "IfcSystemFurnitureElement",
+      "noteKr": "시스템 가구",
+      "tradeIds": [
+        "g-arch"
+      ],
+      "materialTypeIds": [],
+      "active": true
+    },
+    {
+      "id": "gutters",
+      "revitCategoryUi": "Gutters",
+      "builtInCategory": "Gutter",
+      "revitGroup": "Architecture",
+      "ifcClass": "IfcCovering",
+      "noteKr": "홈통",
+      "tradeIds": [
+        "g-arch"
+      ],
+      "materialTypeIds": [],
+      "active": true
+    },
+    {
+      "id": "mass",
+      "revitCategoryUi": "Mass",
+      "builtInCategory": "Mass",
+      "revitGroup": "Architecture",
+      "ifcClass": "IfcBuildingElementProxy",
+      "noteKr": "매스 (계획설계 단계만)",
+      "tradeIds": [
+        "g-arch"
+      ],
+      "materialTypeIds": [],
+      "active": true
+    },
+    {
+      "id": "parking",
+      "revitCategoryUi": "Parking",
+      "builtInCategory": "Parking",
+      "revitGroup": "Architecture",
+      "ifcClass": "IfcTransportElement",
+      "noteKr": "주차구획",
+      "tradeIds": [
+        "g-arch"
+      ],
+      "materialTypeIds": [],
+      "active": true
+    },
+    {
+      "id": "planting",
+      "revitCategoryUi": "Planting",
+      "builtInCategory": "Planting",
+      "revitGroup": "Architecture",
+      "ifcClass": "IfcGeographicElement",
+      "noteKr": "식재",
+      "tradeIds": [
+        "g-arch"
+      ],
+      "materialTypeIds": [
+        "m-site"
+      ],
+      "active": true
+    },
+    {
+      "id": "railings",
+      "revitCategoryUi": "Railings",
+      "builtInCategory": "Railings",
+      "revitGroup": "Architecture",
+      "ifcClass": "IfcRailing / IfcRailingType",
+      "noteKr": "난간",
+      "tradeIds": [
+        "g-arch"
+      ],
+      "materialTypeIds": [],
+      "active": true
+    },
+    {
+      "id": "ramps",
+      "revitCategoryUi": "Ramps",
+      "builtInCategory": "Ramps",
+      "revitGroup": "Architecture",
+      "ifcClass": "IfcRamp / IfcRampType",
+      "noteKr": "램프",
+      "tradeIds": [
+        "g-arch"
+      ],
+      "materialTypeIds": [],
+      "active": true
+    },
+    {
+      "id": "reveals",
+      "revitCategoryUi": "Reveals",
+      "builtInCategory": "Reveals",
+      "revitGroup": "Architecture",
+      "ifcClass": "IfcBuildingElementPart",
+      "noteKr": "리빌 (벽 음각)",
+      "tradeIds": [
+        "g-arch"
+      ],
+      "materialTypeIds": [],
+      "active": true
+    },
+    {
+      "id": "roads",
+      "revitCategoryUi": "Roads",
+      "builtInCategory": "Roads",
+      "revitGroup": "Architecture",
+      "ifcClass": "IfcRoad",
+      "noteKr": "도로",
+      "tradeIds": [
+        "g-arch"
+      ],
+      "materialTypeIds": [
+        "m-site"
+      ],
+      "active": true
+    },
+    {
+      "id": "roof-soffits",
+      "revitCategoryUi": "Roof Soffits",
+      "builtInCategory": "RoofSoffit",
+      "revitGroup": "Architecture",
+      "ifcClass": "IfcCovering",
+      "noteKr": "처마 밑면",
+      "tradeIds": [
+        "g-arch"
+      ],
+      "materialTypeIds": [],
+      "active": true
+    },
+    {
+      "id": "roofs",
+      "revitCategoryUi": "Roofs",
+      "builtInCategory": "Roofs",
+      "revitGroup": "Architecture",
+      "ifcClass": "IfcRoof / IfcRoofType",
+      "noteKr": "지붕",
+      "tradeIds": [
+        "g-arch"
+      ],
+      "materialTypeIds": [
+        "m-conc",
+        "m-masonry"
+      ],
+      "active": true
+    },
+    {
+      "id": "site",
+      "revitCategoryUi": "Site",
+      "builtInCategory": "Site",
+      "revitGroup": "Architecture",
+      "ifcClass": "IfcSite",
+      "noteKr": "부지",
+      "tradeIds": [
+        "g-arch"
+      ],
+      "materialTypeIds": [
+        "m-site"
+      ],
+      "active": true
+    },
+    {
+      "id": "slab-edges",
+      "revitCategoryUi": "Slab Edges",
+      "builtInCategory": "EdgeSlab",
+      "revitGroup": "Architecture",
+      "ifcClass": "IfcSlab (sub)",
+      "noteKr": "슬래브 엣지 (호스트 슬래브 종속)",
+      "tradeIds": [
+        "g-arch"
+      ],
+      "materialTypeIds": [],
+      "active": true
+    },
+    {
+      "id": "stair-supports",
+      "revitCategoryUi": "Stair Supports",
+      "builtInCategory": "StairsSupports",
+      "revitGroup": "Architecture",
+      "ifcClass": "IfcStairFlight (sub)",
+      "noteKr": "계단 지지부",
+      "tradeIds": [
+        "g-arch"
+      ],
+      "materialTypeIds": [],
+      "active": true
+    },
+    {
+      "id": "stairs",
+      "revitCategoryUi": "Stairs",
+      "builtInCategory": "Stairs",
+      "revitGroup": "Architecture",
+      "ifcClass": "IfcStair / IfcStairType",
+      "noteKr": "계단",
+      "tradeIds": [
+        "g-arch"
+      ],
+      "materialTypeIds": [],
+      "active": true
+    },
+    {
+      "id": "toposolid",
+      "revitCategoryUi": "Toposolid",
+      "builtInCategory": "Toposolid",
+      "revitGroup": "Architecture",
+      "ifcClass": "IfcGeographicElement / IfcSite",
+      "noteKr": "⭐ Revit 2024+ 지형 (Toposurface 대체)",
+      "tradeIds": [
+        "g-arch"
+      ],
+      "materialTypeIds": [
+        "m-site"
+      ],
+      "active": true
+    },
+    {
+      "id": "wall-sweeps",
+      "revitCategoryUi": "Wall Sweeps",
+      "builtInCategory": "Walls",
+      "revitGroup": "Architecture",
+      "ifcClass": "IfcBuildingElementPart",
+      "noteKr": "벽 스윕 (걸레받이 등)",
+      "tradeIds": [
+        "g-arch"
+      ],
+      "materialTypeIds": [],
+      "active": true
+    },
+    {
+      "id": "walls",
+      "revitCategoryUi": "Walls",
+      "builtInCategory": "Walls",
+      "revitGroup": "Architecture",
+      "ifcClass": "IfcWall / IfcWallType",
+      "noteKr": "건축 벽체",
+      "tradeIds": [
+        "g-arch"
+      ],
+      "materialTypeIds": [
+        "m-conc",
+        "m-masonry"
+      ],
+      "active": true
+    },
+    {
+      "id": "windows",
+      "revitCategoryUi": "Windows",
+      "builtInCategory": "Windows",
+      "revitGroup": "Architecture",
+      "ifcClass": "IfcWindow / IfcWindowType",
+      "noteKr": "창문",
+      "tradeIds": [
+        "g-arch"
+      ],
+      "materialTypeIds": [
+        "m-glass"
+      ],
+      "active": true
+    },
+    {
+      "id": "assemblies",
+      "revitCategoryUi": "Assemblies",
+      "builtInCategory": "Assemblies",
+      "revitGroup": "General",
+      "ifcClass": "IfcElementAssembly",
+      "noteKr": "어셈블리",
+      "tradeIds": [
+        "g-arch",
+        "g-coord"
+      ],
+      "materialTypeIds": [],
+      "active": true
+    },
+    {
+      "id": "food-service-equipment",
+      "revitCategoryUi": "Food Service Equipment",
+      "builtInCategory": "FoodServiceEquipment",
+      "revitGroup": "General",
+      "ifcClass": "IfcBuildingElementProxy",
+      "noteKr": "주방 장비",
+      "tradeIds": [
+        "g-arch",
+        "g-coord"
+      ],
+      "materialTypeIds": [],
+      "active": true
+    },
+    {
+      "id": "generic-models",
+      "revitCategoryUi": "Generic Models",
+      "builtInCategory": "GenericModel",
+      "revitGroup": "General",
+      "ifcClass": "IfcBuildingElementProxy",
+      "noteKr": "일반 모델 (IfcExportAs 권장)",
+      "tradeIds": [
+        "g-arch",
+        "g-coord"
+      ],
+      "materialTypeIds": [],
+      "active": true
+    },
+    {
+      "id": "medical-equipment",
+      "revitCategoryUi": "Medical Equipment",
+      "builtInCategory": "MedicalEquipment",
+      "revitGroup": "General",
+      "ifcClass": "IfcMedicalDevice",
+      "noteKr": "의료 장비",
+      "tradeIds": [
+        "g-arch",
+        "g-coord"
+      ],
+      "materialTypeIds": [],
+      "active": true
+    },
+    {
+      "id": "parts",
+      "revitCategoryUi": "Parts",
+      "builtInCategory": "Parts",
+      "revitGroup": "General",
+      "ifcClass": "원본 카테고리 상속",
+      "noteKr": "파트 (Part)",
+      "tradeIds": [
+        "g-arch",
+        "g-coord"
+      ],
+      "materialTypeIds": [],
+      "active": true
+    },
+    {
+      "id": "shaft-openings",
+      "revitCategoryUi": "Shaft Openings",
+      "builtInCategory": "ShaftOpenings",
+      "revitGroup": "General",
+      "ifcClass": "IfcOpeningElement",
+      "noteKr": "샤프트 (MEP 코디네이션 핵심)",
+      "tradeIds": [
+        "g-arch",
+        "g-coord"
+      ],
+      "materialTypeIds": [],
+      "active": true
+    },
+    {
+      "id": "specialty-equipment",
+      "revitCategoryUi": "Specialty Equipment",
+      "builtInCategory": "SpecialityEquipment",
+      "revitGroup": "General",
+      "ifcClass": "IfcBuildingElementProxy / IfcMedicalDevice",
+      "noteKr": "특수 장비",
+      "tradeIds": [
+        "g-arch",
+        "g-coord"
+      ],
+      "materialTypeIds": [],
+      "active": true
+    },
+    {
+      "id": "vertical-circulation",
+      "revitCategoryUi": "Vertical Circulation",
+      "builtInCategory": "VerticalCirculation",
+      "revitGroup": "General",
+      "ifcClass": "IfcTransportElement",
+      "noteKr": "엘리베이터/에스컬레이터",
+      "tradeIds": [
+        "g-arch",
+        "g-coord"
+      ],
+      "materialTypeIds": [],
+      "active": true
+    },
+    {
+      "id": "approach-slabs",
+      "revitCategoryUi": "Approach Slabs",
+      "builtInCategory": "ApproachSlabs",
+      "revitGroup": "Infrastructure",
+      "ifcClass": "IfcBridgePart",
+      "noteKr": "진입 슬래브",
+      "tradeIds": [
+        "g-str",
+        "g-land"
+      ],
+      "materialTypeIds": [],
+      "active": true
+    },
+    {
+      "id": "bearings",
+      "revitCategoryUi": "Bearings",
+      "builtInCategory": "BridgeBearings",
+      "revitGroup": "Infrastructure",
+      "ifcClass": "IfcBearing",
+      "noteKr": "교량 받침",
+      "tradeIds": [
+        "g-str",
+        "g-land"
+      ],
+      "materialTypeIds": [],
+      "active": true
+    },
+    {
+      "id": "bridge-abutments",
+      "revitCategoryUi": "Bridge Abutments",
+      "builtInCategory": "BridgeAbutments",
+      "revitGroup": "Infrastructure",
+      "ifcClass": "IfcBridgePart (ABUTMENT)",
+      "noteKr": "교대",
+      "tradeIds": [
+        "g-str",
+        "g-land"
+      ],
+      "materialTypeIds": [],
+      "active": true
+    },
+    {
+      "id": "bridge-cables",
+      "revitCategoryUi": "Bridge Cables",
+      "builtInCategory": "BridgeCables",
+      "revitGroup": "Infrastructure",
+      "ifcClass": "IfcTendon",
+      "noteKr": "교량 케이블",
+      "tradeIds": [
+        "g-str",
+        "g-land"
+      ],
+      "materialTypeIds": [
+        "m-elec-mep"
+      ],
+      "active": true
+    },
+    {
+      "id": "bridge-decks",
+      "revitCategoryUi": "Bridge Decks",
+      "builtInCategory": "BridgeDecks",
+      "revitGroup": "Infrastructure",
+      "ifcClass": "IfcBridgePart (DECK)",
+      "noteKr": "교량 슬래브",
+      "tradeIds": [
+        "g-str",
+        "g-land"
+      ],
+      "materialTypeIds": [],
+      "active": true
+    },
+    {
+      "id": "bridge-framing",
+      "revitCategoryUi": "Bridge Framing",
+      "builtInCategory": "BridgeFraming",
+      "revitGroup": "Infrastructure",
+      "ifcClass": "IfcBeam",
+      "noteKr": "교량 프레임",
+      "tradeIds": [
+        "g-str",
+        "g-land"
+      ],
+      "materialTypeIds": [],
+      "active": true
+    },
+    {
+      "id": "bridge-piers",
+      "revitCategoryUi": "Bridge Piers",
+      "builtInCategory": "BridgePiers",
+      "revitGroup": "Infrastructure",
+      "ifcClass": "IfcBridgePart (PIER)",
+      "noteKr": "교각",
+      "tradeIds": [
+        "g-str",
+        "g-land"
+      ],
+      "materialTypeIds": [],
+      "active": true
+    },
+    {
+      "id": "bridge-towers",
+      "revitCategoryUi": "Bridge Towers",
+      "builtInCategory": "BridgeTowers",
+      "revitGroup": "Infrastructure",
+      "ifcClass": "IfcBridgePart (PYLON)",
+      "noteKr": "주탑",
+      "tradeIds": [
+        "g-str",
+        "g-land"
+      ],
+      "materialTypeIds": [],
+      "active": true
+    },
+    {
+      "id": "bridges",
+      "revitCategoryUi": "Bridges",
+      "builtInCategory": "BridgeFraming",
+      "revitGroup": "Infrastructure",
+      "ifcClass": "IfcBridge",
+      "noteKr": "교량 (인프라 프로젝트만)",
+      "tradeIds": [
+        "g-str",
+        "g-land"
+      ],
+      "materialTypeIds": [],
+      "active": true
+    },
+    {
+      "id": "expansion-joints",
+      "revitCategoryUi": "Expansion Joints",
+      "builtInCategory": "ExpansionJoints",
+      "revitGroup": "Infrastructure",
+      "ifcClass": "IfcBuildingElementProxy",
+      "noteKr": "신축이음",
+      "tradeIds": [
+        "g-str",
+        "g-land"
+      ],
+      "materialTypeIds": [],
+      "active": true
+    },
+    {
+      "id": "vibration-management",
+      "revitCategoryUi": "Vibration Management",
+      "builtInCategory": "VibrationManagement",
+      "revitGroup": "Infrastructure",
+      "ifcClass": "IfcVibrationIsolator",
+      "noteKr": "진동 관리",
+      "tradeIds": [
+        "g-str",
+        "g-land"
+      ],
+      "materialTypeIds": [],
+      "active": true
+    },
+    {
+      "id": "coordination-model",
+      "revitCategoryUi": "Coordination Model",
+      "builtInCategory": "Coordination_Model",
+      "revitGroup": "Links",
+      "ifcClass": "(NWD/NWC)",
+      "noteKr": "좌표 모델 (NWD) - 2026 강화",
+      "tradeIds": [
+        "g-coord"
+      ],
+      "materialTypeIds": [],
+      "active": true
+    },
+    {
+      "id": "dwg-links-imports-in-families",
+      "revitCategoryUi": "DWG Links / Imports in Families",
+      "builtInCategory": "ImportObjectStyles",
+      "revitGroup": "Links",
+      "ifcClass": "(CAD 처리)",
+      "noteKr": "CAD 링크/임포트",
+      "tradeIds": [
+        "g-coord"
+      ],
+      "materialTypeIds": [],
+      "active": true
+    },
+    {
+      "id": "point-clouds",
+      "revitCategoryUi": "Point Clouds",
+      "builtInCategory": "PointClouds",
+      "revitGroup": "Links",
+      "ifcClass": "(제외)",
+      "noteKr": "포인트 클라우드",
+      "tradeIds": [
+        "g-coord"
+      ],
+      "materialTypeIds": [],
+      "active": true
+    },
+    {
+      "id": "rvt-links",
+      "revitCategoryUi": "RVT Links",
+      "builtInCategory": "RvtLinks",
+      "revitGroup": "Links",
+      "ifcClass": "(link 처리)",
+      "noteKr": "Revit 링크 (타분야는 halftone)",
+      "tradeIds": [
+        "g-coord"
+      ],
+      "materialTypeIds": [],
+      "active": true
+    },
+    {
+      "id": "raster-images",
+      "revitCategoryUi": "Raster Images",
+      "builtInCategory": "RasterImages",
+      "revitGroup": "Links",
+      "ifcClass": "(제외)",
+      "noteKr": "래스터 이미지",
+      "tradeIds": [
+        "g-coord"
+      ],
+      "materialTypeIds": [],
+      "active": true
+    },
+    {
+      "id": "airterminals",
+      "revitCategoryUi": "AirTerminals",
+      "builtInCategory": "AirTerminals",
+      "revitGroup": "MEP",
+      "ifcClass": "",
+      "noteKr": "",
+      "tradeIds": [],
+      "materialTypeIds": [],
+      "active": true
+    },
+    {
+      "id": "cabletray",
+      "revitCategoryUi": "CableTray",
+      "builtInCategory": "CableTray",
+      "revitGroup": "MEP",
+      "ifcClass": "",
+      "noteKr": "",
+      "tradeIds": [],
+      "materialTypeIds": [],
+      "active": true
+    },
+    {
+      "id": "cabletrayfittings",
+      "revitCategoryUi": "CableTrayFittings",
+      "builtInCategory": "CableTrayFittings",
+      "revitGroup": "MEP",
+      "ifcClass": "",
+      "noteKr": "",
+      "tradeIds": [],
+      "materialTypeIds": [],
+      "active": true
+    },
+    {
+      "id": "communicationdevices",
+      "revitCategoryUi": "CommunicationDevices",
+      "builtInCategory": "CommunicationDevices",
+      "revitGroup": "MEP",
+      "ifcClass": "",
+      "noteKr": "",
+      "tradeIds": [],
+      "materialTypeIds": [],
+      "active": true
+    },
+    {
+      "id": "conduit",
+      "revitCategoryUi": "Conduit",
+      "builtInCategory": "Conduit",
+      "revitGroup": "MEP",
+      "ifcClass": "",
+      "noteKr": "",
+      "tradeIds": [],
+      "materialTypeIds": [],
+      "active": true
+    },
+    {
+      "id": "conduitfitting",
+      "revitCategoryUi": "ConduitFitting",
+      "builtInCategory": "ConduitFitting",
+      "revitGroup": "MEP",
+      "ifcClass": "",
+      "noteKr": "",
+      "tradeIds": [],
+      "materialTypeIds": [],
+      "active": true
+    },
+    {
+      "id": "datadevices",
+      "revitCategoryUi": "DataDevices",
+      "builtInCategory": "DataDevices",
+      "revitGroup": "MEP",
+      "ifcClass": "",
+      "noteKr": "",
+      "tradeIds": [],
+      "materialTypeIds": [],
+      "active": true
+    },
+    {
+      "id": "ductaccessories",
+      "revitCategoryUi": "DuctAccessories",
+      "builtInCategory": "DuctAccessories",
+      "revitGroup": "MEP",
+      "ifcClass": "",
+      "noteKr": "",
+      "tradeIds": [],
+      "materialTypeIds": [],
+      "active": true
+    },
+    {
+      "id": "ductfittings",
+      "revitCategoryUi": "DuctFittings",
+      "builtInCategory": "DuctFittings",
+      "revitGroup": "MEP",
+      "ifcClass": "",
+      "noteKr": "",
+      "tradeIds": [],
+      "materialTypeIds": [],
+      "active": true
+    },
+    {
+      "id": "ductinsulations",
+      "revitCategoryUi": "DuctInsulations",
+      "builtInCategory": "DuctInsulations",
+      "revitGroup": "MEP",
+      "ifcClass": "",
+      "noteKr": "",
+      "tradeIds": [],
+      "materialTypeIds": [],
+      "active": true
+    },
+    {
+      "id": "ductlinings",
+      "revitCategoryUi": "DuctLinings",
+      "builtInCategory": "DuctLinings",
+      "revitGroup": "MEP",
+      "ifcClass": "",
+      "noteKr": "",
+      "tradeIds": [],
+      "materialTypeIds": [],
+      "active": true
+    },
+    {
+      "id": "electricalcircuit",
+      "revitCategoryUi": "ElectricalCircuit",
+      "builtInCategory": "ElectricalCircuit",
+      "revitGroup": "MEP",
+      "ifcClass": "",
+      "noteKr": "",
+      "tradeIds": [],
+      "materialTypeIds": [],
+      "active": true
+    },
+    {
+      "id": "electricalfixtures",
+      "revitCategoryUi": "ElectricalFixtures",
+      "builtInCategory": "ElectricalFixtures",
+      "revitGroup": "MEP",
+      "ifcClass": "",
+      "noteKr": "",
+      "tradeIds": [],
+      "materialTypeIds": [],
+      "active": true
+    },
+    {
+      "id": "firealarmdevices",
+      "revitCategoryUi": "FireAlarmDevices",
+      "builtInCategory": "FireAlarmDevices",
+      "revitGroup": "MEP",
+      "ifcClass": "",
+      "noteKr": "",
+      "tradeIds": [],
+      "materialTypeIds": [],
+      "active": true
+    },
+    {
+      "id": "flexductcurves",
+      "revitCategoryUi": "FlexDuctCurves",
+      "builtInCategory": "FlexDuctCurves",
+      "revitGroup": "MEP",
+      "ifcClass": "",
+      "noteKr": "",
+      "tradeIds": [],
+      "materialTypeIds": [],
+      "active": true
+    },
+    {
+      "id": "flexpipecurves",
+      "revitCategoryUi": "FlexPipeCurves",
+      "builtInCategory": "FlexPipeCurves",
+      "revitGroup": "MEP",
+      "ifcClass": "",
+      "noteKr": "",
+      "tradeIds": [],
+      "materialTypeIds": [],
+      "active": true
+    },
+    {
+      "id": "hvaczones",
+      "revitCategoryUi": "HVACZones",
+      "builtInCategory": "HVACZones",
+      "revitGroup": "MEP",
+      "ifcClass": "",
+      "noteKr": "",
+      "tradeIds": [],
+      "materialTypeIds": [],
+      "active": true
+    },
+    {
+      "id": "lightingdevices",
+      "revitCategoryUi": "LightingDevices",
+      "builtInCategory": "LightingDevices",
+      "revitGroup": "MEP",
+      "ifcClass": "",
+      "noteKr": "",
+      "tradeIds": [],
+      "materialTypeIds": [],
+      "active": true
+    },
+    {
+      "id": "mepspaces",
+      "revitCategoryUi": "MEPSpaces",
+      "builtInCategory": "MEPSpaces",
+      "revitGroup": "MEP",
+      "ifcClass": "",
+      "noteKr": "",
+      "tradeIds": [],
+      "materialTypeIds": [],
+      "active": true
+    },
+    {
+      "id": "mechanicalcontroldevices",
+      "revitCategoryUi": "MechanicalControlDevices",
+      "builtInCategory": "MechanicalControlDevices",
+      "revitGroup": "MEP",
+      "ifcClass": "",
+      "noteKr": "",
+      "tradeIds": [],
+      "materialTypeIds": [],
+      "active": true
+    },
+    {
+      "id": "nursecalldevices",
+      "revitCategoryUi": "NurseCallDevices",
+      "builtInCategory": "NurseCallDevices",
+      "revitGroup": "MEP",
+      "ifcClass": "",
+      "noteKr": "",
+      "tradeIds": [],
+      "materialTypeIds": [],
+      "active": true
+    },
+    {
+      "id": "pipeaccessories",
+      "revitCategoryUi": "PipeAccessories",
+      "builtInCategory": "PipeAccessories",
+      "revitGroup": "MEP",
+      "ifcClass": "",
+      "noteKr": "",
+      "tradeIds": [],
+      "materialTypeIds": [],
+      "active": true
+    },
+    {
+      "id": "pipefittings",
+      "revitCategoryUi": "PipeFittings",
+      "builtInCategory": "PipeFittings",
+      "revitGroup": "MEP",
+      "ifcClass": "",
+      "noteKr": "",
+      "tradeIds": [],
+      "materialTypeIds": [],
+      "active": true
+    },
+    {
+      "id": "pipeinsulations",
+      "revitCategoryUi": "PipeInsulations",
+      "builtInCategory": "PipeInsulations",
+      "revitGroup": "MEP",
+      "ifcClass": "",
+      "noteKr": "",
+      "tradeIds": [],
+      "materialTypeIds": [],
+      "active": true
+    },
+    {
+      "id": "securitydevices",
+      "revitCategoryUi": "SecurityDevices",
+      "builtInCategory": "SecurityDevices",
+      "revitGroup": "MEP",
+      "ifcClass": "",
+      "noteKr": "",
+      "tradeIds": [],
+      "materialTypeIds": [],
+      "active": true
+    },
+    {
+      "id": "telephonedevices",
+      "revitCategoryUi": "TelephoneDevices",
+      "builtInCategory": "TelephoneDevices",
+      "revitGroup": "MEP",
+      "ifcClass": "",
+      "noteKr": "",
+      "tradeIds": [],
+      "materialTypeIds": [],
+      "active": true
+    },
+    {
+      "id": "wire",
+      "revitCategoryUi": "Wire",
+      "builtInCategory": "Wire",
+      "revitGroup": "MEP",
+      "ifcClass": "",
+      "noteKr": "",
+      "tradeIds": [],
+      "materialTypeIds": [],
+      "active": true
+    },
+    {
+      "id": "zoneequipment",
+      "revitCategoryUi": "ZoneEquipment",
+      "builtInCategory": "ZoneEquipment",
+      "revitGroup": "MEP",
+      "ifcClass": "",
+      "noteKr": "",
+      "tradeIds": [],
+      "materialTypeIds": [],
+      "active": true
+    },
+    {
+      "id": "audio-visual-devices",
+      "revitCategoryUi": "Audio Visual Devices",
+      "builtInCategory": "AudioVisualDevices",
+      "revitGroup": "MEP - Electrical",
+      "ifcClass": "IfcAudioVisualAppliance",
+      "noteKr": "⭐ Revit 2024+ AV 장비",
+      "tradeIds": [
+        "g-elec"
+      ],
+      "materialTypeIds": [],
+      "active": true
+    },
+    {
+      "id": "cable-tray-fittings",
+      "revitCategoryUi": "Cable Tray Fittings",
+      "builtInCategory": "CableTrayFitting",
+      "revitGroup": "MEP - Electrical",
+      "ifcClass": "IfcCableCarrierFitting",
+      "noteKr": "케이블 트레이 피팅",
+      "tradeIds": [
+        "g-elec"
+      ],
+      "materialTypeIds": [
+        "m-elec-mep"
+      ],
+      "active": true
+    },
+    {
+      "id": "cable-trays",
+      "revitCategoryUi": "Cable Trays",
+      "builtInCategory": "CableTray",
+      "revitGroup": "MEP - Electrical",
+      "ifcClass": "IfcCableCarrierSegment",
+      "noteKr": "케이블 트레이",
+      "tradeIds": [
+        "g-elec"
+      ],
+      "materialTypeIds": [
+        "m-elec-mep"
+      ],
+      "active": true
+    },
+    {
+      "id": "communication-devices",
+      "revitCategoryUi": "Communication Devices",
+      "builtInCategory": "CommunicationDevices",
+      "revitGroup": "MEP - Electrical",
+      "ifcClass": "IfcCommunicationsAppliance",
+      "noteKr": "통신 장비",
+      "tradeIds": [
+        "g-elec"
+      ],
+      "materialTypeIds": [],
+      "active": true
+    },
+    {
+      "id": "conduit-fittings",
+      "revitCategoryUi": "Conduit Fittings",
+      "builtInCategory": "ConduitFitting",
+      "revitGroup": "MEP - Electrical",
+      "ifcClass": "IfcCableCarrierFitting",
+      "noteKr": "전선관 피팅",
+      "tradeIds": [
+        "g-elec"
+      ],
+      "materialTypeIds": [
+        "m-elec-mep"
+      ],
+      "active": true
+    },
+    {
+      "id": "conduits",
+      "revitCategoryUi": "Conduits",
+      "builtInCategory": "Conduit",
+      "revitGroup": "MEP - Electrical",
+      "ifcClass": "IfcCableCarrierSegment (CONDUITSEGMENT)",
+      "noteKr": "전선관",
+      "tradeIds": [
+        "g-elec"
+      ],
+      "materialTypeIds": [
+        "m-elec-mep"
+      ],
+      "active": true
+    },
+    {
+      "id": "data-devices",
+      "revitCategoryUi": "Data Devices",
+      "builtInCategory": "DataDevices",
+      "revitGroup": "MEP - Electrical",
+      "ifcClass": "IfcCommunicationsAppliance",
+      "noteKr": "데이터 장비",
+      "tradeIds": [
+        "g-elec"
+      ],
+      "materialTypeIds": [],
+      "active": true
+    },
+    {
+      "id": "electrical-circuits",
+      "revitCategoryUi": "Electrical Circuits",
+      "builtInCategory": "ElectricalCircuit",
+      "revitGroup": "MEP - Electrical",
+      "ifcClass": "IfcDistributionCircuit",
+      "noteKr": "전기 회로 (도면용)",
+      "tradeIds": [
+        "g-elec"
+      ],
+      "materialTypeIds": [
+        "m-elec-mep"
+      ],
+      "active": true
+    },
+    {
+      "id": "electrical-equipment",
+      "revitCategoryUi": "Electrical Equipment",
+      "builtInCategory": "ElectricalEquipment",
+      "revitGroup": "MEP - Electrical",
+      "ifcClass": "IfcElectricDistributionBoard / IfcTransformer",
+      "noteKr": "전기 장비",
+      "tradeIds": [
+        "g-elec"
+      ],
+      "materialTypeIds": [
+        "m-elec-mep"
+      ],
+      "active": true
+    },
+    {
+      "id": "electrical-fixtures",
+      "revitCategoryUi": "Electrical Fixtures",
+      "builtInCategory": "ElectricalFixtures",
+      "revitGroup": "MEP - Electrical",
+      "ifcClass": "IfcOutlet / IfcElectricAppliance",
+      "noteKr": "전기 기구",
+      "tradeIds": [
+        "g-elec"
+      ],
+      "materialTypeIds": [
+        "m-elec-mep"
+      ],
+      "active": true
+    },
+    {
+      "id": "fire-alarm-devices",
+      "revitCategoryUi": "Fire Alarm Devices",
+      "builtInCategory": "FireAlarmDevices",
+      "revitGroup": "MEP - Electrical",
+      "ifcClass": "IfcAlarm",
+      "noteKr": "화재경보",
+      "tradeIds": [
+        "g-elec"
+      ],
+      "materialTypeIds": [],
+      "active": true
+    },
+    {
+      "id": "lighting-devices",
+      "revitCategoryUi": "Lighting Devices",
+      "builtInCategory": "LightingDevices",
+      "revitGroup": "MEP - Electrical",
+      "ifcClass": "IfcLightFixture",
+      "noteKr": "조명 디바이스",
+      "tradeIds": [
+        "g-elec"
+      ],
+      "materialTypeIds": [
+        "m-elec-mep"
+      ],
+      "active": true
+    },
+    {
+      "id": "lighting-fixtures",
+      "revitCategoryUi": "Lighting Fixtures",
+      "builtInCategory": "LightingFixtures",
+      "revitGroup": "MEP - Electrical",
+      "ifcClass": "IfcLightFixture / IfcLightFixtureType",
+      "noteKr": "조명기구",
+      "tradeIds": [
+        "g-elec"
+      ],
+      "materialTypeIds": [
+        "m-elec-mep"
+      ],
+      "active": true
+    },
+    {
+      "id": "mep-fabrication-containment",
+      "revitCategoryUi": "MEP Fabrication Containment",
+      "builtInCategory": "FabricationContainment",
+      "revitGroup": "MEP - Electrical",
+      "ifcClass": "IfcCableCarrierSegment",
+      "noteKr": "패브리케이션 컨테인먼트",
+      "tradeIds": [
+        "g-elec"
+      ],
+      "materialTypeIds": [],
+      "active": true
+    },
+    {
+      "id": "nurse-call-devices",
+      "revitCategoryUi": "Nurse Call Devices",
+      "builtInCategory": "NurseCallDevices",
+      "revitGroup": "MEP - Electrical",
+      "ifcClass": "IfcAlarm",
+      "noteKr": "너스콜",
+      "tradeIds": [
+        "g-elec"
+      ],
+      "materialTypeIds": [],
+      "active": true
+    },
+    {
+      "id": "security-devices",
+      "revitCategoryUi": "Security Devices",
+      "builtInCategory": "SecurityDevices",
+      "revitGroup": "MEP - Electrical",
+      "ifcClass": "IfcAlarm",
+      "noteKr": "보안 장비",
+      "tradeIds": [
+        "g-elec"
+      ],
+      "materialTypeIds": [],
+      "active": true
+    },
+    {
+      "id": "switch-system",
+      "revitCategoryUi": "Switch System",
+      "builtInCategory": "SwitchSystem",
+      "revitGroup": "MEP - Electrical",
+      "ifcClass": "IfcSwitchingDevice",
+      "noteKr": "스위치 시스템",
+      "tradeIds": [
+        "g-elec"
+      ],
+      "materialTypeIds": [],
+      "active": true
+    },
+    {
+      "id": "telephone-devices",
+      "revitCategoryUi": "Telephone Devices",
+      "builtInCategory": "TelephoneDevices",
+      "revitGroup": "MEP - Electrical",
+      "ifcClass": "IfcCommunicationsAppliance",
+      "noteKr": "전화",
+      "tradeIds": [
+        "g-elec"
+      ],
+      "materialTypeIds": [],
+      "active": true
+    },
+    {
+      "id": "vertical-conveyor-systems",
+      "revitCategoryUi": "Vertical Conveyor Systems",
+      "builtInCategory": "VerticalCirculation",
+      "revitGroup": "MEP - Electrical",
+      "ifcClass": "IfcTransportElement",
+      "noteKr": "수직 운송 시스템",
+      "tradeIds": [
+        "g-elec"
+      ],
+      "materialTypeIds": [],
+      "active": true
+    },
+    {
+      "id": "wires",
+      "revitCategoryUi": "Wires",
+      "builtInCategory": "Wire",
+      "revitGroup": "MEP - Electrical",
+      "ifcClass": "IfcCableSegment",
+      "noteKr": "전선 (도면용)",
+      "tradeIds": [
+        "g-elec"
+      ],
+      "materialTypeIds": [
+        "m-elec-mep"
+      ],
+      "active": true
+    },
+    {
+      "id": "air-terminals",
+      "revitCategoryUi": "Air Terminals",
+      "builtInCategory": "AirTerminals",
+      "revitGroup": "MEP - Mechanical",
+      "ifcClass": "IfcAirTerminal / IfcAirTerminalType",
+      "noteKr": "디퓨저/그릴",
+      "tradeIds": [
+        "g-mech"
+      ],
+      "materialTypeIds": [
+        "m-duct"
+      ],
+      "active": true
+    },
+    {
+      "id": "duct-accessories",
+      "revitCategoryUi": "Duct Accessories",
+      "builtInCategory": "DuctAccessories",
+      "revitGroup": "MEP - Mechanical",
+      "ifcClass": "IfcDamper / IfcDuctSilencer / IfcFlowMeter",
+      "noteKr": "덕트 액세서리",
+      "tradeIds": [
+        "g-mech"
+      ],
+      "materialTypeIds": [
+        "m-duct"
+      ],
+      "active": true
+    },
+    {
+      "id": "duct-fittings",
+      "revitCategoryUi": "Duct Fittings",
+      "builtInCategory": "DuctFittings",
+      "revitGroup": "MEP - Mechanical",
+      "ifcClass": "IfcDuctFitting",
+      "noteKr": "덕트 피팅",
+      "tradeIds": [
+        "g-mech"
+      ],
+      "materialTypeIds": [
+        "m-duct"
+      ],
+      "active": true
+    },
+    {
+      "id": "duct-insulations",
+      "revitCategoryUi": "Duct Insulations",
+      "builtInCategory": "DuctInsulations",
+      "revitGroup": "MEP - Mechanical",
+      "ifcClass": "IfcCovering (INSULATION)",
+      "noteKr": "덕트 단열",
+      "tradeIds": [
+        "g-mech"
+      ],
+      "materialTypeIds": [
+        "m-duct"
+      ],
+      "active": true
+    },
+    {
+      "id": "duct-linings",
+      "revitCategoryUi": "Duct Linings",
+      "builtInCategory": "DuctLinings",
+      "revitGroup": "MEP - Mechanical",
+      "ifcClass": "IfcCovering",
+      "noteKr": "덕트 라이닝",
+      "tradeIds": [
+        "g-mech"
+      ],
+      "materialTypeIds": [
+        "m-duct"
+      ],
+      "active": true
+    },
+    {
+      "id": "duct-placeholders",
+      "revitCategoryUi": "Duct Placeholders",
+      "builtInCategory": "Ducts",
+      "revitGroup": "MEP - Mechanical",
+      "ifcClass": "IfcDuctSegment",
+      "noteKr": "덕트 플레이스홀더",
+      "tradeIds": [
+        "g-mech"
+      ],
+      "materialTypeIds": [
+        "m-duct"
+      ],
+      "active": true
+    },
+    {
+      "id": "ducts",
+      "revitCategoryUi": "Ducts",
+      "builtInCategory": "Ducts",
+      "revitGroup": "MEP - Mechanical",
+      "ifcClass": "IfcDuctSegment / IfcDuctSegmentType",
+      "noteKr": "덕트",
+      "tradeIds": [
+        "g-mech"
+      ],
+      "materialTypeIds": [
+        "m-duct"
+      ],
+      "active": true
+    },
+    {
+      "id": "flex-ducts",
+      "revitCategoryUi": "Flex Ducts",
+      "builtInCategory": "FlexDuctCurves",
+      "revitGroup": "MEP - Mechanical",
+      "ifcClass": "IfcDuctSegment (FLEXIBLESEGMENT)",
+      "noteKr": "플렉스 덕트",
+      "tradeIds": [
+        "g-mech"
+      ],
+      "materialTypeIds": [
+        "m-duct"
+      ],
+      "active": true
+    },
+    {
+      "id": "mep-fabrication-ductwork",
+      "revitCategoryUi": "MEP Fabrication Ductwork",
+      "builtInCategory": "FabricationDuctwork",
+      "revitGroup": "MEP - Mechanical",
+      "ifcClass": "IfcDuctSegment",
+      "noteKr": "패브리케이션 덕트",
+      "tradeIds": [
+        "g-mech"
+      ],
+      "materialTypeIds": [
+        "m-duct"
+      ],
+      "active": true
+    },
+    {
+      "id": "mep-fabrication-hangers",
+      "revitCategoryUi": "MEP Fabrication Hangers",
+      "builtInCategory": "FabricationHangers",
+      "revitGroup": "MEP - Mechanical",
+      "ifcClass": "IfcDiscreteAccessory (HANGER)",
+      "noteKr": "행거",
+      "tradeIds": [
+        "g-mech"
+      ],
+      "materialTypeIds": [],
+      "active": true
+    },
+    {
+      "id": "mechanical-control-devices",
+      "revitCategoryUi": "Mechanical Control Devices",
+      "builtInCategory": "MechanicalControlDevices",
+      "revitGroup": "MEP - Mechanical",
+      "ifcClass": "IfcController / IfcActuator",
+      "noteKr": "기계 제어장치",
+      "tradeIds": [
+        "g-mech"
+      ],
+      "materialTypeIds": [],
+      "active": true
+    },
+    {
+      "id": "mechanical-equipment",
+      "revitCategoryUi": "Mechanical Equipment",
+      "builtInCategory": "MechanicalEquipment",
+      "revitGroup": "MEP - Mechanical",
+      "ifcClass": "IfcUnitaryEquipment / IfcBoiler / IfcChiller / IfcFan / IfcPump",
+      "noteKr": "기계 장비",
+      "tradeIds": [
+        "g-mech"
+      ],
+      "materialTypeIds": [],
+      "active": true
+    },
+    {
+      "id": "flex-pipes",
+      "revitCategoryUi": "Flex Pipes",
+      "builtInCategory": "FlexPipeCurves",
+      "revitGroup": "MEP - Plumbing",
+      "ifcClass": "IfcPipeSegment (FLEXIBLESEGMENT)",
+      "noteKr": "플렉스 배관",
+      "tradeIds": [
+        "g-plum"
+      ],
+      "materialTypeIds": [
+        "m-pipe"
+      ],
+      "active": true
+    },
+    {
+      "id": "mep-fabrication-pipework",
+      "revitCategoryUi": "MEP Fabrication Pipework",
+      "builtInCategory": "FabricationPipework",
+      "revitGroup": "MEP - Plumbing",
+      "ifcClass": "IfcPipeSegment",
+      "noteKr": "패브리케이션 배관",
+      "tradeIds": [
+        "g-plum"
+      ],
+      "materialTypeIds": [
+        "m-pipe"
+      ],
+      "active": true
+    },
+    {
+      "id": "pipe-accessories",
+      "revitCategoryUi": "Pipe Accessories",
+      "builtInCategory": "PipeAccessories",
+      "revitGroup": "MEP - Plumbing",
+      "ifcClass": "IfcValve / IfcFlowMeter / IfcFilter",
+      "noteKr": "배관 액세서리",
+      "tradeIds": [
+        "g-plum"
+      ],
+      "materialTypeIds": [
+        "m-pipe"
+      ],
+      "active": true
+    },
+    {
+      "id": "pipe-fittings",
+      "revitCategoryUi": "Pipe Fittings",
+      "builtInCategory": "PipeFittings",
+      "revitGroup": "MEP - Plumbing",
+      "ifcClass": "IfcPipeFitting",
+      "noteKr": "배관 피팅",
+      "tradeIds": [
+        "g-plum"
+      ],
+      "materialTypeIds": [
+        "m-pipe"
+      ],
+      "active": true
+    },
+    {
+      "id": "pipe-insulations",
+      "revitCategoryUi": "Pipe Insulations",
+      "builtInCategory": "PipeInsulations",
+      "revitGroup": "MEP - Plumbing",
+      "ifcClass": "IfcCovering (INSULATION)",
+      "noteKr": "배관 단열",
+      "tradeIds": [
+        "g-plum"
+      ],
+      "materialTypeIds": [
+        "m-pipe"
+      ],
+      "active": true
+    },
+    {
+      "id": "pipe-placeholders",
+      "revitCategoryUi": "Pipe Placeholders",
+      "builtInCategory": "Pipes",
+      "revitGroup": "MEP - Plumbing",
+      "ifcClass": "IfcPipeSegment",
+      "noteKr": "배관 플레이스홀더",
+      "tradeIds": [
+        "g-plum"
+      ],
+      "materialTypeIds": [
+        "m-pipe"
+      ],
+      "active": true
+    },
+    {
+      "id": "pipes",
+      "revitCategoryUi": "Pipes",
+      "builtInCategory": "Pipes",
+      "revitGroup": "MEP - Plumbing",
+      "ifcClass": "IfcPipeSegment / IfcPipeSegmentType",
+      "noteKr": "배관",
+      "tradeIds": [
+        "g-plum"
+      ],
+      "materialTypeIds": [
+        "m-pipe"
+      ],
+      "active": true
+    },
+    {
+      "id": "plumbing-fixtures",
+      "revitCategoryUi": "Plumbing Fixtures",
+      "builtInCategory": "PlumbingFixtures",
+      "revitGroup": "MEP - Plumbing",
+      "ifcClass": "IfcSanitaryTerminal / IfcSanitaryTerminalType",
+      "noteKr": "위생기구",
+      "tradeIds": [
+        "g-plum"
+      ],
+      "materialTypeIds": [
+        "m-pipe"
+      ],
+      "active": true
+    },
+    {
+      "id": "sprinklers",
+      "revitCategoryUi": "Sprinklers",
+      "builtInCategory": "Sprinklers",
+      "revitGroup": "MEP - Plumbing",
+      "ifcClass": "IfcFireSuppressionTerminal",
+      "noteKr": "스프링클러",
+      "tradeIds": [
+        "g-plum"
+      ],
+      "materialTypeIds": [
+        "m-pipe"
+      ],
+      "active": true
+    },
+    {
+      "id": "buildingpad",
+      "revitCategoryUi": "BuildingPad",
+      "builtInCategory": "BuildingPad",
+      "revitGroup": "Site · 외부",
+      "ifcClass": "",
+      "noteKr": "",
+      "tradeIds": [],
+      "materialTypeIds": [],
+      "active": true
+    },
+    {
+      "id": "property",
+      "revitCategoryUi": "Property",
+      "builtInCategory": "Property",
+      "revitGroup": "Site · 외부",
+      "ifcClass": "",
+      "noteKr": "",
+      "tradeIds": [],
+      "materialTypeIds": [],
+      "active": true
+    },
+    {
+      "id": "propertylinesegment",
+      "revitCategoryUi": "PropertyLineSegment",
+      "builtInCategory": "PropertyLineSegment",
+      "revitGroup": "Site · 외부",
+      "ifcClass": "",
+      "noteKr": "",
+      "tradeIds": [],
+      "materialTypeIds": [],
+      "active": true
+    },
+    {
+      "id": "propertylinesegmenttags",
+      "revitCategoryUi": "PropertyLineSegmentTags",
+      "builtInCategory": "PropertyLineSegmentTags",
+      "revitGroup": "Site · 외부",
+      "ifcClass": "",
+      "noteKr": "",
+      "tradeIds": [],
+      "materialTypeIds": [],
+      "active": true
+    },
+    {
+      "id": "topography",
+      "revitCategoryUi": "Topography",
+      "builtInCategory": "Topography",
+      "revitGroup": "Site · 외부",
+      "ifcClass": "",
+      "noteKr": "",
+      "tradeIds": [],
+      "materialTypeIds": [],
+      "active": true
+    },
+    {
+      "id": "topographylink",
+      "revitCategoryUi": "TopographyLink",
+      "builtInCategory": "TopographyLink",
+      "revitGroup": "Site · 외부",
+      "ifcClass": "",
+      "noteKr": "",
+      "tradeIds": [],
+      "materialTypeIds": [],
+      "active": true
+    },
+    {
+      "id": "areas",
+      "revitCategoryUi": "Areas",
+      "builtInCategory": "Areas",
+      "revitGroup": "Spatial",
+      "ifcClass": "IfcSpace (또는 제외)",
+      "noteKr": "면적",
+      "tradeIds": [
+        "g-arch",
+        "g-mech"
+      ],
+      "materialTypeIds": [],
+      "active": true
+    },
+    {
+      "id": "duct-systems",
+      "revitCategoryUi": "Duct Systems",
+      "builtInCategory": "DuctSystem",
+      "revitGroup": "Spatial",
+      "ifcClass": "IfcDistributionSystem",
+      "noteKr": "덕트 시스템",
+      "tradeIds": [
+        "g-arch",
+        "g-mech"
+      ],
+      "materialTypeIds": [
+        "m-duct"
+      ],
+      "active": true
+    },
+    {
+      "id": "hvac-zones",
+      "revitCategoryUi": "HVAC Zones",
+      "builtInCategory": "HVAC_Zones",
+      "revitGroup": "Spatial",
+      "ifcClass": "IfcZone",
+      "noteKr": "HVAC 존",
+      "tradeIds": [
+        "g-arch",
+        "g-mech"
+      ],
+      "materialTypeIds": [],
+      "active": true
+    },
+    {
+      "id": "mep-spaces",
+      "revitCategoryUi": "MEP Spaces",
+      "builtInCategory": "MEPSpaces",
+      "revitGroup": "Spatial",
+      "ifcClass": "IfcSpace",
+      "noteKr": "MEP 분석용 공간",
+      "tradeIds": [
+        "g-arch",
+        "g-mech"
+      ],
+      "materialTypeIds": [],
+      "active": true
+    },
+    {
+      "id": "piping-systems",
+      "revitCategoryUi": "Piping Systems",
+      "builtInCategory": "PipingSystem",
+      "revitGroup": "Spatial",
+      "ifcClass": "IfcDistributionSystem",
+      "noteKr": "배관 시스템",
+      "tradeIds": [
+        "g-arch",
+        "g-mech"
+      ],
+      "materialTypeIds": [],
+      "active": true
+    },
+    {
+      "id": "rooms",
+      "revitCategoryUi": "Rooms",
+      "builtInCategory": "Rooms",
+      "revitGroup": "Spatial",
+      "ifcClass": "IfcSpace (SPACE)",
+      "noteKr": "실 (Color Fill용)",
+      "tradeIds": [
+        "g-arch",
+        "g-mech"
+      ],
+      "materialTypeIds": [],
+      "active": true
+    },
+    {
+      "id": "spaces",
+      "revitCategoryUi": "Spaces",
+      "builtInCategory": "Spaces",
+      "revitGroup": "Spatial",
+      "ifcClass": "IfcSpace (INTERNAL)",
+      "noteKr": "MEP 공간",
+      "tradeIds": [
+        "g-arch",
+        "g-mech"
+      ],
+      "materialTypeIds": [],
+      "active": true
+    },
+    {
+      "id": "rebar-cover",
+      "revitCategoryUi": "Rebar Cover",
+      "builtInCategory": "RebarCover",
+      "revitGroup": "Structure",
+      "ifcClass": "IfcCovering",
+      "noteKr": "철근 피복",
+      "tradeIds": [
+        "g-str"
+      ],
+      "materialTypeIds": [
+        "m-steel"
+      ],
+      "active": true
+    },
+    {
+      "id": "structural-area-reinforcement",
+      "revitCategoryUi": "Structural Area Reinforcement",
+      "builtInCategory": "AreaRein",
+      "revitGroup": "Structure",
+      "ifcClass": "IfcReinforcingMesh",
+      "noteKr": "면 보강근",
+      "tradeIds": [
+        "g-str"
+      ],
+      "materialTypeIds": [
+        "m-steel"
+      ],
+      "active": true
+    },
+    {
+      "id": "structural-beam-systems",
+      "revitCategoryUi": "Structural Beam Systems",
+      "builtInCategory": "StructuralFraming",
+      "revitGroup": "Structure",
+      "ifcClass": "IfcBeam (Group)",
+      "noteKr": "보 시스템",
+      "tradeIds": [
+        "g-str"
+      ],
+      "materialTypeIds": [
+        "m-steel"
+      ],
+      "active": true
+    },
+    {
+      "id": "structural-columns",
+      "revitCategoryUi": "Structural Columns",
+      "builtInCategory": "StructuralColumns",
+      "revitGroup": "Structure",
+      "ifcClass": "IfcColumn / IfcColumnType",
+      "noteKr": "구조 기둥",
+      "tradeIds": [
+        "g-str"
+      ],
+      "materialTypeIds": [
+        "m-steel"
+      ],
+      "active": true
+    },
+    {
+      "id": "structural-connections",
+      "revitCategoryUi": "Structural Connections",
+      "builtInCategory": "StructuralConnections",
+      "revitGroup": "Structure",
+      "ifcClass": "IfcMechanicalFastener",
+      "noteKr": "구조 접합부",
+      "tradeIds": [
+        "g-str"
+      ],
+      "materialTypeIds": [
+        "m-steel"
+      ],
+      "active": true
+    },
+    {
+      "id": "structural-fabric-areas",
+      "revitCategoryUi": "Structural Fabric Areas",
+      "builtInCategory": "FabricAreas",
+      "revitGroup": "Structure",
+      "ifcClass": "IfcReinforcingMesh",
+      "noteKr": "와이어메쉬 영역",
+      "tradeIds": [
+        "g-str"
+      ],
+      "materialTypeIds": [
+        "m-steel"
+      ],
+      "active": true
+    },
+    {
+      "id": "structural-fabric-reinforcement",
+      "revitCategoryUi": "Structural Fabric Reinforcement",
+      "builtInCategory": "FabricReinforcement",
+      "revitGroup": "Structure",
+      "ifcClass": "IfcReinforcingMesh",
+      "noteKr": "와이어메쉬",
+      "tradeIds": [
+        "g-str"
+      ],
+      "materialTypeIds": [
+        "m-steel"
+      ],
+      "active": true
+    },
+    {
+      "id": "structural-foundations",
+      "revitCategoryUi": "Structural Foundations",
+      "builtInCategory": "StructuralFoundation",
+      "revitGroup": "Structure",
+      "ifcClass": "IfcFooting / IfcFootingType",
+      "noteKr": "기초",
+      "tradeIds": [
+        "g-str"
+      ],
+      "materialTypeIds": [
+        "m-steel"
+      ],
+      "active": true
+    },
+    {
+      "id": "structural-framing",
+      "revitCategoryUi": "Structural Framing",
+      "builtInCategory": "StructuralFraming",
+      "revitGroup": "Structure",
+      "ifcClass": "IfcBeam / IfcBeamType",
+      "noteKr": "구조 보",
+      "tradeIds": [
+        "g-str"
+      ],
+      "materialTypeIds": [
+        "m-steel"
+      ],
+      "active": true
+    },
+    {
+      "id": "structural-path-reinforcement",
+      "revitCategoryUi": "Structural Path Reinforcement",
+      "builtInCategory": "PathRein",
+      "revitGroup": "Structure",
+      "ifcClass": "IfcReinforcingBar",
+      "noteKr": "패스 보강근",
+      "tradeIds": [
+        "g-str"
+      ],
+      "materialTypeIds": [
+        "m-steel"
+      ],
+      "active": true
+    },
+    {
+      "id": "structural-rebar",
+      "revitCategoryUi": "Structural Rebar",
+      "builtInCategory": "Rebar",
+      "revitGroup": "Structure",
+      "ifcClass": "IfcReinforcingBar",
+      "noteKr": "철근",
+      "tradeIds": [
+        "g-str"
+      ],
+      "materialTypeIds": [
+        "m-steel"
+      ],
+      "active": true
+    },
+    {
+      "id": "structural-stiffeners",
+      "revitCategoryUi": "Structural Stiffeners",
+      "builtInCategory": "StructuralStiffener",
+      "revitGroup": "Structure",
+      "ifcClass": "IfcPlate",
+      "noteKr": "스티프너",
+      "tradeIds": [
+        "g-str"
+      ],
+      "materialTypeIds": [
+        "m-steel"
+      ],
+      "active": true
+    },
+    {
+      "id": "structural-tendons",
+      "revitCategoryUi": "Structural Tendons",
+      "builtInCategory": "StructuralTendons",
+      "revitGroup": "Structure",
+      "ifcClass": "IfcTendon",
+      "noteKr": "프리스트레스 텐던",
+      "tradeIds": [
+        "g-str"
+      ],
+      "materialTypeIds": [
+        "m-steel"
+      ],
+      "active": true
+    },
+    {
+      "id": "structural-trusses",
+      "revitCategoryUi": "Structural Trusses",
+      "builtInCategory": "StructuralTruss",
+      "revitGroup": "Structure",
+      "ifcClass": "IfcBeam",
+      "noteKr": "트러스",
+      "tradeIds": [
+        "g-str"
+      ],
+      "materialTypeIds": [
+        "m-steel"
+      ],
+      "active": true
+    },
+    {
+      "id": "curtainsystems",
+      "revitCategoryUi": "CurtainSystems",
+      "builtInCategory": "CurtainSystems",
+      "revitGroup": "건축 · 구조",
+      "ifcClass": "",
+      "noteKr": "",
+      "tradeIds": [],
+      "materialTypeIds": [],
+      "active": true
+    },
+    {
+      "id": "curtainwallmullions",
+      "revitCategoryUi": "CurtainWallMullions",
+      "builtInCategory": "CurtainWallMullions",
+      "revitGroup": "건축 · 구조",
+      "ifcClass": "",
+      "noteKr": "",
+      "tradeIds": [],
+      "materialTypeIds": [],
+      "active": true
+    },
+    {
+      "id": "curtainwallpanels",
+      "revitCategoryUi": "CurtainWallPanels",
+      "builtInCategory": "CurtainWallPanels",
+      "revitGroup": "건축 · 구조",
+      "ifcClass": "",
+      "noteKr": "",
+      "tradeIds": [],
+      "materialTypeIds": [],
+      "active": true
+    },
+    {
+      "id": "divisionprofile",
+      "revitCategoryUi": "DivisionProfile",
+      "builtInCategory": "DivisionProfile",
+      "revitGroup": "건축 · 구조",
+      "ifcClass": "",
+      "noteKr": "",
+      "tradeIds": [],
+      "materialTypeIds": [],
+      "active": true
+    },
+    {
+      "id": "electricalequipment",
+      "revitCategoryUi": "ElectricalEquipment",
+      "builtInCategory": "ElectricalEquipment",
+      "revitGroup": "건축 · 구조",
+      "ifcClass": "",
+      "noteKr": "",
+      "tradeIds": [],
+      "materialTypeIds": [],
+      "active": true
+    },
+    {
+      "id": "furnituresystems",
+      "revitCategoryUi": "FurnitureSystems",
+      "builtInCategory": "FurnitureSystems",
+      "revitGroup": "건축 · 구조",
+      "ifcClass": "",
+      "noteKr": "",
+      "tradeIds": [],
+      "materialTypeIds": [],
+      "active": true
+    },
+    {
+      "id": "genericmodel",
+      "revitCategoryUi": "GenericModel",
+      "builtInCategory": "GenericModel",
+      "revitGroup": "건축 · 구조",
+      "ifcClass": "",
+      "noteKr": "",
+      "tradeIds": [],
+      "materialTypeIds": [],
+      "active": true
+    },
+    {
+      "id": "lightingfixtures",
+      "revitCategoryUi": "LightingFixtures",
+      "builtInCategory": "LightingFixtures",
+      "revitGroup": "건축 · 구조",
+      "ifcClass": "",
+      "noteKr": "",
+      "tradeIds": [],
+      "materialTypeIds": [],
+      "active": true
+    },
+    {
+      "id": "mechanicalequipment",
+      "revitCategoryUi": "MechanicalEquipment",
+      "builtInCategory": "MechanicalEquipment",
+      "revitGroup": "건축 · 구조",
+      "ifcClass": "",
+      "noteKr": "",
+      "tradeIds": [],
+      "materialTypeIds": [],
+      "active": true
+    },
+    {
+      "id": "plumbingfixtures",
+      "revitCategoryUi": "PlumbingFixtures",
+      "builtInCategory": "PlumbingFixtures",
+      "revitGroup": "건축 · 구조",
+      "ifcClass": "",
+      "noteKr": "",
+      "tradeIds": [],
+      "materialTypeIds": [],
+      "active": true
+    },
+    {
+      "id": "shaftopenings",
+      "revitCategoryUi": "ShaftOpenings",
+      "builtInCategory": "ShaftOpenings",
+      "revitGroup": "건축 · 구조",
+      "ifcClass": "",
+      "noteKr": "",
+      "tradeIds": [],
+      "materialTypeIds": [],
+      "active": true
+    },
+    {
+      "id": "specialityequipment",
+      "revitCategoryUi": "SpecialityEquipment",
+      "builtInCategory": "SpecialityEquipment",
+      "revitGroup": "건축 · 구조",
+      "ifcClass": "",
+      "noteKr": "",
+      "tradeIds": [],
+      "materialTypeIds": [],
+      "active": true
+    },
+    {
+      "id": "stairslandings",
+      "revitCategoryUi": "StairsLandings",
+      "builtInCategory": "StairsLandings",
+      "revitGroup": "건축 · 구조",
+      "ifcClass": "",
+      "noteKr": "",
+      "tradeIds": [],
+      "materialTypeIds": [],
+      "active": true
+    },
+    {
+      "id": "stairssupports",
+      "revitCategoryUi": "StairsSupports",
+      "builtInCategory": "StairsSupports",
+      "revitGroup": "건축 · 구조",
+      "ifcClass": "",
+      "noteKr": "",
+      "tradeIds": [],
+      "materialTypeIds": [],
+      "active": true
+    },
+    {
+      "id": "structuralcolumns",
+      "revitCategoryUi": "StructuralColumns",
+      "builtInCategory": "StructuralColumns",
+      "revitGroup": "건축 · 구조",
+      "ifcClass": "",
+      "noteKr": "",
+      "tradeIds": [],
+      "materialTypeIds": [],
+      "active": true
+    },
+    {
+      "id": "structuralconnections",
+      "revitCategoryUi": "StructuralConnections",
+      "builtInCategory": "StructuralConnections",
+      "revitGroup": "건축 · 구조",
+      "ifcClass": "",
+      "noteKr": "",
+      "tradeIds": [],
+      "materialTypeIds": [],
+      "active": true
+    },
+    {
+      "id": "structuralfoundation",
+      "revitCategoryUi": "StructuralFoundation",
+      "builtInCategory": "StructuralFoundation",
+      "revitGroup": "건축 · 구조",
+      "ifcClass": "",
+      "noteKr": "",
+      "tradeIds": [],
+      "materialTypeIds": [],
+      "active": true
+    },
+    {
+      "id": "structuralframing",
+      "revitCategoryUi": "StructuralFraming",
+      "builtInCategory": "StructuralFraming",
+      "revitGroup": "건축 · 구조",
+      "ifcClass": "",
+      "noteKr": "",
+      "tradeIds": [],
+      "materialTypeIds": [],
+      "active": true
+    },
+    {
+      "id": "structuralstiffeners",
+      "revitCategoryUi": "StructuralStiffeners",
+      "builtInCategory": "StructuralStiffeners",
+      "revitGroup": "건축 · 구조",
+      "ifcClass": "",
+      "noteKr": "",
+      "tradeIds": [],
+      "materialTypeIds": [],
+      "active": true
+    },
+    {
+      "id": "analyticallink",
+      "revitCategoryUi": "AnalyticalLink",
+      "builtInCategory": "AnalyticalLink",
+      "revitGroup": "분석 · 기타",
+      "ifcClass": "",
+      "noteKr": "",
+      "tradeIds": [],
+      "materialTypeIds": [],
+      "active": true
+    },
+    {
+      "id": "analyticalmember",
+      "revitCategoryUi": "AnalyticalMember",
+      "builtInCategory": "AnalyticalMember",
+      "revitGroup": "분석 · 기타",
+      "ifcClass": "",
+      "noteKr": "",
+      "tradeIds": [],
+      "materialTypeIds": [],
+      "active": true
+    },
+    {
+      "id": "analyticalnodes",
+      "revitCategoryUi": "AnalyticalNodes",
+      "builtInCategory": "AnalyticalNodes",
+      "revitGroup": "분석 · 기타",
+      "ifcClass": "",
+      "noteKr": "",
+      "tradeIds": [],
+      "materialTypeIds": [],
+      "active": true
+    },
+    {
+      "id": "analyticalopening",
+      "revitCategoryUi": "AnalyticalOpening",
+      "builtInCategory": "AnalyticalOpening",
+      "revitGroup": "분석 · 기타",
+      "ifcClass": "",
+      "noteKr": "",
+      "tradeIds": [],
+      "materialTypeIds": [],
+      "active": true
+    },
+    {
+      "id": "analyticalpanel",
+      "revitCategoryUi": "AnalyticalPanel",
+      "builtInCategory": "AnalyticalPanel",
+      "revitGroup": "분석 · 기타",
+      "ifcClass": "",
+      "noteKr": "",
+      "tradeIds": [],
+      "materialTypeIds": [],
+      "active": true
+    },
+    {
+      "id": "audiovisualdevices",
+      "revitCategoryUi": "AudioVisualDevices",
+      "builtInCategory": "AudioVisualDevices",
+      "revitGroup": "분석 · 기타",
+      "ifcClass": "",
+      "noteKr": "",
+      "tradeIds": [],
+      "materialTypeIds": [],
+      "active": true
+    },
+    {
+      "id": "foodserviceequipment",
+      "revitCategoryUi": "FoodServiceEquipment",
+      "builtInCategory": "FoodServiceEquipment",
+      "revitGroup": "분석 · 기타",
+      "ifcClass": "",
+      "noteKr": "",
+      "tradeIds": [],
+      "materialTypeIds": [],
+      "active": true
+    },
+    {
+      "id": "importobjectstyles",
+      "revitCategoryUi": "ImportObjectStyles",
+      "builtInCategory": "ImportObjectStyles",
+      "revitGroup": "분석 · 기타",
+      "ifcClass": "",
+      "noteKr": "",
+      "tradeIds": [],
+      "materialTypeIds": [],
+      "active": true
+    },
+    {
+      "id": "internalloads",
+      "revitCategoryUi": "InternalLoads",
+      "builtInCategory": "InternalLoads",
+      "revitGroup": "분석 · 기타",
+      "ifcClass": "",
+      "noteKr": "",
+      "tradeIds": [],
+      "materialTypeIds": [],
+      "active": true
+    },
+    {
+      "id": "loads",
+      "revitCategoryUi": "Loads",
+      "builtInCategory": "Loads",
+      "revitGroup": "분석 · 기타",
+      "ifcClass": "",
+      "noteKr": "",
+      "tradeIds": [],
+      "materialTypeIds": [],
+      "active": true
+    },
+    {
+      "id": "medicalequipment",
+      "revitCategoryUi": "MedicalEquipment",
+      "builtInCategory": "MedicalEquipment",
+      "revitGroup": "분석 · 기타",
+      "ifcClass": "",
+      "noteKr": "",
+      "tradeIds": [],
+      "materialTypeIds": [],
+      "active": true
+    },
+    {
+      "id": "pointclouds",
+      "revitCategoryUi": "PointClouds",
+      "builtInCategory": "PointClouds",
+      "revitGroup": "분석 · 기타",
+      "ifcClass": "",
+      "noteKr": "",
+      "tradeIds": [],
+      "materialTypeIds": [],
+      "active": true
+    },
+    {
+      "id": "rasterimages",
+      "revitCategoryUi": "RasterImages",
+      "builtInCategory": "RasterImages",
+      "revitGroup": "분석 · 기타",
+      "ifcClass": "",
+      "noteKr": "",
+      "tradeIds": [],
+      "materialTypeIds": [],
+      "active": true
+    },
+    {
+      "id": "verticalcirculation",
+      "revitCategoryUi": "VerticalCirculation",
+      "builtInCategory": "VerticalCirculation",
+      "revitGroup": "분석 · 기타",
+      "ifcClass": "",
+      "noteKr": "",
+      "tradeIds": [],
+      "materialTypeIds": [],
+      "active": true
+    },
+    {
+      "id": "vibrationisolators",
+      "revitCategoryUi": "VibrationIsolators",
+      "builtInCategory": "VibrationIsolators",
+      "revitGroup": "분석 · 기타",
+      "ifcClass": "",
+      "noteKr": "",
+      "tradeIds": [],
+      "materialTypeIds": [],
+      "active": true
+    },
+    {
+      "id": "vibrationmanagement",
+      "revitCategoryUi": "VibrationManagement",
+      "builtInCategory": "VibrationManagement",
+      "revitGroup": "분석 · 기타",
+      "ifcClass": "",
+      "noteKr": "",
+      "tradeIds": [],
+      "materialTypeIds": [],
+      "active": true
+    },
+    {
+      "id": "grids",
+      "revitCategoryUi": "Grids",
+      "builtInCategory": "Grids",
+      "revitGroup": "좌표 · 참조",
+      "ifcClass": "",
+      "noteKr": "",
+      "tradeIds": [],
+      "materialTypeIds": [],
+      "active": true
+    },
+    {
+      "id": "internalarealoadtags",
+      "revitCategoryUi": "InternalAreaLoadTags",
+      "builtInCategory": "InternalAreaLoadTags",
+      "revitGroup": "좌표 · 참조",
+      "ifcClass": "",
+      "noteKr": "",
+      "tradeIds": [],
+      "materialTypeIds": [],
+      "active": true
+    },
+    {
+      "id": "levels",
+      "revitCategoryUi": "Levels",
+      "builtInCategory": "Levels",
+      "revitGroup": "좌표 · 참조",
+      "ifcClass": "",
+      "noteKr": "",
+      "tradeIds": [],
+      "materialTypeIds": [],
+      "active": true
+    },
+    {
+      "id": "projectbasepoint",
+      "revitCategoryUi": "ProjectBasePoint",
+      "builtInCategory": "ProjectBasePoint",
+      "revitGroup": "좌표 · 참조",
+      "ifcClass": "",
+      "noteKr": "",
+      "tradeIds": [],
+      "materialTypeIds": [],
+      "active": true
+    },
+    {
+      "id": "referencelines",
+      "revitCategoryUi": "ReferenceLines",
+      "builtInCategory": "ReferenceLines",
+      "revitGroup": "좌표 · 참조",
+      "ifcClass": "",
+      "noteKr": "",
+      "tradeIds": [],
+      "materialTypeIds": [],
+      "active": true
+    },
+    {
+      "id": "referencepoints",
+      "revitCategoryUi": "ReferencePoints",
+      "builtInCategory": "ReferencePoints",
+      "revitGroup": "좌표 · 참조",
+      "ifcClass": "",
+      "noteKr": "",
+      "tradeIds": [],
+      "materialTypeIds": [],
+      "active": true
+    },
+    {
+      "id": "sharedbasepoint",
+      "revitCategoryUi": "SharedBasePoint",
+      "builtInCategory": "SharedBasePoint",
+      "revitGroup": "좌표 · 참조",
+      "ifcClass": "",
+      "noteKr": "",
+      "tradeIds": [],
+      "materialTypeIds": [],
+      "active": true
+    },
+    {
+      "id": "spandirectionsymbol",
+      "revitCategoryUi": "SpanDirectionSymbol",
+      "builtInCategory": "SpanDirectionSymbol",
+      "revitGroup": "좌표 · 참조",
+      "ifcClass": "",
+      "noteKr": "",
+      "tradeIds": [],
+      "materialTypeIds": [],
+      "active": true
+    },
+    {
+      "id": "surveypoint",
+      "revitCategoryUi": "SurveyPoint",
+      "builtInCategory": "SurveyPoint",
+      "revitGroup": "좌표 · 참조",
+      "ifcClass": "",
+      "noteKr": "",
+      "tradeIds": [],
+      "materialTypeIds": [],
+      "active": true
+    },
+    {
+      "id": "areatags",
+      "revitCategoryUi": "AreaTags",
+      "builtInCategory": "AreaTags",
+      "revitGroup": "주석 · 태그",
+      "ifcClass": "",
+      "noteKr": "",
+      "tradeIds": [],
+      "materialTypeIds": [],
+      "active": true
+    },
+    {
+      "id": "callouts",
+      "revitCategoryUi": "Callouts",
+      "builtInCategory": "Callouts",
+      "revitGroup": "주석 · 태그",
+      "ifcClass": "",
+      "noteKr": "",
+      "tradeIds": [],
+      "materialTypeIds": [],
+      "active": true
+    },
+    {
+      "id": "cameras",
+      "revitCategoryUi": "Cameras",
+      "builtInCategory": "Cameras",
+      "revitGroup": "주석 · 태그",
+      "ifcClass": "",
+      "noteKr": "",
+      "tradeIds": [],
+      "materialTypeIds": [],
+      "active": true
+    },
+    {
+      "id": "detailcomponenttags",
+      "revitCategoryUi": "DetailComponentTags",
+      "builtInCategory": "DetailComponentTags",
+      "revitGroup": "주석 · 태그",
+      "ifcClass": "",
+      "noteKr": "",
+      "tradeIds": [],
+      "materialTypeIds": [],
+      "active": true
+    },
+    {
+      "id": "detailcomponents",
+      "revitCategoryUi": "DetailComponents",
+      "builtInCategory": "DetailComponents",
+      "revitGroup": "주석 · 태그",
+      "ifcClass": "",
+      "noteKr": "",
+      "tradeIds": [],
+      "materialTypeIds": [],
+      "active": true
+    },
+    {
+      "id": "dimensions",
+      "revitCategoryUi": "Dimensions",
+      "builtInCategory": "Dimensions",
+      "revitGroup": "주석 · 태그",
+      "ifcClass": "",
+      "noteKr": "",
+      "tradeIds": [],
+      "materialTypeIds": [],
+      "active": true
+    },
+    {
+      "id": "doortags",
+      "revitCategoryUi": "DoorTags",
+      "builtInCategory": "DoorTags",
+      "revitGroup": "주석 · 태그",
+      "ifcClass": "",
+      "noteKr": "",
+      "tradeIds": [],
+      "materialTypeIds": [],
+      "active": true
+    },
+    {
+      "id": "elevations",
+      "revitCategoryUi": "Elevations",
+      "builtInCategory": "Elevations",
+      "revitGroup": "주석 · 태그",
+      "ifcClass": "",
+      "noteKr": "",
+      "tradeIds": [],
+      "materialTypeIds": [],
+      "active": true
+    },
+    {
+      "id": "filledregion",
+      "revitCategoryUi": "FilledRegion",
+      "builtInCategory": "FilledRegion",
+      "revitGroup": "주석 · 태그",
+      "ifcClass": "",
+      "noteKr": "",
+      "tradeIds": [],
+      "materialTypeIds": [],
+      "active": true
+    },
+    {
+      "id": "floortags",
+      "revitCategoryUi": "FloorTags",
+      "builtInCategory": "FloorTags",
+      "revitGroup": "주석 · 태그",
+      "ifcClass": "",
+      "noteKr": "",
+      "tradeIds": [],
+      "materialTypeIds": [],
+      "active": true
+    },
+    {
+      "id": "genericannotation",
+      "revitCategoryUi": "GenericAnnotation",
+      "builtInCategory": "GenericAnnotation",
+      "revitGroup": "주석 · 태그",
+      "ifcClass": "",
+      "noteKr": "",
+      "tradeIds": [],
+      "materialTypeIds": [],
+      "active": true
+    },
+    {
+      "id": "gridheads",
+      "revitCategoryUi": "GridHeads",
+      "builtInCategory": "GridHeads",
+      "revitGroup": "주석 · 태그",
+      "ifcClass": "",
+      "noteKr": "",
+      "tradeIds": [],
+      "materialTypeIds": [],
+      "active": true
+    },
+    {
+      "id": "levelheads",
+      "revitCategoryUi": "LevelHeads",
+      "builtInCategory": "LevelHeads",
+      "revitGroup": "주석 · 태그",
+      "ifcClass": "",
+      "noteKr": "",
+      "tradeIds": [],
+      "materialTypeIds": [],
+      "active": true
+    },
+    {
+      "id": "maskingregion",
+      "revitCategoryUi": "MaskingRegion",
+      "builtInCategory": "MaskingRegion",
+      "revitGroup": "주석 · 태그",
+      "ifcClass": "",
+      "noteKr": "",
+      "tradeIds": [],
+      "materialTypeIds": [],
+      "active": true
+    },
+    {
+      "id": "mechanicalequipmenttags",
+      "revitCategoryUi": "MechanicalEquipmentTags",
+      "builtInCategory": "MechanicalEquipmentTags",
+      "revitGroup": "주석 · 태그",
+      "ifcClass": "",
+      "noteKr": "",
+      "tradeIds": [],
+      "materialTypeIds": [],
+      "active": true
+    },
+    {
+      "id": "multicategorytags",
+      "revitCategoryUi": "MultiCategoryTags",
+      "builtInCategory": "MultiCategoryTags",
+      "revitGroup": "주석 · 태그",
+      "ifcClass": "",
+      "noteKr": "",
+      "tradeIds": [],
+      "materialTypeIds": [],
+      "active": true
+    },
+    {
+      "id": "revisionclouds",
+      "revitCategoryUi": "RevisionClouds",
+      "builtInCategory": "RevisionClouds",
+      "revitGroup": "주석 · 태그",
+      "ifcClass": "",
+      "noteKr": "",
+      "tradeIds": [],
+      "materialTypeIds": [],
+      "active": true
+    },
+    {
+      "id": "rooftags",
+      "revitCategoryUi": "RoofTags",
+      "builtInCategory": "RoofTags",
+      "revitGroup": "주석 · 태그",
+      "ifcClass": "",
+      "noteKr": "",
+      "tradeIds": [],
+      "materialTypeIds": [],
+      "active": true
+    },
+    {
+      "id": "roomtags",
+      "revitCategoryUi": "RoomTags",
+      "builtInCategory": "RoomTags",
+      "revitGroup": "주석 · 태그",
+      "ifcClass": "",
+      "noteKr": "",
+      "tradeIds": [],
+      "materialTypeIds": [],
+      "active": true
+    },
+    {
+      "id": "sectionmarks",
+      "revitCategoryUi": "SectionMarks",
+      "builtInCategory": "SectionMarks",
+      "revitGroup": "주석 · 태그",
+      "ifcClass": "",
+      "noteKr": "",
+      "tradeIds": [],
+      "materialTypeIds": [],
+      "active": true
+    },
+    {
+      "id": "sections",
+      "revitCategoryUi": "Sections",
+      "builtInCategory": "Sections",
+      "revitGroup": "주석 · 태그",
+      "ifcClass": "",
+      "noteKr": "",
+      "tradeIds": [],
+      "materialTypeIds": [],
+      "active": true
+    },
+    {
+      "id": "spacetags",
+      "revitCategoryUi": "SpaceTags",
+      "builtInCategory": "SpaceTags",
+      "revitGroup": "주석 · 태그",
+      "ifcClass": "",
+      "noteKr": "",
+      "tradeIds": [],
+      "materialTypeIds": [],
+      "active": true
+    },
+    {
+      "id": "spotdimensions",
+      "revitCategoryUi": "SpotDimensions",
+      "builtInCategory": "SpotDimensions",
+      "revitGroup": "주석 · 태그",
+      "ifcClass": "",
+      "noteKr": "",
+      "tradeIds": [],
+      "materialTypeIds": [],
+      "active": true
+    },
+    {
+      "id": "stairstags",
+      "revitCategoryUi": "StairsTags",
+      "builtInCategory": "StairsTags",
+      "revitGroup": "주석 · 태그",
+      "ifcClass": "",
+      "noteKr": "",
+      "tradeIds": [],
+      "materialTypeIds": [],
+      "active": true
+    },
+    {
+      "id": "structuralcolumntags",
+      "revitCategoryUi": "StructuralColumnTags",
+      "builtInCategory": "StructuralColumnTags",
+      "revitGroup": "주석 · 태그",
+      "ifcClass": "",
+      "noteKr": "",
+      "tradeIds": [],
+      "materialTypeIds": [],
+      "active": true
+    },
+    {
+      "id": "structuralfoundationtags",
+      "revitCategoryUi": "StructuralFoundationTags",
+      "builtInCategory": "StructuralFoundationTags",
+      "revitGroup": "주석 · 태그",
+      "ifcClass": "",
+      "noteKr": "",
+      "tradeIds": [],
+      "materialTypeIds": [],
+      "active": true
+    },
+    {
+      "id": "structuralframingtags",
+      "revitCategoryUi": "StructuralFramingTags",
+      "builtInCategory": "StructuralFramingTags",
+      "revitGroup": "주석 · 태그",
+      "ifcClass": "",
+      "noteKr": "",
+      "tradeIds": [],
+      "materialTypeIds": [],
+      "active": true
+    },
+    {
+      "id": "tags",
+      "revitCategoryUi": "Tags",
+      "builtInCategory": "Tags",
+      "revitGroup": "주석 · 태그",
+      "ifcClass": "",
+      "noteKr": "",
+      "tradeIds": [],
+      "materialTypeIds": [],
+      "active": true
+    },
+    {
+      "id": "textnotes",
+      "revitCategoryUi": "TextNotes",
+      "builtInCategory": "TextNotes",
+      "revitGroup": "주석 · 태그",
+      "ifcClass": "",
+      "noteKr": "",
+      "tradeIds": [],
+      "materialTypeIds": [],
+      "active": true
+    },
+    {
+      "id": "viewers",
+      "revitCategoryUi": "Viewers",
+      "builtInCategory": "Viewers",
+      "revitGroup": "주석 · 태그",
+      "ifcClass": "",
+      "noteKr": "",
+      "tradeIds": [],
+      "materialTypeIds": [],
+      "active": true
+    },
+    {
+      "id": "walltags",
+      "revitCategoryUi": "WallTags",
+      "builtInCategory": "WallTags",
+      "revitGroup": "주석 · 태그",
+      "ifcClass": "",
+      "noteKr": "",
+      "tradeIds": [],
+      "materialTypeIds": [],
+      "active": true
+    },
+    {
+      "id": "windowtags",
+      "revitCategoryUi": "WindowTags",
+      "builtInCategory": "WindowTags",
+      "revitGroup": "주석 · 태그",
+      "ifcClass": "",
+      "noteKr": "",
+      "tradeIds": [],
+      "materialTypeIds": [],
+      "active": true
+    }
+  ]
+}

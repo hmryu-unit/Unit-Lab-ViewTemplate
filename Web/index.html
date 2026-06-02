@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>UnitLab View Template Preset</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header>
+    <h1>UnitLab View Template</h1>
+    <p class="subtitle">
+      <strong>① 베이스 VT</strong> → <strong>② 하위 VT</strong> → <strong>③ V/G 체크리스트</strong> → <strong>④ Preset JSON → Revit 생성</strong>
+    </p>
+  </header>
+
+  <nav class="tabs" role="tablist">
+    <button type="button" class="tab active" data-tab="workflow">① 도면 템플릿</button>
+    <button type="button" class="tab" data-tab="categories">② 카테고리 · 공종</button>
+    <button type="button" class="tab" data-tab="checklist">③ V/G 체크리스트</button>
+  </nav>
+
+  <!-- 워크플로: 베이스 → 하위 → Revit -->
+  <section id="panel-workflow" class="panel active">
+    <div class="toolbar">
+      <button type="button" id="wfBtnSave" class="primary">브라우저에 저장</button>
+      <button type="button" id="btnLoadDeployedSeed">최신 시드 불러오기</button>
+      <button type="button" id="wfBtnReset">기본 예시 복원</button>
+      <button type="button" id="wfBtnAddBase">베이스 VT 추가</button>
+      <button type="button" id="wfBtnAddChild">하위 VT 추가</button>
+      <button type="button" id="wfBtnDel">삭제</button>
+      <button type="button" id="wfBtnEditVg">③ V/G 편집으로</button>
+      <button type="button" id="wfBtnExportPreset" class="primary">④ Preset JSON</button>
+      <button type="button" id="wfBtnExportAll">전체 Preset보내기</button>
+      <button type="button" id="wfBtnFillBuiltin">builtIn 자동 채우기</button>
+      <span class="muted" id="wfStatus"></span>
+    </div>
+    <div class="wf-layout">
+      <aside class="card wf-tree-card">
+        <h2>View Template 트리</h2>
+        <p class="hint">베이스(면적 평면 등) 아래에 하위 도면(방화구획 등)을 둡니다.</p>
+        <div id="wfTree" class="wf-tree"></div>
+      </aside>
+      <div class="card wf-detail-card" id="wfDetail">
+        <p class="hint">왼쪽에서 템플릿을 선택하세요.</p>
+      </div>
+    </div>
+    <p class="hint wf-revit-hint">
+      <strong>localStorage</strong>는 브라우저 초안입니다. 배포·Git과 맞출 때 <strong>최신 시드 불러오기</strong> 후 편집·JSON 다운로드·커밋하세요.
+      Revit: <strong>Preset 생성</strong> / <strong>Preset 갱신</strong>으로 JSON 적용.
+      API: <code>View.CreateViewTemplate()</code> —
+      <a href="docs/REVIT-API-VIEW-TEMPLATE.md">연동 가이드</a> ·
+      <a href="docs/VIEW-TEMPLATE-WORKFLOW.md">워크플로 설계</a>
+    </p>
+  </section>
+
+  <!-- 카테고리 · 공종 · 자재 유형 -->
+  <section id="panel-categories" class="panel">
+    <div class="toolbar">
+      <button type="button" id="crBtnSave" class="primary">브라우저에 저장</button>
+      <button type="button" id="crBtnReset">기본값 복원</button>
+      <button type="button" id="crBtnSyncChecklist">체크리스트에서 가져오기</button>
+      <button type="button" id="crBtnFillBuiltin">builtIn 자동 채우기</button>
+      <button type="button" id="crBtnAddCategory">카테고리 추가</button>
+      <button type="button" id="crBtnExport">JSON 다운로드</button>
+      <label class="file-btn">
+        JSON 가져오기
+        <input type="file" id="crImportInput" accept=".json,application/json" hidden />
+      </label>
+      <span class="muted" id="crStatus"></span>
+    </div>
+
+    <div class="registry-masters">
+      <section class="card registry-card">
+        <div class="card-header">
+          <h2>공종</h2>
+          <button type="button" id="crBtnAddTrade">공종 추가</button>
+        </div>
+        <p class="hint">UnitLab 공종 코드. 카테고리에 복수 연결 가능 (Ctrl+클릭).</p>
+        <div class="table-wrap registry-master-wrap">
+          <table class="registry-master-table">
+            <thead>
+              <tr><th>코드</th><th>이름</th><th>순서</th><th></th></tr>
+            </thead>
+            <tbody id="crTradesBody"></tbody>
+          </table>
+        </div>
+      </section>
+      <section class="card registry-card">
+        <div class="card-header">
+          <h2>자재 유형</h2>
+          <button type="button" id="crBtnAddMat">자재 유형 추가</button>
+        </div>
+        <p class="hint">자재 분류 마스터. 카테고리와 N:M 연결합니다.</p>
+        <div class="table-wrap registry-master-wrap">
+          <table class="registry-master-table">
+            <thead>
+              <tr><th>코드</th><th>이름</th><th>순서</th><th></th></tr>
+            </thead>
+            <tbody id="crMatsBody"></tbody>
+          </table>
+        </div>
+      </section>
+    </div>
+
+    <div class="card wide registry-card-main">
+      <div class="card-header">
+        <h2>Revit Category 매핑</h2>
+        <div class="header-actions">
+          <input type="search" id="crSearch" placeholder="카테고리·API·IFC 검색…" />
+          <select id="crGroupFilter" title="Revit 그룹">
+            <option value="">전체 Revit 그룹</option>
+          </select>
+          <select id="crTradeFilter" title="공종">
+            <option value="">전체 공종</option>
+          </select>
+          <select id="crMatFilter" title="자재 유형">
+            <option value="">전체 자재 유형</option>
+          </select>
+          <label class="inline-check">
+            <input type="checkbox" id="crUnmappedOnly" />
+            미연결만
+          </label>
+          <label class="inline-check">
+            <input type="checkbox" id="crInactiveOnly" />
+            비활성만
+          </label>
+        </div>
+      </div>
+      <p class="hint">
+        <strong>Revit Category (UI)</strong>는 V/G 체크리스트 표기,
+        <strong>builtInCategory</strong>는 Preset/Revit API용.
+        그룹 셀 더블클릭으로 Revit 그룹명 수정.
+      </p>
+      <div class="table-wrap registry-wrap">
+        <table class="registry-table">
+          <thead>
+            <tr>
+              <th>Revit 그룹</th>
+              <th>Category (UI)</th>
+              <th>builtInCategory</th>
+              <th>공종</th>
+              <th>자재 유형</th>
+              <th>IFC Class</th>
+              <th>메모</th>
+              <th>사용</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody id="crBody"></tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <!-- V/G IFC 체크리스트 -->
+  <section id="panel-checklist" class="panel">
+    <div class="toolbar">
+      <button type="button" id="clBtnSave" class="primary">브라우저에 저장</button>
+      <button type="button" id="clBtnReset">기본값 복원</button>
+      <button type="button" id="clBtnSyncVt">VT 목록 동기화</button>
+      <button type="button" id="clBtnAdd">카탈로그 행 추가</button>
+      <button type="button" id="clBtnExportPreset" class="primary">④ Preset JSON</button>
+      <button type="button" id="clBtnExportCsv">CSV 다운로드</button>
+      <button type="button" id="clBtnExportJson">체크리스트 JSON</button>
+      <label class="file-btn">
+        CSV 가져오기
+        <input type="file" id="clCsvInput" accept=".csv,text/csv" hidden />
+      </label>
+      <span class="muted" id="clStatus"></span>
+    </div>
+    <div class="card wide checklist-card">
+      <div class="card-header">
+        <h2>Revit V/G · IFC 체크리스트</h2>
+        <div class="header-actions">
+          <label class="vt-select-label">편집할 도면 템플릿
+            <select id="clVtSelect" class="vt-select"></select>
+          </label>
+          <input type="search" id="clSearch" placeholder="카테고리·IFC·API 검색…" />
+          <select id="clGroupFilter" title="그룹 필터">
+            <option value="">전체 그룹</option>
+          </select>
+          <label class="inline-check">
+            <input type="checkbox" id="clOnlyChanged" />
+            변경된 항목만
+          </label>
+          <label class="inline-check">
+            <input type="checkbox" id="clImportantOnly" />
+            중요(Y)만
+          </label>
+        </div>
+      </div>
+      <p class="hint">
+        ① <strong>도면 템플릿</strong>에서 만든 각 View Template마다 Revit Category별 <strong>ON · HT · % · 재지정</strong>(선·면·패턴)을 설정합니다.
+        「③ V/G 편집으로」로 선택한 VT가 자동으로 열립니다. builtInCategory는 ② 카테고리·공종 탭에서 연결합니다.
+      </p>
+      <div class="table-wrap checklist-wrap">
+        <table id="clTable" class="checklist-table cl-vg-table">
+          <thead>
+            <tr>
+              <th>Group</th>
+              <th>Revit Category</th>
+              <th>builtInCategory</th>
+              <th>IFC</th>
+              <th>중요</th>
+              <th>ON</th>
+              <th>HT</th>
+              <th>%</th>
+              <th>재지정</th>
+              <th>요약</th>
+            </tr>
+          </thead>
+          <tbody id="clBody"></tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <p>
+      카테고리 매핑: <code>category-registry.json</code> · Preset API: <code>categories.json</code> ·
+      V/G 체크리스트: <code>vg-checklist.json</code> ·
+      VT 트리: <code>template-library.json</code> ·
+      Revit API: <code>docs/REVIT-API-VIEW-TEMPLATE.md</code> ·
+      워크플로: <code>docs/VIEW-TEMPLATE-WORKFLOW.md</code>
+    </p>
+  </footer>
+
+  <script src="vg-checklist-data.js"></script>
+  <script src="category-registry-data.js"></script>
+  <script src="ui-to-builtin-data.js"></script>
+  <script src="template-library-data.js"></script>
+  <script src="vg-graphics.js"></script>
+  <script src="category-registry.js"></script>
+  <script src="template-workflow.js"></script>
+  <script src="vg-checklist.js"></script>
+  <script src="tabs.js"></script>
+  <script src="seed-loader.js"></script>
+</body>
+</html>

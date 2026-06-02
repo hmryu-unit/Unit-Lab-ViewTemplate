@@ -1,0 +1,62 @@
+﻿TEMPLATES 23
+  Architectural Elevation (1): ['∞₧àδ⌐┤δÅä']
+  Architectural Plan (2): ['φÅëδ⌐┤δÅä', 'φÅë, ∞₧à, δï¿δ⌐┤∞âü∞ä╕δÅä']
+  Architectural Reflected Ceiling Plan (1): ['∞▓£∞₧Ñ φÅëδ⌐┤δÅä']
+  Architectural Section (2): ['δï¿δ⌐┤δÅä', 'φÅë, ∞₧à, δï¿δ⌐┤∞âü∞ä╕δÅä']
+  Foundation Plan (2): ['Ω╕░∞┤ê φÅëδ⌐┤δÅä', '∞òÖ∞╣┤δ│╝φè╕ φÅëδ⌐┤δÅä']
+  Mechanical Plan_Fire (1): ['∞åîδ░⌐∞äñδ╣ä φÅëδ⌐┤δÅä']
+  Mechanical Plan_HVAC (1): ['Ω│╡∞í░∞äñδ╣ä φÅëδ⌐┤δÅä']
+  Mechanical Plan_Lighting (1): ['∞áäδô▒∞äñδ╣ä φÅëδ⌐┤δÅä']
+  Mechanical Plan_Lighting Wiring (1): ['∞áäδô▒∞äñδ╣ä δ░░∞äáδÅä']
+  Mechanical Plan_Plumbing (1): ['∞£ä∞â¥δ░░Ω┤Ç φÅëδ⌐┤δÅä']
+  Mechanical Plan_Power (1): ['∞áä∞ù┤∞äñδ╣ä φÅëδ⌐┤δÅä']
+  Scheme Plan (3): ['δï¿∞ù┤φ¥í∞¥î Ω│äφÜìδÅä', 'δ░⌐∞êÿ Ω│äφÜìδÅä', '∞Ü░δ░░∞êÿ Ω│äφÜìδÅä']
+  Scheme Plan_Area (1): ['δ⌐┤∞áü∞é░∞╢£Ω╖╝Ω▒░φæ£']
+  Scheme Plan_FireProtection (1): ['δ░⌐φÖöΩ╡¼φÜì Ω│äφÜìδÅä']
+  Scheme Plan_Slab (1): ['δ░öδïÑ φîÉδä¼ φÅëδ⌐┤δÅä']
+  Scheme Plan_Traffic (1): ['∞ú╝∞░¿Ω│äφÜìδÅä']
+  Scheme Plan_Wall (1): ['δ▓╜∞▓┤δ╢Çφÿ╕φÅëδ⌐┤δÅä']
+  Scheme Plan_Window (1): ['∞░╜φÿ╕δ╢Çφÿ╕φÅëδ⌐┤δÅä']
+  Site Plan (1): ['δ░░∞╣ÿδÅä']
+  Structural Elevation (1): ['Ω╡¼∞í░ ∞₧àδ⌐┤δÅä']
+  Structural Plan (1): ['Ω╡¼∞í░ φÅëδ⌐┤δÅä']
+  Structural Plan_Lower (1): ['δ░öδïÑ Ω╡¼∞í░ φÅëδ⌐┤δÅä']
+  Structural Plan_Upper (1): ['∞ºÇδ╢ò Ω╡¼∞í░ φÅëδ⌐┤δÅä']
+
+PROPOSED_BASES 10
+  Base_ArchElevation: templates=['Architectural Elevation']
+  Base_ArchPlan: templates=['Architectural Plan']
+  Base_ArchRCP: templates=['Architectural Reflected Ceiling Plan']
+  Base_ArchSection: templates=['Architectural Section']
+  Base_FoundationPlan: templates=['Foundation Plan']
+  Base_MechanicalPlan: templates=['Mechanical Plan_Fire', 'Mechanical Plan_HVAC', 'Mechanical Plan_Lighting', 'Mechanical Plan_Lighting Wiring', 'Mechanical Plan_Plumbing', 'Mechanical Plan_Power']
+  Base_SchemePlan: templates=['Scheme Plan', 'Scheme Plan_Area', 'Scheme Plan_FireProtection', 'Scheme Plan_Slab', 'Scheme Plan_Traffic', 'Scheme Plan_Wall', 'Scheme Plan_Window']
+  Base_SitePlan: templates=['Site Plan']
+  Base_StructuralElevation: templates=['Structural Elevation']
+  Base_StructuralPlan: templates=['Structural Plan', 'Structural Plan_Lower', 'Structural Plan_Upper']
+
+NO_TEMPLATE 24
+  [A00 Ω│╡φå╡] Ω▒┤∞╢òδÅäδ⌐┤ φæ£∞ºÇ owned=Yes
+  [A00 Ω│╡φå╡] δÅäδ⌐┤δ¬⌐δí¥φæ£ owned=Yes
+  [A00 Ω│╡φå╡] φê¼∞ï£δÅä owned=No
+  [A00 Ω│╡φå╡] Ω▒┤∞╢ò∞¥╝δ░ÿ∞é¼φò¡ owned=No
+  [A10 Ω░£∞Üö] Ω▒┤∞╢òΩ░£∞Üö owned=No
+  [A20 δºêΩ░É] ∞ïñδé┤∞₧¼δúîδºêΩ░Éφæ£ owned=No
+  [A20 δºêΩ░É] ∞ïñδé┤∞₧¼δúîδºêΩ░É∞âü∞ä╕δÅä owned=No
+  [A20 δºêΩ░É] ∞ïñ∞Ö╕∞₧¼δúîδºêΩ░Éφæ£ owned=No
+  [A20 δºêΩ░É] ∞ïñ∞Ö╕∞₧¼δúîδºêΩ░É∞âü∞ä╕δÅä owned=No
+  [A30 Ω╕░δ│╕] δé┤δ╢Ç φÅëδ⌐┤δÅä owned=No
+  [A30 Ω╕░δ│╕] ∞ºÇδ╢ò φÅëδ⌐┤δÅä owned=No
+  [A40 δ╢Çδ╢ä] δ▓╜∞▓┤ ∞âü∞ä╕δÅä owned=No
+  [A40 δ╢Çδ╢ä] δ░öδïÑ ∞âü∞ä╕δÅä owned=No
+  [A40 δ╢Çδ╢ä] ∞▓£∞₧Ñ ∞âü∞ä╕δÅä owned=No
+  [A50 ∞░╜φÿ╕] ∞░╜φÿ╕/δ¼╕ ∞¥╝δ░ÿ∞é¼φò¡ owned=No
+  [A50 ∞░╜φÿ╕] ∞░╜φÿ╕∞¥╝δ₧îφæ£ owned=No
+  [A90 δ¼╝δƒë] ∞₧É∞₧¼ δ¼╝δƒëφæ£ owned=No
+  [M00 ∞¥╝δ░ÿ] ∞äñδ╣ä ∞¥╝δ░ÿ∞é¼φò¡ owned=No
+  [M00 ∞¥╝δ░ÿ] ∞äñδ╣äδÅäδ⌐┤ φæ£∞ºÇ owned=No
+  [M90 δ¼╝δƒë] ∞äñδ╣ä δ¼╝δƒëφæ£ owned=No
+  [S00 ∞¥╝δ░ÿ] Ω╡¼∞í░δÅäδ⌐┤ φæ£∞ºÇ owned=No
+  [S00 ∞¥╝δ░ÿ] φòÿδ╢Ç φÿòΩ░ò Ω░ÇΩ│╡δÅä owned=No
+  [S00 ∞¥╝δ░ÿ] ∞âüδ╢Ç φÿòΩ░ò Ω░ÇΩ│╡δÅä owned=No
+  [S90 δ¼╝δƒë] Ω╡¼∞í░ δ¼╝δƒëφæ£ owned=No

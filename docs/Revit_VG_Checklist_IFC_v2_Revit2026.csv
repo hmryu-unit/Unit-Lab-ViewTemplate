@@ -1,0 +1,117 @@
+﻿Group,Revit Category,IFC Class,중요(Y/N),ARCH (ON/OFF),ARCH Halftone,ARCH Transp(%),STR (ON/OFF),STR Halftone,STR Transp(%),MEP (ON/OFF),MEP Halftone,MEP Transp(%),COORD (ON/OFF),COORD Halftone,COORD Transp(%),Note (KR)
+Architecture,Walls,IfcWall / IfcWallType,Y,ON,N,0,OFF,-,-,OFF,-,-,ON,N,0,건축 벽체
+Architecture,Curtain Walls,IfcCurtainWall,Y,ON,N,0,OFF,-,-,OFF,-,-,ON,N,0,커튼월
+Architecture,Curtain Panels,IfcPlate (CURTAIN_PANEL),Y,ON,N,0,OFF,-,-,OFF,-,-,ON,N,25,커튼월 패널
+Architecture,Curtain Wall Mullions,IfcMember (MULLION),Y,ON,N,0,OFF,-,-,OFF,-,-,ON,N,0,멀리언
+Architecture,Floors,IfcSlab / IfcSlabType,Y,ON,N,0,ON,Y,0,OFF,-,-,ON,N,0,건축 바닥
+Architecture,Slab Edges,IfcSlab (sub),N,ON,N,0,OFF,-,-,OFF,-,-,ON,N,0,슬래브 엣지 (호스트 슬래브 종속)
+Architecture,Roofs,IfcRoof / IfcRoofType,Y,ON,N,0,OFF,-,-,OFF,-,-,ON,N,0,지붕
+Architecture,Roof Soffits,IfcCovering,N,ON,N,0,OFF,-,-,OFF,-,-,ON,N,0,처마 밑면
+Architecture,Fascias,IfcCovering,N,ON,N,0,OFF,-,-,OFF,-,-,ON,N,0,처마판
+Architecture,Gutters,IfcCovering,N,ON,N,0,OFF,-,-,OFF,-,-,ON,N,0,홈통
+Architecture,Ceilings,IfcCovering (CEILING),Y,ON,N,0,OFF,-,-,ON,Y,50,ON,N,0,천장 (MEP에서 halftone)
+Architecture,Doors,IfcDoor / IfcDoorType,Y,ON,N,0,OFF,-,-,OFF,-,-,ON,N,0,문
+Architecture,Windows,IfcWindow / IfcWindowType,Y,ON,N,0,OFF,-,-,OFF,-,-,ON,N,25,창문
+Architecture,Stairs,IfcStair / IfcStairType,Y,ON,N,0,ON,Y,0,OFF,-,-,ON,N,0,계단
+Architecture,Stair Supports,IfcStairFlight (sub),N,ON,N,0,ON,Y,0,OFF,-,-,ON,N,0,계단 지지부
+Architecture,Railings,IfcRailing / IfcRailingType,Y,ON,N,0,OFF,-,-,OFF,-,-,ON,N,0,난간
+Architecture,Ramps,IfcRamp / IfcRampType,Y,ON,N,0,ON,Y,0,OFF,-,-,ON,N,0,램프
+Architecture,Columns,IfcColumn (건축),Y,ON,N,0,OFF,-,-,OFF,-,-,ON,N,0,건축 마감기둥
+Architecture,Wall Sweeps,IfcBuildingElementPart,N,ON,N,0,OFF,-,-,OFF,-,-,ON,N,0,벽 스윕 (걸레받이 등)
+Architecture,Reveals,IfcBuildingElementPart,N,ON,N,0,OFF,-,-,OFF,-,-,ON,N,0,리빌 (벽 음각)
+Architecture,Casework,IfcFurniture,Y,ON,N,0,OFF,-,-,OFF,-,-,ON,Y,0,붙박이 가구
+Architecture,Furniture,IfcFurniture / IfcFurnitureType,Y,ON,N,0,OFF,-,-,OFF,-,-,ON,Y,0,가구
+Architecture,Furniture Systems,IfcSystemFurnitureElement,Y,ON,N,0,OFF,-,-,OFF,-,-,ON,Y,0,시스템 가구
+Architecture,Planting,IfcGeographicElement,N,ON,N,0,OFF,-,-,OFF,-,-,ON,Y,50,식재
+Architecture,Entourage,IfcBuildingElementProxy,N,ON,N,25,OFF,-,-,OFF,-,-,OFF,-,-,환경요소 (인물/차량)
+Architecture,Site,IfcSite,Y,ON,N,0,OFF,-,-,OFF,-,-,ON,Y,50,부지
+Architecture,Toposolid,IfcGeographicElement / IfcSite,Y,ON,N,0,OFF,-,-,OFF,-,-,ON,Y,50,⭐ Revit 2024+ 지형 (Toposurface 대체)
+Architecture,Parking,IfcTransportElement,N,ON,N,0,OFF,-,-,OFF,-,-,ON,N,0,주차구획
+Architecture,Roads,IfcRoad,N,ON,N,0,OFF,-,-,OFF,-,-,ON,Y,0,도로
+Architecture,Mass,IfcBuildingElementProxy,N,OFF,-,-,OFF,-,-,OFF,-,-,OFF,-,-,매스 (계획설계 단계만)
+Structure,Structural Columns,IfcColumn / IfcColumnType,Y,ON,Y,0,ON,N,0,OFF,-,-,ON,N,0,구조 기둥
+Structure,Structural Framing,IfcBeam / IfcBeamType,Y,ON,Y,0,ON,N,0,OFF,-,-,ON,N,0,구조 보
+Structure,Structural Foundations,IfcFooting / IfcFootingType,Y,OFF,-,-,ON,N,0,OFF,-,-,ON,Y,0,기초
+Structure,Structural Trusses,IfcBeam,Y,OFF,-,-,ON,N,0,OFF,-,-,ON,N,0,트러스
+Structure,Structural Stiffeners,IfcPlate,N,OFF,-,-,ON,N,0,OFF,-,-,OFF,-,-,스티프너
+Structure,Structural Connections,IfcMechanicalFastener,Y,OFF,-,-,ON,N,0,OFF,-,-,OFF,-,-,구조 접합부
+Structure,Structural Tendons,IfcTendon,N,OFF,-,-,ON,N,0,OFF,-,-,OFF,-,-,프리스트레스 텐던
+Structure,Structural Rebar,IfcReinforcingBar,Y,OFF,-,-,ON,N,0,OFF,-,-,OFF,-,-,철근
+Structure,Structural Path Reinforcement,IfcReinforcingBar,N,OFF,-,-,ON,N,0,OFF,-,-,OFF,-,-,패스 보강근
+Structure,Structural Area Reinforcement,IfcReinforcingMesh,N,OFF,-,-,ON,N,0,OFF,-,-,OFF,-,-,면 보강근
+Structure,Structural Fabric Reinforcement,IfcReinforcingMesh,N,OFF,-,-,ON,N,0,OFF,-,-,OFF,-,-,와이어메쉬
+Structure,Structural Fabric Areas,IfcReinforcingMesh,N,OFF,-,-,ON,N,0,OFF,-,-,OFF,-,-,와이어메쉬 영역
+Structure,Rebar Cover,IfcCovering,N,OFF,-,-,ON,N,0,OFF,-,-,OFF,-,-,철근 피복
+Structure,Structural Beam Systems,IfcBeam (Group),N,OFF,-,-,ON,N,0,OFF,-,-,OFF,-,-,보 시스템
+MEP - Mechanical,Mechanical Equipment,IfcUnitaryEquipment / IfcBoiler / IfcChiller / IfcFan / IfcPump,Y,OFF,-,-,OFF,-,-,ON,N,0,ON,N,0,기계 장비
+MEP - Mechanical,Mechanical Control Devices,IfcController / IfcActuator,N,OFF,-,-,OFF,-,-,ON,N,0,ON,N,0,기계 제어장치
+MEP - Mechanical,Ducts,IfcDuctSegment / IfcDuctSegmentType,Y,OFF,-,-,OFF,-,-,ON,N,0,ON,N,0,덕트
+MEP - Mechanical,Duct Fittings,IfcDuctFitting,Y,OFF,-,-,OFF,-,-,ON,N,0,ON,N,0,덕트 피팅
+MEP - Mechanical,Duct Accessories,IfcDamper / IfcDuctSilencer / IfcFlowMeter,Y,OFF,-,-,OFF,-,-,ON,N,0,ON,N,0,덕트 액세서리
+MEP - Mechanical,Duct Insulations,IfcCovering (INSULATION),N,OFF,-,-,OFF,-,-,ON,Y,50,OFF,-,-,덕트 단열
+MEP - Mechanical,Duct Linings,IfcCovering,N,OFF,-,-,OFF,-,-,ON,Y,50,OFF,-,-,덕트 라이닝
+MEP - Mechanical,Duct Placeholders,IfcDuctSegment,N,OFF,-,-,OFF,-,-,ON,Y,0,OFF,-,-,덕트 플레이스홀더
+MEP - Mechanical,Flex Ducts,IfcDuctSegment (FLEXIBLESEGMENT),Y,OFF,-,-,OFF,-,-,ON,N,0,ON,N,0,플렉스 덕트
+MEP - Mechanical,Air Terminals,IfcAirTerminal / IfcAirTerminalType,Y,OFF,-,-,OFF,-,-,ON,N,0,ON,N,0,디퓨저/그릴
+MEP - Mechanical,MEP Fabrication Ductwork,IfcDuctSegment,N,OFF,-,-,OFF,-,-,ON,N,0,ON,N,0,패브리케이션 덕트
+MEP - Mechanical,MEP Fabrication Hangers,IfcDiscreteAccessory (HANGER),N,OFF,-,-,OFF,-,-,ON,N,0,OFF,-,-,행거
+MEP - Plumbing,Pipes,IfcPipeSegment / IfcPipeSegmentType,Y,OFF,-,-,OFF,-,-,ON,N,0,ON,N,0,배관
+MEP - Plumbing,Pipe Fittings,IfcPipeFitting,Y,OFF,-,-,OFF,-,-,ON,N,0,ON,N,0,배관 피팅
+MEP - Plumbing,Pipe Accessories,IfcValve / IfcFlowMeter / IfcFilter,Y,OFF,-,-,OFF,-,-,ON,N,0,ON,N,0,배관 액세서리
+MEP - Plumbing,Pipe Insulations,IfcCovering (INSULATION),N,OFF,-,-,OFF,-,-,ON,Y,50,OFF,-,-,배관 단열
+MEP - Plumbing,Pipe Placeholders,IfcPipeSegment,N,OFF,-,-,OFF,-,-,ON,Y,0,OFF,-,-,배관 플레이스홀더
+MEP - Plumbing,Flex Pipes,IfcPipeSegment (FLEXIBLESEGMENT),Y,OFF,-,-,OFF,-,-,ON,N,0,ON,N,0,플렉스 배관
+MEP - Plumbing,Plumbing Fixtures,IfcSanitaryTerminal / IfcSanitaryTerminalType,Y,ON,Y,0,OFF,-,-,ON,N,0,ON,N,0,위생기구
+MEP - Plumbing,Sprinklers,IfcFireSuppressionTerminal,Y,OFF,-,-,OFF,-,-,ON,N,0,ON,N,0,스프링클러
+MEP - Plumbing,MEP Fabrication Pipework,IfcPipeSegment,N,OFF,-,-,OFF,-,-,ON,N,0,ON,N,0,패브리케이션 배관
+MEP - Electrical,Electrical Equipment,IfcElectricDistributionBoard / IfcTransformer,Y,OFF,-,-,OFF,-,-,ON,N,0,ON,N,0,전기 장비
+MEP - Electrical,Electrical Fixtures,IfcOutlet / IfcElectricAppliance,Y,OFF,-,-,OFF,-,-,ON,N,0,ON,N,0,전기 기구
+MEP - Electrical,Electrical Circuits,IfcDistributionCircuit,N,OFF,-,-,OFF,-,-,ON,N,0,OFF,-,-,전기 회로 (도면용)
+MEP - Electrical,Lighting Fixtures,IfcLightFixture / IfcLightFixtureType,Y,ON,Y,0,OFF,-,-,ON,N,0,ON,N,0,조명기구
+MEP - Electrical,Lighting Devices,IfcLightFixture,Y,OFF,-,-,OFF,-,-,ON,N,0,ON,N,0,조명 디바이스
+MEP - Electrical,Cable Trays,IfcCableCarrierSegment,Y,OFF,-,-,OFF,-,-,ON,N,0,ON,N,0,케이블 트레이
+MEP - Electrical,Cable Tray Fittings,IfcCableCarrierFitting,Y,OFF,-,-,OFF,-,-,ON,N,0,ON,N,0,케이블 트레이 피팅
+MEP - Electrical,Conduits,IfcCableCarrierSegment (CONDUITSEGMENT),Y,OFF,-,-,OFF,-,-,ON,N,0,ON,N,0,전선관
+MEP - Electrical,Conduit Fittings,IfcCableCarrierFitting,Y,OFF,-,-,OFF,-,-,ON,N,0,ON,N,0,전선관 피팅
+MEP - Electrical,Wires,IfcCableSegment,N,OFF,-,-,OFF,-,-,ON,N,0,OFF,-,-,전선 (도면용)
+MEP - Electrical,Communication Devices,IfcCommunicationsAppliance,Y,OFF,-,-,OFF,-,-,ON,N,0,ON,N,0,통신 장비
+MEP - Electrical,Data Devices,IfcCommunicationsAppliance,Y,OFF,-,-,OFF,-,-,ON,N,0,ON,N,0,데이터 장비
+MEP - Electrical,Telephone Devices,IfcCommunicationsAppliance,N,OFF,-,-,OFF,-,-,ON,N,0,ON,N,0,전화
+MEP - Electrical,Audio Visual Devices,IfcAudioVisualAppliance,N,OFF,-,-,OFF,-,-,ON,N,0,ON,N,0,⭐ Revit 2024+ AV 장비
+MEP - Electrical,Fire Alarm Devices,IfcAlarm,Y,OFF,-,-,OFF,-,-,ON,N,0,ON,N,0,화재경보
+MEP - Electrical,Security Devices,IfcAlarm,N,OFF,-,-,OFF,-,-,ON,N,0,ON,N,0,보안 장비
+MEP - Electrical,Nurse Call Devices,IfcAlarm,N,OFF,-,-,OFF,-,-,ON,N,0,ON,N,0,너스콜
+MEP - Electrical,Switch System,IfcSwitchingDevice,N,OFF,-,-,OFF,-,-,ON,N,0,OFF,-,-,스위치 시스템
+MEP - Electrical,MEP Fabrication Containment,IfcCableCarrierSegment,N,OFF,-,-,OFF,-,-,ON,N,0,ON,N,0,패브리케이션 컨테인먼트
+MEP - Electrical,Vertical Conveyor Systems,IfcTransportElement,N,ON,Y,0,ON,Y,0,ON,N,0,ON,N,0,수직 운송 시스템
+Spatial,Rooms,IfcSpace (SPACE),Y,ON,N,75,OFF,-,-,OFF,-,-,ON,Y,75,실 (Color Fill용)
+Spatial,Spaces,IfcSpace (INTERNAL),Y,OFF,-,-,OFF,-,-,ON,N,75,ON,Y,75,MEP 공간
+Spatial,Areas,IfcSpace (또는 제외),Y,ON,N,75,OFF,-,-,OFF,-,-,ON,Y,75,면적
+Spatial,MEP Spaces,IfcSpace,N,OFF,-,-,OFF,-,-,ON,N,75,ON,Y,75,MEP 분석용 공간
+Spatial,HVAC Zones,IfcZone,N,OFF,-,-,OFF,-,-,ON,N,75,OFF,-,-,HVAC 존
+Spatial,Piping Systems,IfcDistributionSystem,N,OFF,-,-,OFF,-,-,ON,N,0,OFF,-,-,배관 시스템
+Spatial,Duct Systems,IfcDistributionSystem,N,OFF,-,-,OFF,-,-,ON,N,0,OFF,-,-,덕트 시스템
+Infrastructure,Bridges,IfcBridge,N,OFF,-,-,ON,N,0,OFF,-,-,ON,Y,0,교량 (인프라 프로젝트만)
+Infrastructure,Bridge Decks,IfcBridgePart (DECK),N,OFF,-,-,ON,N,0,OFF,-,-,ON,Y,0,교량 슬래브
+Infrastructure,Bridge Abutments,IfcBridgePart (ABUTMENT),N,OFF,-,-,ON,N,0,OFF,-,-,ON,Y,0,교대
+Infrastructure,Bridge Piers,IfcBridgePart (PIER),N,OFF,-,-,ON,N,0,OFF,-,-,ON,Y,0,교각
+Infrastructure,Bridge Towers,IfcBridgePart (PYLON),N,OFF,-,-,ON,N,0,OFF,-,-,ON,Y,0,주탑
+Infrastructure,Bridge Cables,IfcTendon,N,OFF,-,-,ON,N,0,OFF,-,-,ON,Y,0,교량 케이블
+Infrastructure,Bridge Framing,IfcBeam,N,OFF,-,-,ON,N,0,OFF,-,-,ON,Y,0,교량 프레임
+Infrastructure,Approach Slabs,IfcBridgePart,N,OFF,-,-,ON,N,0,OFF,-,-,ON,Y,0,진입 슬래브
+Infrastructure,Bearings,IfcBearing,N,OFF,-,-,ON,N,0,OFF,-,-,ON,Y,0,교량 받침
+Infrastructure,Expansion Joints,IfcBuildingElementProxy,N,OFF,-,-,ON,N,0,OFF,-,-,ON,Y,0,신축이음
+Infrastructure,Vibration Management,IfcVibrationIsolator,N,OFF,-,-,ON,N,0,OFF,-,-,OFF,-,-,진동 관리
+General,Generic Models,IfcBuildingElementProxy,Y,ON,N,0,ON,N,0,ON,N,0,ON,N,0,일반 모델 (IfcExportAs 권장)
+General,Specialty Equipment,IfcBuildingElementProxy / IfcMedicalDevice,Y,ON,Y,0,OFF,-,-,ON,N,0,ON,N,0,특수 장비
+General,Food Service Equipment,IfcBuildingElementProxy,N,ON,N,0,OFF,-,-,ON,Y,50,ON,N,0,주방 장비
+General,Medical Equipment,IfcMedicalDevice,N,ON,N,0,OFF,-,-,ON,N,0,ON,N,0,의료 장비
+General,Vertical Circulation,IfcTransportElement,Y,ON,N,0,ON,Y,0,OFF,-,-,ON,N,0,엘리베이터/에스컬레이터
+General,Parts,원본 카테고리 상속,N,ON,N,0,ON,N,0,ON,N,0,ON,N,0,파트 (Part)
+General,Assemblies,IfcElementAssembly,N,ON,N,0,ON,N,0,ON,N,0,ON,N,0,어셈블리
+General,Shaft Openings,IfcOpeningElement,Y,ON,Y,0,ON,Y,0,ON,N,0,ON,N,0,샤프트 (MEP 코디네이션 핵심)
+Links,RVT Links,(link 처리),Y,ON,Y,0,ON,Y,0,ON,Y,0,ON,N,0,Revit 링크 (타분야는 halftone)
+Links,DWG Links / Imports in Families,(CAD 처리),N,ON,Y,0,ON,Y,0,ON,Y,0,ON,N,0,CAD 링크/임포트
+Links,Coordination Model,(NWD/NWC),N,OFF,-,-,OFF,-,-,OFF,-,-,ON,Y,25,좌표 모델 (NWD) - 2026 강화
+Links,Point Clouds,(제외),N,ON,Y,50,ON,Y,50,ON,Y,50,ON,Y,50,포인트 클라우드
+Links,Raster Images,(제외),N,OFF,-,-,OFF,-,-,OFF,-,-,OFF,-,-,래스터 이미지

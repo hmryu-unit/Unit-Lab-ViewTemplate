@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RevitAddIns>
+  <AddIn Type="Application">
+    <Name>UnitLab View Template</Name>
+    <Assembly>UnitLab.ViewTemplate\UnitLab.ViewTemplate.dll</Assembly>
+    <AddInId>7c8f9a2b-4d1e-4f3a-9b2c-1a0e5f6d7c8b</AddInId>
+    <FullClassName>UnitLab.ViewTemplate.Application</FullClassName>
+    <VendorId>UNTL</VendorId>
+    <VendorDescription>UnitLab</VendorDescription>
+  </AddIn>
+</RevitAddIns>
