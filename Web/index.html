@@ -229,12 +229,13 @@
       ─────────────────────────────────────────── -->
       <section id="panel-categories" class="panel" role="tabpanel">
 
+        <!-- ═══ 패널 헤더 ═══ -->
         <div class="panel-header-area">
           <div class="panel-title-row">
             <div class="panel-project-icon" style="background:linear-gradient(135deg,#DD6B20,#9C4221);">CR</div>
             <div class="panel-title-info">
-              <h2>카테고리 · 공종 매핑</h2>
-              <div class="panel-title-desc">Revit Category와 builtInCategory를 연결하고, 공종·자재 유형을 매핑합니다.</div>
+              <h2>Revit Category 매핑</h2>
+              <div class="panel-title-desc">Revit Category ↔ builtInCategory 연결 및 공종·자재·공정 매핑 DB</div>
             </div>
             <div class="panel-title-actions">
               <div class="avatar-group">
@@ -248,25 +249,25 @@
           <div class="panel-tabs-row">
             <nav class="panel-view-tabs">
               <button class="view-tab active">
-                <span class="tab-icon">≡</span> List
+                <span class="tab-icon">≡</span> Category DB
               </button>
-              <button class="view-tab">
-                <span class="tab-icon">⊞</span> Masters
+              <button class="view-tab" id="crMasterToggle">
+                <span class="tab-icon">⊞</span> 공종·자재 관리
               </button>
             </nav>
             <div class="panel-tab-actions">
               <div class="search-box">
-                <input type="search" id="crSearch" placeholder="카테고리·API·IFC…" style="width:200px;" />
+                <input type="search" id="crSearch" placeholder="카테고리·builtIn·IFC…" style="width:210px;" />
               </div>
               <button id="crBtnSave" class="btn-icon">💾 저장</button>
             </div>
           </div>
         </div>
 
-        <!-- 액션바 -->
+        <!-- ═══ 액션바 ═══ -->
         <div class="action-bar">
           <div class="action-group">
-            <button id="crBtnReset">↺ 초기화</button>
+            <button id="crBtnReset" title="기본 예시로 복원">↺ 초기화</button>
           </div>
           <div class="action-sep"></div>
           <div class="action-group">
@@ -282,7 +283,7 @@
           <span class="status-text" id="crStatus"></span>
         </div>
 
-        <!-- 필터바 -->
+        <!-- ═══ 필터바 ═══ -->
         <div class="filter-row">
           <select id="crGroupFilter" style="min-width:130px;">
             <option value="">전체 그룹</option>
@@ -296,75 +297,105 @@
           <select id="crProcessFilter" style="min-width:110px;">
             <option value="">전체 공정</option>
           </select>
-          <label class="inline-check"><input type="checkbox" id="crUnmappedOnly" /> 미연결</label>
-          <label class="inline-check"><input type="checkbox" id="crInactiveOnly" /> 비활성</label>
+          <label class="inline-check"><input type="checkbox" id="crUnmappedOnly" /> 미연결만</label>
+          <label class="inline-check"><input type="checkbox" id="crInactiveOnly" /> 비활성만</label>
         </div>
 
-        <div class="panel-body">
+        <!-- ═══ 패널 본문 ═══ -->
+        <div class="panel-body cr-panel-body">
 
-          <!-- 공종 / 자재 유형 마스터 -->
-          <div class="masters-grid">
-            <div class="card">
-              <div class="card-head">
-                <div class="card-head-left"><h3>공종</h3></div>
-                <div class="card-head-actions">
-                  <button id="crBtnAddTrade">＋ 추가</button>
+          <!-- ── 공종·자재 마스터 패널 (접힘/펼침) ── -->
+          <div id="crMastersWrap" class="cr-masters-wrap">
+            <div class="masters-grid">
+
+              <!-- 공종 마스터 -->
+              <div class="card">
+                <div class="card-head">
+                  <div class="card-head-left">
+                    <h3>공종 마스터</h3>
+                    <span class="card-head-sub">Trade categories</span>
+                  </div>
+                  <div class="card-head-actions">
+                    <button id="crBtnAddTrade">＋ 추가</button>
+                  </div>
+                </div>
+                <div class="table-wrap master-table-wrap">
+                  <table class="registry-master-table">
+                    <thead>
+                      <tr><th>코드</th><th>이름</th><th></th></tr>
+                    </thead>
+                    <tbody id="crTradesBody"></tbody>
+                  </table>
                 </div>
               </div>
-              <div class="table-wrap master-table-wrap">
-                <table class="registry-master-table">
-                  <thead><tr><th>코드</th><th>이름</th><th>순서</th><th></th></tr></thead>
-                  <tbody id="crTradesBody"></tbody>
-                </table>
-              </div>
-            </div>
 
-            <div class="card">
-              <div class="card-head">
-                <div class="card-head-left"><h3>자재 유형</h3></div>
-                <div class="card-head-actions">
-                  <button id="crBtnAddMat">＋ 추가</button>
+              <!-- 자재 유형 마스터 -->
+              <div class="card">
+                <div class="card-head">
+                  <div class="card-head-left">
+                    <h3>자재 유형 마스터</h3>
+                    <span class="card-head-sub">Material types</span>
+                  </div>
+                  <div class="card-head-actions">
+                    <button id="crBtnAddMat">＋ 추가</button>
+                  </div>
+                </div>
+                <div class="table-wrap master-table-wrap">
+                  <table class="registry-master-table">
+                    <thead>
+                      <tr><th>코드</th><th>이름</th><th></th></tr>
+                    </thead>
+                    <tbody id="crMatsBody"></tbody>
+                  </table>
                 </div>
               </div>
-              <div class="table-wrap master-table-wrap">
-                <table class="registry-master-table">
-                  <thead><tr><th>코드</th><th>이름</th><th>순서</th><th></th></tr></thead>
-                  <tbody id="crMatsBody"></tbody>
-                </table>
+
+            </div><!-- /.masters-grid -->
+          </div><!-- /#crMastersWrap -->
+
+          <!-- ── Revit Category DB 테이블 (메인) ── -->
+          <div class="card cr-db-card">
+            <div class="card-head cr-db-card-head">
+              <div class="card-head-left">
+                <h3>Revit Category DB</h3>
+                <span class="card-head-sub">행 클릭 → 슬라이드 패널에서 매핑 편집</span>
+              </div>
+              <div class="card-head-actions">
+                <span class="cr-col-legend">
+                  <span class="cr-legend-dot" style="background:var(--brand)"></span>공종
+                  <span class="cr-legend-dot" style="background:var(--green);margin-left:.5rem"></span>자재
+                  <span class="cr-legend-dot" style="background:var(--amber);margin-left:.5rem"></span>공정
+                </span>
               </div>
             </div>
-          </div>
-
-          <!-- Revit Category 매핑 -->
-          <div class="card">
-            <div class="card-head">
-              <div class="card-head-left"><h3>Revit Category 매핑</h3></div>
-            </div>
-            <div class="table-wrap registry-wrap">
-              <table class="registry-table">
+            <div class="table-wrap cr-registry-wrap">
+              <table class="cr-registry-table">
                 <thead>
                   <tr>
-                    <th>Revit 그룹</th>
-                    <th>Category (UI)</th>
-                    <th>builtInCategory</th>
-                    <th>공종</th>
-                    <th>자재 유형</th>
-                    <th>모듈러 공정</th>
-                    <th>IFC Class</th>
-                    <th>메모</th>
-                    <th>사용</th>
-                    <th></th>
+                    <th class="cr-cell-check">
+                      <input type="checkbox" id="crCheckAll" title="전체 선택" />
+                    </th>
+                    <th class="cr-cell-name">Category (UI)</th>
+                    <th class="cr-cell-bic">builtInCategory</th>
+                    <th class="cr-cell-trades">공종</th>
+                    <th class="cr-cell-mats">자재</th>
+                    <th class="cr-cell-proc">공정</th>
+                    <th class="cr-cell-status">상태</th>
+                    <th class="cr-cell-action"></th>
                   </tr>
                 </thead>
                 <tbody id="crBody"></tbody>
               </table>
             </div>
-          </div>
+          </div><!-- /.cr-db-card -->
 
-          <!-- 공정 DB -->
+          <!-- ── 공정 DB ── -->
           <div class="card">
             <div class="card-head">
-              <div class="card-head-left"><h3>모듈러 공정 DB</h3></div>
+              <div class="card-head-left">
+                <h3>모듈러 공정 DB</h3>
+                <span class="card-head-sub">Process hierarchy</span>
+              </div>
               <div class="card-head-actions">
                 <button id="crBtnReloadProcess">↺ 복원</button>
                 <label class="inline-check"><input type="checkbox" id="crProcessGroupOnly" /> 공정군만</label>
@@ -386,7 +417,12 @@
             </div>
           </div>
 
-        </div>
+        </div><!-- /.panel-body -->
+
+        <!-- ═══ 슬라이드오버 (패널 안, body 오버레이) ═══ -->
+        <div id="crDetailOverlay" class="cr-detail-overlay"></div>
+        <div id="crDetailPanel"  class="cr-detail-panel"></div>
+
       </section>
 
 
