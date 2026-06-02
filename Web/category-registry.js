@@ -4,8 +4,8 @@
 (function () {
   const STORAGE_KEY = "unitlab-category-registry-v1";
 
-  /** @type {{ schemaVersion: number, updatedAt: string, trades: object[], materialTypes: object[], categories: object[] }} */
-  let state = { schemaVersion: 1, updatedAt: "", trades: [], materialTypes: [], categories: [] };
+  /** @type {{ schemaVersion: number, updatedAt: string, trades: object[], materialTypes: object[], categories: object[], processes: object[] }} */
+  let state = { schemaVersion: 2, updatedAt: "", trades: [], materialTypes: [], categories: [], processes: [] };
 
   let dirty = false;
 
@@ -16,6 +16,7 @@
     groupFilter: document.getElementById("crGroupFilter"),
     tradeFilter: document.getElementById("crTradeFilter"),
     matFilter: document.getElementById("crMatFilter"),
+    processFilter: document.getElementById("crProcessFilter"),
     unmappedOnly: document.getElementById("crUnmappedOnly"),
     inactiveOnly: document.getElementById("crInactiveOnly"),
     tbody: document.getElementById("crBody"),
@@ -36,8 +37,15 @@
 
   function loadDefault() {
     const raw = window.CATEGORY_REGISTRY_DEFAULT;
-    if (!raw?.categories) return { schemaVersion: 1, updatedAt: "", trades: [], materialTypes: [], categories: [] };
-    return structuredClone(raw);
+    if (!raw?.categories) {
+      return { schemaVersion: 2, updatedAt: "", trades: [], materialTypes: [], categories: [], processes: [] };
+    }
+    const data = structuredClone(raw);
+    data.schemaVersion = 2;
+    if (!Array.isArray(data.processes) || !data.processes.length) {
+      data.processes = structuredClone(window.PROCESS_DATABASE_DEFAULT?.processes ?? []);
+    }
+    return data;
   }
 
   function loadStorage() {
@@ -46,6 +54,10 @@
       if (!raw) return null;
       const data = JSON.parse(raw);
       if (!Array.isArray(data.categories)) return null;
+      if (!Array.isArray(data.processes)) {
+        data.processes = structuredClone(window.PROCESS_DATABASE_DEFAULT?.processes ?? []);
+      }
+      data.schemaVersion = 2;
       return data;
     } catch {
       return null;
@@ -141,6 +153,26 @@
     return [...new Set(state.categories.map((c) => c.revitGroup).filter(Boolean))].sort();
   }
 
+  /** 공정군 필터 시 하위 세부 공정에 연결된 카테고리도 포함 */
+  function categoryMatchesProcess(cat, processId) {
+    if (!processId) return true;
+    const ids = cat.processIds ?? [];
+    if (ids.includes(processId)) return true;
+    const proc = (state.processes ?? []).find((p) => p.id === processId);
+    if (proc?.level !== "group") return false;
+    const descendants = new Set();
+    function collect(parentId) {
+      for (const p of state.processes ?? []) {
+        if (p.parentId === parentId) {
+          descendants.add(p.id);
+          collect(p.id);
+        }
+      }
+    }
+    collect(processId);
+    return ids.some((id) => descendants.has(id));
+  }
+
   function refreshFilters() {
     const g = els.groupFilter.value;
     els.groupFilter.innerHTML =
@@ -163,8 +195,9 @@
 
   function updateStatus() {
     const mapped = state.categories.filter((c) => c.tradeIds?.length && c.materialTypeIds?.length).length;
+    const procN = state.processes?.length ?? 0;
     const suffix = dirty ? " · 저장 안 됨" : " · 저장됨";
-    els.status.textContent = `카테고리 ${state.categories.length} · 공종·자재 모두 연결 ${mapped}건${suffix}`;
+    els.status.textContent = `카테고리 ${state.categories.length} · 공정 ${procN} · 공종·자재 연결 ${mapped}건${suffix}`;
   }
 
   function multiSelectOptions(items, selectedIds, dataAttr) {
@@ -182,6 +215,7 @@
     const group = els.groupFilter.value;
     const tradeId = els.tradeFilter.value;
     const matId = els.matFilter.value;
+    const processId = els.processFilter?.value;
     const unmapped = els.unmappedOnly.checked;
     const inactiveOnly = els.inactiveOnly.checked;
 
@@ -190,6 +224,7 @@
     if (group && cat.revitGroup !== group) return false;
     if (tradeId && !(cat.tradeIds ?? []).includes(tradeId)) return false;
     if (matId && !(cat.materialTypeIds ?? []).includes(matId)) return false;
+    if (!categoryMatchesProcess(cat, processId)) return false;
     if (unmapped && (cat.tradeIds?.length && cat.materialTypeIds?.length)) return false;
     if (!search) return true;
     const hay = [cat.revitCategoryUi, cat.builtInCategory, cat.revitGroup, cat.ifcClass, cat.noteKr]
@@ -279,6 +314,9 @@
         <td>
           <select multiple class="cr-multi" data-cat-field="materialTypeIds" title="Ctrl+클릭 다중 선택">${multiSelectOptions(mats, cat.materialTypeIds)}</select>
         </td>
+        <td>
+          <select multiple class="cr-multi" data-cat-field="processIds" title="모듈러 공정 (Ctrl+클릭)">${window.ProcessRegistry?.processOptionsHtml?.(state, cat.processIds, false) ?? ""}</select>
+        </td>
         <td><input type="text" data-cat-field="ifcClass" value="${escapeAttr(cat.ifcClass)}" class="wide-in" /></td>
         <td><input type="text" data-cat-field="noteKr" value="${escapeAttr(cat.noteKr)}" class="wide-in" /></td>
         <td class="cr-active-cell">
@@ -290,7 +328,7 @@
       tr.querySelectorAll("[data-cat-field]").forEach((el) => {
         const field = el.dataset.catField;
         const apply = () => {
-          if (field === "tradeIds" || field === "materialTypeIds") {
+          if (field === "tradeIds" || field === "materialTypeIds" || field === "processIds") {
             cat[field] = [...el.selectedOptions].map((o) => o.value);
           } else if (field === "active") {
             cat.active = el.checked;
@@ -331,7 +369,7 @@
 
     if (!visible) {
       const tr = document.createElement("tr");
-      tr.innerHTML = '<td colspan="9" class="empty-row">조건에 맞는 카테고리가 없습니다.</td>';
+      tr.innerHTML = '<td colspan="10" class="empty-row">조건에 맞는 카테고리가 없습니다.</td>';
       els.tbody.appendChild(tr);
     }
     updateStatus();
@@ -341,6 +379,7 @@
     refreshFilters();
     renderMasters();
     renderCategories();
+    window.ProcessRegistry?.render?.();
   }
 
   function addTrade() {
@@ -388,6 +427,7 @@
       noteKr: "",
       tradeIds: [],
       materialTypeIds: [],
+      processIds: [],
       active: true,
     });
     markDirty();
@@ -426,6 +466,7 @@
         noteKr: row.noteKr ?? "",
         tradeIds: guessTradesFromGroup(row.group),
         materialTypeIds: [],
+        processIds: [],
         active: true,
       };
       state.categories.push(cat);
@@ -527,6 +568,10 @@
   els.groupFilter?.addEventListener("change", renderCategories);
   els.tradeFilter?.addEventListener("change", renderCategories);
   els.matFilter?.addEventListener("change", renderCategories);
+  els.processFilter?.addEventListener("change", () => {
+    renderCategories();
+    window.ProcessRegistry?.render?.();
+  });
   els.unmappedOnly?.addEventListener("change", renderCategories);
   els.inactiveOnly?.addEventListener("change", renderCategories);
 
@@ -536,6 +581,10 @@
     const { persist = false } = options;
     if (!Array.isArray(data?.categories)) throw new Error("category-registry 형식이 아닙니다.");
     state = structuredClone(data);
+    if (!Array.isArray(state.processes) || !state.processes.length) {
+      state.processes = structuredClone(window.PROCESS_DATABASE_DEFAULT?.processes ?? []);
+    }
+    state.schemaVersion = 2;
     dirty = false;
     if (persist) saveStorage();
     else localStorage.removeItem(STORAGE_KEY);
@@ -545,6 +594,7 @@
   window.CategoryRegistry = {
     refresh: render,
     getState: () => state,
+    markDirty,
     tradeMap,
     matMap,
     applyDeployedSeed,

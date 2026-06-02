@@ -157,6 +157,10 @@
       return;
     }
     const parent = node.parentId ? nodeById(node.parentId) : null;
+    const crState = window.CategoryRegistry?.getState?.();
+    const processOpts =
+      window.ProcessRegistry?.processOptionsHtml?.(crState, node.processId ? [node.processId] : [], false) ??
+      "";
     els.detail.innerHTML = `
       <h3>${escapeHtml(node.name)}</h3>
       <p class="hint">${escapeHtml(node.description || "")}</p>
@@ -185,6 +189,12 @@
           <select data-f="viewType">
             <option value="FloorPlan" ${node.viewType === "FloorPlan" ? "selected" : ""}>FloorPlan</option>
             <option value="CeilingPlan" ${node.viewType === "CeilingPlan" ? "selected" : ""}>CeilingPlan</option>
+          </select>
+        </label>
+        <label>관련 모듈러 공정
+          <select data-f="processId">
+            <option value="">(없음)</option>
+            ${processOpts}
           </select>
         </label>
         <label>discipline <input type="text" data-f="discipline" value="${escapeHtml(node.properties?.discipline ?? "")}" /></label>
@@ -226,6 +236,8 @@
           node.inheritParentVg = el.checked;
         } else if (f === "viewType") {
           node.viewType = el.value;
+        } else if (f === "processId") {
+          node.processId = el.value || null;
         } else if (f === "discipline" || f === "detailLevel") {
           node.properties = node.properties ?? {};
           node.properties[f] = el.value;

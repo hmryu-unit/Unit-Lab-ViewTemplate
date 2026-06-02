@@ -18,6 +18,11 @@
       url: "vg-checklist.json",
       fallback: () => window.VG_CHECKLIST_DEFAULT,
     },
+    {
+      key: "processDb",
+      url: "process-database.json",
+      fallback: () => window.PROCESS_DATABASE_DEFAULT,
+    },
   ];
 
   async function fetchSeed(url, fallback) {
@@ -59,6 +64,10 @@
     }
     if (!seeds.checklist?.rows) {
       throw new Error("vg-checklist 시드를 읽을 수 없습니다.");
+    }
+    if (seeds.processDb?.processes?.length) {
+      seeds.registry = seeds.registry ?? {};
+      seeds.registry.processes = seeds.processDb.processes;
     }
 
     window.CategoryRegistry?.applyDeployedSeed?.(seeds.registry, { persist });

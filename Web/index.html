@@ -117,6 +117,9 @@
           <select id="crMatFilter" title="자재 유형">
             <option value="">전체 자재 유형</option>
           </select>
+          <select id="crProcessFilter" title="모듈러 공정 (공정군)">
+            <option value="">전체 공정</option>
+          </select>
           <label class="inline-check">
             <input type="checkbox" id="crUnmappedOnly" />
             미연결만
@@ -131,6 +134,7 @@
         <strong>Revit Category (UI)</strong>는 V/G 체크리스트 표기,
         <strong>builtInCategory</strong>는 Preset/Revit API용.
         그룹 셀 더블클릭으로 Revit 그룹명 수정.
+        <strong>모듈러 공정</strong>은 <code>docs/공정 DB</code> CSV에서 가져온 선후행·공종 연결입니다.
       </p>
       <div class="table-wrap registry-wrap">
         <table class="registry-table">
@@ -141,6 +145,7 @@
               <th>builtInCategory</th>
               <th>공종</th>
               <th>자재 유형</th>
+              <th>모듈러 공정</th>
               <th>IFC Class</th>
               <th>메모</th>
               <th>사용</th>
@@ -150,6 +155,42 @@
           <tbody id="crBody"></tbody>
         </table>
       </div>
+    </div>
+
+    <div class="process-layout">
+      <section class="card wide process-card">
+        <div class="card-header">
+          <h2>모듈러 공정 DB</h2>
+          <div class="header-actions">
+            <button type="button" id="crBtnReloadProcess">공정 시드 복원</button>
+            <label class="inline-check">
+              <input type="checkbox" id="crProcessGroupOnly" />
+              공정군만
+            </label>
+          </div>
+        </div>
+        <p class="hint">
+          Notion 공정 DB CSV 기준 계층·선후행·연결 공종.
+          행 클릭 시 상세. 카테고리 매핑은 위 표의 「모듈러 공정」 열에서 연결합니다.
+        </p>
+        <div class="table-wrap process-wrap">
+          <table class="process-table">
+            <thead>
+              <tr>
+                <th>공정명</th>
+                <th>구분</th>
+                <th>선행</th>
+                <th>후속</th>
+                <th>연결 공종</th>
+              </tr>
+            </thead>
+            <tbody id="crProcessesBody"></tbody>
+          </table>
+        </div>
+      </section>
+      <aside class="card process-detail-card" id="crProcessDetail">
+        <p class="hint">공정 행을 클릭하면 설명·선후행·연결 공종을 표시합니다.</p>
+      </aside>
     </div>
   </section>
 
@@ -218,7 +259,7 @@
 
   <footer>
     <p>
-      카테고리 매핑: <code>category-registry.json</code> · Preset API: <code>categories.json</code> ·
+      카테고리 매핑: <code>category-registry.json</code> · 공정 DB: <code>process-database.json</code> · Preset API: <code>categories.json</code> ·
       V/G 체크리스트: <code>vg-checklist.json</code> ·
       VT 트리: <code>template-library.json</code> ·
       Revit API: <code>docs/REVIT-API-VIEW-TEMPLATE.md</code> ·
@@ -228,10 +269,12 @@
 
   <script src="vg-checklist-data.js"></script>
   <script src="category-registry-data.js"></script>
+  <script src="process-database-data.js"></script>
   <script src="ui-to-builtin-data.js"></script>
   <script src="template-library-data.js"></script>
   <script src="vg-graphics.js"></script>
   <script src="category-registry.js"></script>
+  <script src="process-registry.js"></script>
   <script src="template-workflow.js"></script>
   <script src="vg-checklist.js"></script>
   <script src="tabs.js"></script>
