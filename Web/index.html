@@ -10,45 +10,39 @@
 
 <div class="app-shell">
 
-  <!-- ═══ 탑바 ═══ -->
-  <header class="topbar">
-    <div class="topbar-logo">
-      <div class="topbar-logo-icon">UL</div>
-      <div class="topbar-logo-text">
-        <div class="topbar-logo-title">UnitLab VT</div>
-        <div class="topbar-logo-sub">View Template Preset</div>
-      </div>
-    </div>
-
-    <nav class="topbar-flow" aria-label="작업 흐름">
-      <button class="flow-chip active" data-tab="workflow">
-        <span class="chip-num">1</span> 도면 템플릿
-      </button>
-      <span class="flow-sep">→</span>
-      <button class="flow-chip" data-tab="categories">
-        <span class="chip-num">2</span> 카테고리·공종
-      </button>
-      <span class="flow-sep">→</span>
-      <button class="flow-chip" data-tab="checklist">
-        <span class="chip-num">3</span> V/G 체크리스트
-      </button>
-      <span class="flow-sep">→</span>
-      <span class="flow-chip" style="cursor:default;opacity:.5">
-        <span class="chip-num">4</span> Preset JSON
-      </span>
-    </nav>
-
-    <div class="topbar-right">
-      <div class="dirty-badge" id="globalDirtyBadge" title="저장되지 않은 변경사항이 있습니다">
-        ⚠ 저장 안 됨
-      </div>
-    </div>
-  </header>
-
   <!-- ═══ 사이드바 ═══ -->
   <aside class="sidebar">
+
+    <!-- 프로필 헤더 -->
+    <div class="sidebar-profile">
+      <div class="sidebar-profile-avatar">UL</div>
+      <div class="sidebar-profile-info">
+        <div class="sidebar-profile-name">UnitLab VT</div>
+        <div class="sidebar-profile-sub">View Template Preset</div>
+      </div>
+      <span class="sidebar-profile-caret">⌄</span>
+    </div>
+
+    <!-- 메인 메뉴 -->
     <div class="sidebar-section">
-      <div class="sidebar-section-label">워크스페이스</div>
+      <div class="sidebar-section-label">Main Menu</div>
+
+      <button class="nav-item">
+        <span class="nav-item-icon">🔍</span>
+        <span class="nav-item-label">검색</span>
+      </button>
+
+      <button class="nav-item" id="btnLoadDeployedSeed">
+        <span class="nav-item-icon">🔄</span>
+        <span class="nav-item-label">최신 시드 불러오기</span>
+      </button>
+    </div>
+
+    <div class="sidebar-divider"></div>
+
+    <!-- 워크스페이스 -->
+    <div class="sidebar-section">
+      <div class="sidebar-section-label">My Pages</div>
 
       <button class="nav-item active" data-tab="workflow">
         <span class="nav-item-icon">🗂</span>
@@ -69,326 +63,432 @@
       </button>
     </div>
 
-    <div class="sidebar-divider"></div>
-
-    <div class="sidebar-section">
-      <div class="sidebar-section-label">빠른 실행</div>
-      <button class="nav-item" id="btnLoadDeployedSeed">
-        <span class="nav-item-icon">🔄</span>
-        <span class="nav-item-label">최신 시드 불러오기</span>
-      </button>
-    </div>
-
+    <!-- 사이드바 하단 보안 배너 -->
     <div class="sidebar-footer">
-      <div class="sidebar-hint">
-        <a href="docs/REVIT-API-VIEW-TEMPLATE.md" target="_blank">Revit API 가이드</a><br>
-        <a href="docs/VIEW-TEMPLATE-WORKFLOW.md" target="_blank">워크플로 설계</a>
+      <div class="sidebar-security-card">
+        <button class="sidebar-security-close" id="btnDismissSecurity" title="닫기">✕</button>
+        <div class="sidebar-security-icon">🛡</div>
+        <div class="sidebar-security-title">문서 참고 자료</div>
+        <div class="sidebar-security-desc">Revit API 연동 가이드와 워크플로 설계 문서를 확인하세요.</div>
+        <a href="docs/REVIT-API-VIEW-TEMPLATE.md" target="_blank">
+          <button class="btn-primary" style="width:100%;justify-content:center;font-size:.76rem;">📄 Revit API 가이드</button>
+        </a>
+        <a href="docs/VIEW-TEMPLATE-WORKFLOW.md" target="_blank" style="display:block;margin-top:.4rem;text-align:center;font-size:.7rem;color:var(--tx-4);">워크플로 설계 문서</a>
       </div>
     </div>
   </aside>
 
-  <!-- ═══ 메인 ═══ -->
-  <main class="main-content">
+  <!-- ═══ 메인 래퍼 (탑바 + 컨텐츠) ═══ -->
+  <div class="main-wrapper">
 
-    <!-- ────────────────────────────────────────
-         ① 도면 템플릿 워크플로
-    ─────────────────────────────────────────── -->
-    <section id="panel-workflow" class="panel active" role="tabpanel">
-
-      <div class="panel-header">
-        <div class="panel-title">
-          <h2>도면 템플릿 트리</h2>
-          <span class="panel-title-badge">Step 1</span>
+    <!-- ─── 탑바 ─── -->
+    <header class="topbar">
+      <!-- 브레드크럼 -->
+      <div class="topbar-breadcrumb">
+        <div class="bc-nav">
+          <button title="뒤로">‹</button>
+          <button title="앞으로">›</button>
         </div>
-        <p class="panel-desc">베이스 VT를 만들고, 그 아래 하위 도면(방화구획·마감 등)을 계층으로 구성합니다.</p>
+        <span>My Pages</span>
+        <span class="bc-sep">/</span>
+        <span class="bc-current" id="topbarCurrentTab">도면 템플릿</span>
       </div>
 
-      <div class="action-bar">
-        <div class="action-group">
-          <button class="btn-primary" id="wfBtnSave" title="Ctrl+S">💾 저장</button>
-          <button id="wfBtnReset" title="기본 예시로 복원">↺ 초기화</button>
+      <!-- 오른쪽 액션 -->
+      <div class="topbar-right">
+        <div class="dirty-badge" id="globalDirtyBadge" title="저장되지 않은 변경사항이 있습니다">
+          ⚠ 저장 안 됨
         </div>
-        <div class="action-sep"></div>
-        <div class="action-group">
-          <button id="wfBtnAddBase">＋ 베이스 VT</button>
-          <button id="wfBtnAddChild">＋ 하위 VT</button>
-          <button class="btn-danger" id="wfBtnDel">🗑</button>
-        </div>
-        <div class="action-sep"></div>
-        <div class="action-group">
-          <button id="wfBtnEditVg" title="③ V/G 체크리스트에서 편집">③ V/G 편집 →</button>
-          <button id="wfBtnFillBuiltin" title="UI→builtIn 자동 채우기">⚡ builtIn</button>
-        </div>
-        <div class="action-sep"></div>
-        <div class="action-group">
-          <button class="btn-primary" id="wfBtnExportPreset">④ Preset JSON ↓</button>
-          <button id="wfBtnExportAll">전체 보내기</button>
-        </div>
-        <div class="action-spacer"></div>
-        <span class="status-text" id="wfStatus"></span>
+        <button class="topbar-btn" title="즐겨찾기">☆</button>
+        <button class="topbar-btn" title="공유">⤴</button>
+        <button class="topbar-btn" title="더보기">···</button>
       </div>
+    </header>
 
-      <div class="panel-body">
-        <div class="wf-layout">
+    <!-- ─── 메인 콘텐츠 ─── -->
+    <main class="main-content">
 
-          <!-- 트리 -->
-          <div class="card" style="overflow:visible;">
-            <div class="card-head">
-              <div class="card-head-left">
-                <h3>VT 트리</h3>
-              </div>
+
+      <!-- ────────────────────────────────────────
+           ① 도면 템플릿 워크플로
+      ─────────────────────────────────────────── -->
+      <section id="panel-workflow" class="panel active" role="tabpanel">
+
+        <!-- 패널 헤더 영역 (프로젝트 제목 + 탭) -->
+        <div class="panel-header-area">
+          <div class="panel-title-row">
+            <div class="panel-project-icon">VT</div>
+            <div class="panel-title-info">
+              <h2>도면 템플릿 트리</h2>
+              <div class="panel-title-desc">베이스 VT를 만들고, 그 아래 하위 도면(방화구획·마감 등)을 계층으로 구성합니다.</div>
             </div>
-            <div class="card-body">
-              <div id="wfTree" class="wf-tree-panel"></div>
+            <div class="panel-title-actions">
+              <div class="avatar-group">
+                <div class="avatar av-blue">AL</div>
+                <div class="avatar av-green">DT</div>
+                <div class="avatar av-orange">KM</div>
+              </div>
+              <button class="btn-primary" id="wfBtnExportPreset">
+                + New Preset
+              </button>
             </div>
           </div>
 
-          <!-- 상세 -->
-          <div class="card" id="wfDetail" style="overflow:visible;">
-            <div class="card-head">
-              <div class="card-head-left">
-                <h3>상세 편집</h3>
-              </div>
-              <div class="card-head-actions" id="wfDetailActions"></div>
-            </div>
-            <div class="card-body" id="wfDetailBody">
-              <div style="display:flex;flex-direction:column;align-items:center;justify-content:center;padding:3rem 1rem;color:var(--tx-4);gap:.65rem;text-align:center;">
-                <span style="font-size:2.5rem;opacity:.4">👈</span>
-                <span style="font-size:.85rem;">트리에서 View Template을 선택하세요</span>
-              </div>
-            </div>
-          </div>
-
-        </div>
-
-        <!-- 하단 힌트 -->
-        <div class="hint">
-          <strong>localStorage</strong>는 브라우저 초안입니다.
-          배포·Git과 맞출 때 <strong>최신 시드 불러오기</strong> 후 편집·JSON 다운로드·커밋하세요.
-          Revit: <code>View.CreateViewTemplate()</code> →
-          <a href="docs/REVIT-API-VIEW-TEMPLATE.md" target="_blank">연동 가이드</a>
-        </div>
-      </div>
-    </section>
-
-
-    <!-- ────────────────────────────────────────
-         ② 카테고리 · 공종
-    ─────────────────────────────────────────── -->
-    <section id="panel-categories" class="panel" role="tabpanel">
-
-      <div class="panel-header">
-        <div class="panel-title">
-          <h2>카테고리 · 공종 매핑</h2>
-          <span class="panel-title-badge">Step 2</span>
-        </div>
-        <p class="panel-desc">Revit Category와 builtInCategory를 연결하고, 공종·자재 유형을 매핑합니다.</p>
-      </div>
-
-      <div class="action-bar">
-        <div class="action-group">
-          <button class="btn-primary" id="crBtnSave">💾 저장</button>
-          <button id="crBtnReset">↺ 초기화</button>
-        </div>
-        <div class="action-sep"></div>
-        <div class="action-group">
-          <button id="crBtnAddCategory">＋ 카테고리</button>
-          <button id="crBtnSyncChecklist">③에서 동기화</button>
-          <button id="crBtnFillBuiltin">⚡ builtIn 자동채우기</button>
-        </div>
-        <div class="action-sep"></div>
-        <div class="action-group">
-          <button id="crBtnExport">↓ JSON</button>
-          <label class="file-btn">↑ JSON <input type="file" id="crImportInput" accept=".json,application/json" hidden /></label>
-        </div>
-        <div class="action-spacer"></div>
-        <span class="status-text" id="crStatus"></span>
-      </div>
-
-      <div class="panel-body">
-
-        <!-- 공종 / 자재 유형 마스터 -->
-        <div class="masters-grid">
-          <div class="card">
-            <div class="card-head">
-              <div class="card-head-left"><h3>공종</h3></div>
-              <div class="card-head-actions">
-                <button id="crBtnAddTrade">＋ 추가</button>
-              </div>
-            </div>
-            <div class="table-wrap master-table-wrap">
-              <table class="registry-master-table">
-                <thead><tr><th>코드</th><th>이름</th><th>순서</th><th></th></tr></thead>
-                <tbody id="crTradesBody"></tbody>
-              </table>
-            </div>
-          </div>
-
-          <div class="card">
-            <div class="card-head">
-              <div class="card-head-left"><h3>자재 유형</h3></div>
-              <div class="card-head-actions">
-                <button id="crBtnAddMat">＋ 추가</button>
-              </div>
-            </div>
-            <div class="table-wrap master-table-wrap">
-              <table class="registry-master-table">
-                <thead><tr><th>코드</th><th>이름</th><th>순서</th><th></th></tr></thead>
-                <tbody id="crMatsBody"></tbody>
-              </table>
-            </div>
-          </div>
-        </div>
-
-        <!-- Revit Category 매핑 -->
-        <div class="card">
-          <div class="card-head">
-            <div class="card-head-left"><h3>Revit Category 매핑</h3></div>
-            <div class="card-head-actions">
+          <!-- 뷰 탭 + 우측 액션 -->
+          <div class="panel-tabs-row">
+            <nav class="panel-view-tabs" aria-label="뷰 전환">
+              <button class="view-tab active" data-view="tree">
+                <span class="tab-icon">⊞</span> Tree View
+              </button>
+              <button class="view-tab" data-view="list">
+                <span class="tab-icon">≡</span> List
+              </button>
+              <button class="view-tab" data-view="export">
+                <span class="tab-icon">↗</span> Export
+              </button>
+            </nav>
+            <div class="panel-tab-actions">
               <div class="search-box">
-                <input type="search" id="crSearch" placeholder="카테고리·API·IFC…" />
+                <input type="search" placeholder="Search …" style="width:160px;" />
               </div>
-              <select id="crGroupFilter" style="width:auto;min-width:130px;" title="Revit 그룹">
-                <option value="">전체 그룹</option>
-              </select>
-              <select id="crTradeFilter" style="width:auto;min-width:110px;" title="공종">
-                <option value="">전체 공종</option>
-              </select>
-              <select id="crMatFilter" style="width:auto;min-width:110px;" title="자재 유형">
-                <option value="">전체 자재</option>
-              </select>
-              <select id="crProcessFilter" style="width:auto;min-width:110px;" title="모듈러 공정">
-                <option value="">전체 공정</option>
-              </select>
-              <label class="inline-check"><input type="checkbox" id="crUnmappedOnly" /> 미연결</label>
-              <label class="inline-check"><input type="checkbox" id="crInactiveOnly" /> 비활성</label>
+              <button id="wfBtnSave" class="btn-icon" title="저장 (Ctrl+S)">💾 저장</button>
             </div>
           </div>
-          <div class="table-wrap registry-wrap">
-            <table class="registry-table">
+        </div>
+
+        <!-- 액션바 -->
+        <div class="action-bar">
+          <div class="action-group">
+            <button id="wfBtnReset" title="기본 예시로 복원">↺ 초기화</button>
+          </div>
+          <div class="action-sep"></div>
+          <div class="action-group">
+            <button id="wfBtnAddBase">＋ 베이스 VT</button>
+            <button id="wfBtnAddChild">＋ 하위 VT</button>
+            <button class="btn-danger" id="wfBtnDel" title="선택 항목 삭제">🗑</button>
+          </div>
+          <div class="action-sep"></div>
+          <div class="action-group">
+            <button id="wfBtnEditVg" title="③ V/G 체크리스트에서 편집">③ V/G 편집 →</button>
+            <button id="wfBtnFillBuiltin" title="UI→builtIn 자동 채우기">⚡ builtIn</button>
+          </div>
+          <div class="action-sep"></div>
+          <div class="action-group">
+            <button id="wfBtnExportAll">전체 내보내기</button>
+          </div>
+          <div class="action-spacer"></div>
+          <span class="status-text" id="wfStatus"></span>
+        </div>
+
+        <!-- 패널 본문 -->
+        <div class="panel-body">
+          <div class="wf-layout">
+
+            <!-- 트리 카드 -->
+            <div class="card" style="overflow:visible;">
+              <div class="card-head">
+                <div class="card-head-left">
+                  <h3>VT 트리</h3>
+                </div>
+              </div>
+              <div class="card-body">
+                <div id="wfTree" class="wf-tree-panel"></div>
+              </div>
+            </div>
+
+            <!-- 상세 카드 -->
+            <div class="card" id="wfDetail" style="overflow:visible;">
+              <div class="card-head">
+                <div class="card-head-left">
+                  <h3>상세 편집</h3>
+                </div>
+                <div class="card-head-actions" id="wfDetailActions"></div>
+              </div>
+              <div class="card-body" id="wfDetailBody">
+                <div style="display:flex;flex-direction:column;align-items:center;justify-content:center;padding:3rem 1rem;color:var(--tx-4);gap:.65rem;text-align:center;">
+                  <span style="font-size:2.5rem;opacity:.35">👈</span>
+                  <span style="font-size:.85rem;">트리에서 View Template을 선택하세요</span>
+                </div>
+              </div>
+            </div>
+
+          </div>
+
+          <div class="hint">
+            <strong>localStorage</strong>는 브라우저 초안입니다.
+            배포·Git과 맞출 때 <strong>최신 시드 불러오기</strong> 후 편집·JSON 다운로드·커밋하세요.
+            Revit: <code>View.CreateViewTemplate()</code> →
+            <a href="docs/REVIT-API-VIEW-TEMPLATE.md" target="_blank">연동 가이드</a>
+          </div>
+        </div>
+      </section>
+
+
+      <!-- ────────────────────────────────────────
+           ② 카테고리 · 공종
+      ─────────────────────────────────────────── -->
+      <section id="panel-categories" class="panel" role="tabpanel">
+
+        <div class="panel-header-area">
+          <div class="panel-title-row">
+            <div class="panel-project-icon" style="background:linear-gradient(135deg,#DD6B20,#9C4221);">CR</div>
+            <div class="panel-title-info">
+              <h2>카테고리 · 공종 매핑</h2>
+              <div class="panel-title-desc">Revit Category와 builtInCategory를 연결하고, 공종·자재 유형을 매핑합니다.</div>
+            </div>
+            <div class="panel-title-actions">
+              <div class="avatar-group">
+                <div class="avatar av-blue">AL</div>
+                <div class="avatar av-green">DT</div>
+              </div>
+              <button class="btn-primary" id="crBtnAddCategory">+ 카테고리</button>
+            </div>
+          </div>
+
+          <div class="panel-tabs-row">
+            <nav class="panel-view-tabs">
+              <button class="view-tab active">
+                <span class="tab-icon">≡</span> List
+              </button>
+              <button class="view-tab">
+                <span class="tab-icon">⊞</span> Masters
+              </button>
+            </nav>
+            <div class="panel-tab-actions">
+              <div class="search-box">
+                <input type="search" id="crSearch" placeholder="카테고리·API·IFC…" style="width:200px;" />
+              </div>
+              <button id="crBtnSave" class="btn-icon">💾 저장</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- 액션바 -->
+        <div class="action-bar">
+          <div class="action-group">
+            <button id="crBtnReset">↺ 초기화</button>
+          </div>
+          <div class="action-sep"></div>
+          <div class="action-group">
+            <button id="crBtnSyncChecklist">③에서 동기화</button>
+            <button id="crBtnFillBuiltin">⚡ builtIn 자동채우기</button>
+          </div>
+          <div class="action-sep"></div>
+          <div class="action-group">
+            <button id="crBtnExport">↓ JSON</button>
+            <label class="file-btn">↑ JSON <input type="file" id="crImportInput" accept=".json,application/json" hidden /></label>
+          </div>
+          <div class="action-spacer"></div>
+          <span class="status-text" id="crStatus"></span>
+        </div>
+
+        <!-- 필터바 -->
+        <div class="filter-row">
+          <select id="crGroupFilter" style="min-width:130px;">
+            <option value="">전체 그룹</option>
+          </select>
+          <select id="crTradeFilter" style="min-width:110px;">
+            <option value="">전체 공종</option>
+          </select>
+          <select id="crMatFilter" style="min-width:110px;">
+            <option value="">전체 자재</option>
+          </select>
+          <select id="crProcessFilter" style="min-width:110px;">
+            <option value="">전체 공정</option>
+          </select>
+          <label class="inline-check"><input type="checkbox" id="crUnmappedOnly" /> 미연결</label>
+          <label class="inline-check"><input type="checkbox" id="crInactiveOnly" /> 비활성</label>
+        </div>
+
+        <div class="panel-body">
+
+          <!-- 공종 / 자재 유형 마스터 -->
+          <div class="masters-grid">
+            <div class="card">
+              <div class="card-head">
+                <div class="card-head-left"><h3>공종</h3></div>
+                <div class="card-head-actions">
+                  <button id="crBtnAddTrade">＋ 추가</button>
+                </div>
+              </div>
+              <div class="table-wrap master-table-wrap">
+                <table class="registry-master-table">
+                  <thead><tr><th>코드</th><th>이름</th><th>순서</th><th></th></tr></thead>
+                  <tbody id="crTradesBody"></tbody>
+                </table>
+              </div>
+            </div>
+
+            <div class="card">
+              <div class="card-head">
+                <div class="card-head-left"><h3>자재 유형</h3></div>
+                <div class="card-head-actions">
+                  <button id="crBtnAddMat">＋ 추가</button>
+                </div>
+              </div>
+              <div class="table-wrap master-table-wrap">
+                <table class="registry-master-table">
+                  <thead><tr><th>코드</th><th>이름</th><th>순서</th><th></th></tr></thead>
+                  <tbody id="crMatsBody"></tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+
+          <!-- Revit Category 매핑 -->
+          <div class="card">
+            <div class="card-head">
+              <div class="card-head-left"><h3>Revit Category 매핑</h3></div>
+            </div>
+            <div class="table-wrap registry-wrap">
+              <table class="registry-table">
+                <thead>
+                  <tr>
+                    <th>Revit 그룹</th>
+                    <th>Category (UI)</th>
+                    <th>builtInCategory</th>
+                    <th>공종</th>
+                    <th>자재 유형</th>
+                    <th>모듈러 공정</th>
+                    <th>IFC Class</th>
+                    <th>메모</th>
+                    <th>사용</th>
+                    <th></th>
+                  </tr>
+                </thead>
+                <tbody id="crBody"></tbody>
+              </table>
+            </div>
+          </div>
+
+          <!-- 공정 DB -->
+          <div class="card">
+            <div class="card-head">
+              <div class="card-head-left"><h3>모듈러 공정 DB</h3></div>
+              <div class="card-head-actions">
+                <button id="crBtnReloadProcess">↺ 복원</button>
+                <label class="inline-check"><input type="checkbox" id="crProcessGroupOnly" /> 공정군만</label>
+                <select id="crProcessFilter2" style="width:auto;min-width:110px;display:none;"></select>
+              </div>
+            </div>
+            <div class="process-layout" style="padding:.85rem 1rem;">
+              <div class="table-wrap process-wrap">
+                <table class="process-table">
+                  <thead>
+                    <tr><th>공정명</th><th>구분</th><th>선행</th><th>후속</th><th>연결 공종</th></tr>
+                  </thead>
+                  <tbody id="crProcessesBody"></tbody>
+                </table>
+              </div>
+              <div class="card proc-detail-card" id="crProcessDetail" style="padding:.75rem;">
+                <p class="hint">공정 행을 클릭하면 상세 정보를 표시합니다.</p>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+
+      <!-- ────────────────────────────────────────
+           ③ V/G 체크리스트
+      ─────────────────────────────────────────── -->
+      <section id="panel-checklist" class="panel" role="tabpanel">
+
+        <div class="panel-header-area">
+          <div class="panel-title-row">
+            <div class="panel-project-icon" style="background:linear-gradient(135deg,#38A169,#276749);">VG</div>
+            <div class="panel-title-info">
+              <h2>V/G · IFC 체크리스트</h2>
+              <div class="panel-title-desc">View Template별 Revit Category의 ON·HT·투명도·재지정을 설정하고 Preset JSON을 생성합니다.</div>
+            </div>
+            <div class="panel-title-actions">
+              <div class="avatar-group">
+                <div class="avatar av-blue">AL</div>
+                <div class="avatar av-green">DT</div>
+              </div>
+              <button class="btn-primary" id="clBtnExportPreset">④ Preset JSON ↓</button>
+            </div>
+          </div>
+
+          <div class="panel-tabs-row">
+            <nav class="panel-view-tabs">
+              <button class="view-tab active">
+                <span class="tab-icon">≡</span> Checklist
+              </button>
+              <button class="view-tab">
+                <span class="tab-icon">↗</span> Export
+              </button>
+            </nav>
+            <div class="panel-tab-actions">
+              <button id="clBtnSave" class="btn-icon">💾 저장</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- 액션바 -->
+        <div class="action-bar">
+          <div class="action-group">
+            <button id="clBtnReset">↺ 초기화</button>
+          </div>
+          <div class="action-sep"></div>
+          <div class="action-group">
+            <button id="clBtnAdd">＋ 행 추가</button>
+            <button id="clBtnSyncVt">🔄 VT 동기화</button>
+          </div>
+          <div class="action-sep"></div>
+          <div class="action-group">
+            <button id="clBtnExportCsv">↓ CSV</button>
+            <button id="clBtnExportJson">↓ JSON</button>
+            <label class="file-btn">↑ CSV <input type="file" id="clCsvInput" accept=".csv,text/csv" hidden /></label>
+          </div>
+          <div class="action-spacer"></div>
+          <span class="status-text" id="clStatus"></span>
+        </div>
+
+        <!-- 필터바 -->
+        <div class="filter-row">
+          <label class="cl-vt-label">
+            편집 템플릿
+            <select id="clVtSelect" class="cl-vt-select"></select>
+          </label>
+          <div class="search-box" style="margin-left:.3rem">
+            <input type="search" id="clSearch" placeholder="카테고리·IFC·API…" />
+          </div>
+          <select id="clGroupFilter" style="width:auto;min-width:120px;">
+            <option value="">전체 그룹</option>
+          </select>
+          <label class="inline-check"><input type="checkbox" id="clOnlyChanged" /> 변경만</label>
+          <label class="inline-check"><input type="checkbox" id="clImportantOnly" /> 중요만</label>
+        </div>
+
+        <div class="panel-body" style="padding:0;gap:0;overflow:hidden;">
+          <div class="table-wrap checklist-wrap">
+            <table id="clTable" class="checklist-table cl-vg-table">
               <thead>
                 <tr>
-                  <th>Revit 그룹</th>
-                  <th>Category (UI)</th>
+                  <th>Group</th>
+                  <th>Revit Category</th>
                   <th>builtInCategory</th>
-                  <th>공종</th>
-                  <th>자재 유형</th>
-                  <th>모듈러 공정</th>
-                  <th>IFC Class</th>
-                  <th>메모</th>
-                  <th>사용</th>
-                  <th></th>
+                  <th>IFC</th>
+                  <th title="중요: Preset export 필수">★</th>
+                  <th title="가시성">ON</th>
+                  <th title="반투명">HT</th>
+                  <th title="투명도 %">%</th>
+                  <th title="재지정">재지정</th>
+                  <th title="요약">요약</th>
                 </tr>
               </thead>
-              <tbody id="crBody"></tbody>
+              <tbody id="clBody"></tbody>
             </table>
           </div>
         </div>
 
-        <!-- 공정 DB -->
-        <div class="card">
-          <div class="card-head">
-            <div class="card-head-left"><h3>모듈러 공정 DB</h3></div>
-            <div class="card-head-actions">
-              <button id="crBtnReloadProcess">↺ 복원</button>
-              <label class="inline-check"><input type="checkbox" id="crProcessGroupOnly" /> 공정군만</label>
-            </div>
-          </div>
-          <div class="process-layout" style="padding:.85rem 1rem;">
-            <div class="table-wrap process-wrap">
-              <table class="process-table">
-                <thead>
-                  <tr><th>공정명</th><th>구분</th><th>선행</th><th>후속</th><th>연결 공종</th></tr>
-                </thead>
-                <tbody id="crProcessesBody"></tbody>
-              </table>
-            </div>
-            <div class="card proc-detail-card" id="crProcessDetail" style="padding:.75rem;">
-              <p class="hint">공정 행을 클릭하면 상세 정보를 표시합니다.</p>
-            </div>
-          </div>
-        </div>
+      </section>
 
-      </div>
-    </section>
-
-
-    <!-- ────────────────────────────────────────
-         ③ V/G 체크리스트
-    ─────────────────────────────────────────── -->
-    <section id="panel-checklist" class="panel" role="tabpanel">
-
-      <div class="panel-header">
-        <div class="panel-title">
-          <h2>V/G · IFC 체크리스트</h2>
-          <span class="panel-title-badge">Step 3</span>
-        </div>
-        <p class="panel-desc">View Template별 Revit Category의 ON·HT·투명도·재지정을 설정하고 Preset JSON을 생성합니다.</p>
-      </div>
-
-      <div class="action-bar">
-        <div class="action-group">
-          <button class="btn-primary" id="clBtnSave">💾 저장</button>
-          <button id="clBtnReset">↺ 초기화</button>
-        </div>
-        <div class="action-sep"></div>
-        <div class="action-group">
-          <button id="clBtnAdd">＋ 행 추가</button>
-          <button id="clBtnSyncVt">🔄 VT 동기화</button>
-        </div>
-        <div class="action-sep"></div>
-        <div class="action-group">
-          <button class="btn-primary" id="clBtnExportPreset">④ Preset JSON ↓</button>
-          <button id="clBtnExportCsv">↓ CSV</button>
-          <button id="clBtnExportJson">↓ JSON</button>
-          <label class="file-btn">↑ CSV <input type="file" id="clCsvInput" accept=".csv,text/csv" hidden /></label>
-        </div>
-        <div class="action-spacer"></div>
-        <span class="status-text" id="clStatus"></span>
-      </div>
-
-      <!-- 필터바 -->
-      <div class="filter-row">
-        <label class="cl-vt-label">
-          편집 템플릿
-          <select id="clVtSelect" class="cl-vt-select"></select>
-        </label>
-        <div class="search-box" style="margin-left:.4rem">
-          <input type="search" id="clSearch" placeholder="카테고리·IFC·API…" />
-        </div>
-        <select id="clGroupFilter" style="width:auto;min-width:120px;">
-          <option value="">전체 그룹</option>
-        </select>
-        <label class="inline-check"><input type="checkbox" id="clOnlyChanged" /> 변경만</label>
-        <label class="inline-check"><input type="checkbox" id="clImportantOnly" /> 중요만</label>
-      </div>
-
-      <div class="panel-body" style="padding:0;gap:0;overflow:hidden;">
-        <div class="table-wrap checklist-wrap">
-          <table id="clTable" class="checklist-table cl-vg-table">
-            <thead>
-              <tr>
-                <th>Group</th>
-                <th>Revit Category</th>
-                <th>builtInCategory</th>
-                <th>IFC</th>
-                <th title="중요: Preset export 필수">★</th>
-                <th title="가시성">ON</th>
-                <th title="반투명">HT</th>
-                <th title="투명도 %">%</th>
-                <th title="재지정">재지정</th>
-                <th title="요약">요약</th>
-              </tr>
-            </thead>
-            <tbody id="clBody"></tbody>
-          </table>
-        </div>
-      </div>
-
-    </section>
-
-  </main>
-</div>
+    </main>
+  </div><!-- /.main-wrapper -->
+</div><!-- /.app-shell -->
 
 <!-- 토스트 -->
 <div id="toast-container" aria-live="polite"></div>
@@ -408,5 +508,44 @@
 <script src="tabs.js"></script>
 <script src="seed-loader.js"></script>
 <script src="sidebar-counts.js"></script>
+
+<script>
+// ─── 탑바 브레드크럼 탭명 동기화 ───
+(function() {
+  const tabLabels = {
+    workflow:   "도면 템플릿",
+    categories: "카테고리 · 공종",
+    checklist:  "V/G 체크리스트",
+  };
+  const el = document.getElementById("topbarCurrentTab");
+  const origSwitch = window.switchTab;
+
+  function updateBreadcrumb(name) {
+    if (el && tabLabels[name]) el.textContent = tabLabels[name];
+  }
+
+  // switchTab 래핑 (tabs.js 로드 후 덮어씀)
+  document.querySelectorAll(".nav-item[data-tab], .flow-chip[data-tab]").forEach(btn => {
+    btn.addEventListener("click", () => updateBreadcrumb(btn.dataset.tab));
+  });
+
+  // 사이드바 보안 배너 닫기
+  const dismissBtn = document.getElementById("btnDismissSecurity");
+  dismissBtn?.addEventListener("click", () => {
+    dismissBtn.closest(".sidebar-footer").style.display = "none";
+  });
+
+  // 뷰 탭 토글 (패널 내부 탭 — 현재는 시각적 전환만)
+  document.querySelectorAll(".view-tab").forEach(tab => {
+    tab.addEventListener("click", function() {
+      this.closest(".panel-view-tabs")
+          ?.querySelectorAll(".view-tab")
+          .forEach(t => t.classList.remove("active"));
+      this.classList.add("active");
+    });
+  });
+})();
+</script>
+
 </body>
 </html>
